@@ -474,11 +474,11 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
     end
     if string.upper(argument) == "HIDE" then
         DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
-        FF:Hide()
+        aet:Hide()
     end
     if string.upper(argument) == "SHOW" then
         DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00visible|r|cFFFFFF00.")
-        FF:Show()
+        aet:Show()
     end
 end
 
