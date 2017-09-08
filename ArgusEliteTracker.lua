@@ -315,7 +315,7 @@ aet.Close.Label:SetTextColor(0.5, 0.5, 0.5, 1)
 
 aet.Close:SetScript ("OnClick", function()
     aet:Hide()
-    DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |caet00aet00hidden|r|caetaetaet00.")
+    DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
 end)
 
 
@@ -469,16 +469,16 @@ SLASH_ARGUSELITETRACKER2 = "/arguselitetracker"
 
 SlashCmdList.ARGUSELITETRACKER = function(argument)
     if string.upper(argument) == "HELP" then
-        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker: Commands are |caet00aet00help|r|caetaetaet00, |caet00aet00show|r|caetaetaet00, |caet00aet00hide|caetaetaet00.")
-        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker: Slash commands are |caet00aet00/aet|r|caetaetaet00, |caet00aet00/arguselitetracker|r|caetaetaet00.")
+        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker: Commands are |cFF00FF00help|r|cFFFFFF00, |cFF00FF00show|r|cFFFFFF00, |cFF00FF00hide|cFFFFFF00.")
+        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker: Slash commands are |cFF00FF00/FF|r|cFFFFFF00, |cFF00FF00/arguselitetracker|r|cFFFFFF00.")
     end
     if string.upper(argument) == "HIDE" then
-        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |caet00aet00hidden|r|caetaetaet00.")
-        aet:Hide()
+        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
+        FF:Hide()
     end
     if string.upper(argument) == "SHOW" then
-        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |caet00aet00visible|r|caetaetaet00.")
-        aet:Show()
+        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00visible|r|cFFFFFF00.")
+        FF:Show()
     end
 end
 
@@ -488,7 +488,7 @@ end
 local events = {}
 
 function events:PLAYER_ENTERING_WORLD(...)
-    print("|caet00aet00" .. addonName .. "|r|caetaetaetaet is loaded.")
+    print("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
 end
 
 aet:SetScript("OnEvent", function(self, event, ...)
