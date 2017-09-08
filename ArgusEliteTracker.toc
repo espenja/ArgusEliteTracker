@@ -1,0 +1,7 @@
+## Interface: 70300
+## Title: ArgusEliteTracker
+## Notes: Search the group finder tool to guesstimate if an elite is up at this time or not
+## Author: Fictive
+## Version: 0.0.1
+
+arguselitetracker.lua
