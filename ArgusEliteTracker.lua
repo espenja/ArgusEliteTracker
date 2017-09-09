@@ -1,6 +1,6 @@
 local addonName, addonData = ...
 
-local debug = false
+local debug = true
 
 local framePositionX = 100
 local framePositionY = 400
@@ -19,67 +19,67 @@ local eliteOptions = {
 
 local zones = {
     krokuun = {
-        { name = "Khazaduum", button = nil, status = nil, searchTerms = { "khazaduum" }, searchResults = 0 },
-        { name = "Vagath the Betrayed", button = nil, status = nil, searchTerms = { "vagath", "the betrayed" }, searchResults = 0 },
-        { name = "Naroua", button = nil, status = nil, searchTerms = { "naroua" }, searchResults = 0 },
-        { name = "Tereck the Selector", button = nil, status = nil, searchTerms = { "tereck", "selector" }, searchResults = 0 },
-        { name = "Tar Spitter", button = nil, status = nil, searchTerms = { "tar", "spitter" }, searchResults = 0 },
-        { name = "Siegemaster Voraan", button = nil, status = nil, searchTerms = { "voraan", "siegemaster" }, searchResults = 0 },
-        { name = "Talestra the Vile", button = nil, status = nil, searchTerms = { "talestra", "the vile" }, searchResults = 0 },
-        { name = "Commander Endaxis", button = nil, status = nil, searchTerms = { "endaxis" }, searchResults = 0 },
-        { name = "Commander Vecaya", button = nil, status = nil, searchTerms = { "vecaya" }, searchResults = 0 },
-        { name = "Imp Mother Laglath", button = nil, status = nil, searchTerms = { "laglath", "imp mother" }, searchResults = 0 },
-        { name = "Commander Sathrenael", button = nil, status = nil, searchTerms = { "sathrenael" }, searchResults = 0 },
-    },
+        { button = nil, status = nil, searchResults = 0, questId = 48561, name = "Khazaduum", searchTerms = { "khazaduum" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48629, name = "Vagath the Betrayed", searchTerms = { "vagath", "the betrayed" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48667, name = "Naroua", searchTerms = { "naroua" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48664, name = "Tereck the Selector", searchTerms = { "tereck", "selector" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48665, name = "Tar Spitter", searchTerms = { "tar", "spitter" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48627, name = "Siegemaster Voraan", searchTerms = { "voraan", "siegemaster" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48628, name = "Talestra the Vile", searchTerms = { "talestra", "the vile" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48564, name = "Commander Endaxis", searchTerms = { "endaxis" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48563, name = "Commander Vecaya", searchTerms = { "vecaya" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48666, name = "Imp Mother Laglath", searchTerms = { "laglath", "imp mother" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48562, name = "Commander Sathrenael", searchTerms = { "sathrenael" }},
+   },
     antoranWastes = {
-        { name = "Doomcaster Suprax", button = nil, status = nil, searchTerms = { "suprax" }, searchResults = 0 },
-        { name = "Mother Rosula", button = nil, status = nil, searchTerms = { "rosula" }, searchResults = 0 },
-        { name = "Puscilla", button = nil, status = nil, searchTerms = { "puscilla" }, searchResults = 0 },
-        { name = "Houndmaster Kerrax", button = nil, status = nil, searchTerms = { "kerrax", "houndmaster" }, searchResults = 0 },
-        { name = "Chief Alchemist Munculus", button = nil, status = nil, searchTerms = { "munculus" }, searchResults = 0 },
-        { name = "Void Warden Valsuran", button = nil, status = nil, searchTerms = { "valsuran" }, searchResults = 0 },
-        { name = "Watcher Aival", button = nil, status = nil, searchTerms = { "aival" }, searchResults = 0 },
-        { name = "Mistress Il'thendra", button = nil, status = nil, searchTerms = { "il'thendra" }, searchResults = 0 },
-        { name = "Vrax'thul", button = nil, status = nil, searchTerms = { "vrax'thul", "vrax" }, searchResults = 0 },
-        { name = "The Many-Faced Devourer", button = nil, status = nil, searchTerms = { "many-faced" }, searchResults = 0 },
-        { name = "Blistermaw", button = nil, status = nil, searchTerms = { "blistermaw" }, searchResults = 0 },
-        { name = "Gar'zoth", button = nil, status = nil, searchTerms = { "gar'zoth", "gar zoth" }, searchResults = 0 },
-        { name = "Worldsplitter Skuul", button = nil, status = nil, searchTerms = { "skuul", "worldsplitter" }, searchResults = 0 },
-        { name = "Ven'orn", button = nil, status = nil, searchTerms = { "ven'orn", "venorn" }, searchResults = 0 },
-        { name = "Inquisitor Vethroz", button = nil, status = nil, searchTerms = { "vethroz", "inquisitor" }, searchResults = 0 },
-        { name = "Varga", button = nil, status = nil, searchTerms = { "varga" }, searchResults = 0 },
-        { name = "Commander Texlaz", button = nil, status = nil, searchTerms = { "texlaz" }, searchResults = 0 },
-        { name = "Lieutenant Xakaar", button = nil, status = nil, searchTerms = { "lieutenant", "xakaar" }, searchResults = 0 },
-        { name = "Wrath-Lord Yarez", button = nil, status = nil, searchTerms = { "wrath-lord", "yarez", "wrath lord" }, searchResults = 0 },
-        { name = "All-Seer Xanarian", button = nil, status = nil, searchTerms = { "xanarian", "all-seer" }, searchResults = 0 },
-        { name = "Admiral Rel'var", button = nil, status = nil, searchTerms = { "rel'var", "admiral" }, searchResults = 0 },
-    },
+        { button = nil, status = nil, searchResults = 0, questId = 48968, name = "Doomcaster Suprax", searchTerms = { "suprax" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48970, name = "Mother Rosula", searchTerms = { "rosula" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48809, name = "Puscilla", searchTerms = { "puscilla" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48821, name = "Houndmaster Kerrax", searchTerms = { "kerrax", "houndmaster" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48865, name = "Chief Alchemist Munculus", searchTerms = { "munculus" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48824, name = "Void Warden Valsuran", searchTerms = { "valsuran" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48822, name = "Watcher Aival", searchTerms = { "aival" }},
+        { button = nil, status = nil, searchResults = 0, questId = 49240, name = "Mistress Il'thendra", searchTerms = { "il'thendra" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48810, name = "Vrax'thul", searchTerms = { "vrax'thul", "vrax" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48966, name = "The Many-Faced Devourer", searchTerms = { "many-faced", "face" }},
+        { button = nil, status = nil, searchResults = 0, questId = 49183, name = "Blistermaw", searchTerms = { "blistermaw" }},
+        { button = nil, status = nil, searchResults = 0, questId = 49241, name = "Gar'zoth", searchTerms = { "gar'zoth", "gar zoth" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48820, name = "Worldsplitter Skuul", searchTerms = { "skuul", "worldsplitter" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48811, name = "Ven'orn", searchTerms = { "ven'orn", "venorn" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48815, name = "Inquisitor Vethroz", searchTerms = { "vethroz", "inquisitor" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48812, name = "Varga", searchTerms = { "varga" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48816, name = "Commander Texlaz", searchTerms = { "texlaz" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48813, name = "Lieutenant Xakaar", searchTerms = { "lieutenant", "xakaar" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48814, name = "Wrath-Lord Yarez", searchTerms = { "wrath-lord", "yarez", "wrath lord" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48818, name = "All-Seer Xanarian", searchTerms = { "xanarian", "all-seer" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48817, name = "Admiral Rel'var", searchTerms = { "rel'var", "admiral" }},
+   },
     macAree = {
-        { name = "Skreeg the Devourer", button = nil, status = nil, searchTerms = { "skreeg" }, searchResults = 0 },
-        { name = "Feasel the Muaetin Thief", button = nil, status = nil, searchTerms = { "feasel", "muaetin" }, searchResults = 0 },
-        { name = "Commander Xethgar", button = nil, status = nil, searchTerms = { "xethgar" }, searchResults = 0 },
-        { name = "Vigilant Thanos", button = nil, status = nil, searchTerms = { "thanos" }, searchResults = 0 },
-        { name = "Captain Faruq", button = nil, status = nil, searchTerms = { "faruq" }, searchResults = 0 },
-        { name = "Overseer Y'Sorna", button = nil, status = nil, searchTerms = { "y'sorna", "sorna", "y sorna"}, searchResults = 0 },
-        { name = "Overseer Y'Morna", button = nil, status = nil, searchTerms = { "y'morna", "morna" }, searchResults = 0 },
-        { name = "Zul'tan the Numerous", button = nil, status = nil, searchTerms = { "zul'tan", "numerous"}, searchResults = 0 },
-        { name = "Umbraliss", button = nil, status = nil, searchTerms = { "umbraliss" }, searchResults = 0 },
-        { name = "Ataxon", button = nil, status = nil, searchTerms = { "ataxon" }, searchResults = 0 },
-        { name = "Jed'hin Champion Vorusk", button = nil, status = nil, searchTerms = { "jed'hin", "vorusk" }, searchResults = 0 },
-        { name = "Overseer Y'Beda", button = nil, status = nil, searchTerms = { "y'beda", "beda" }, searchResults = 0 },
-        { name = "Venomtail Skyfin", button = nil, status = nil, searchTerms = { "venomtail", "skyfin" }, searchResults = 0 },
-        { name = "Sabuul", button = nil, status = nil, searchTerms = { "sabuul" }, searchResults = 0 },
-        { name = "Slithon the Last", button = nil, status = nil, searchTerms = { "slithon", "the last" }, searchResults = 0 },
-        { name = "Instructor Tarahna", button = nil, status = nil, searchTerms = { "tarahna", "instructor" }, searchResults = 0 },
-        { name = "Sorolis the Ill-Fated", button = nil, status = nil, searchTerms = { "sorolis", "ill-fated" }, searchResults = 0 },
-        { name = "Herald of Chaos", button = nil, status = nil, searchTerms = { "herald", "of chaos" }, searchResults = 0 },
-        { name = "Kaara the Pale", button = nil, status = nil, searchTerms = { "kaara", "pale" }, searchResults = 0 },
-        { name = "Baruut the Bloodthirsty", button = nil, status = nil, searchTerms = { "baruut", "bloodthirsty" }, searchResults = 0 },
-        { name = "Wrangler Kravos", button = nil, status = nil, searchTerms = { "kravos", "wrangler" }, searchResults = 0 },
-        { name = "Turek the Lucid", button = nil, status = nil, searchTerms = { "turek", "the lucid" }, searchResults = 0 },
-        { name = "Vigilant Kuro", button = nil, status = nil, searchTerms = { "kuro" }, searchResults = 0 },
-        { name = "Soultwisted Monstrosity", button = nil, status = nil, searchTerms = { "monstrosity", "soultwisted" }, searchResults = 0 },
-        { name = "Shadowcaster Voruun", button = nil, status = nil, searchTerms = { "voruun", "shadowcaster" }, searchResults = 0 },
+        { button = nil, status = nil, searchResults = 0, questId = 48721, name = "Skreeg the Devourer", searchTerms = { "skreeg" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48702, name = "Feasel the Muaetin Thief", searchTerms = { "feasel", "muaetin" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48720, name = "Commander Xethgar", searchTerms = { "xethgar" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48703, name = "Vigilant Thanos", searchTerms = { "thanos" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48707, name = "Captain Faruq", searchTerms = { "faruq" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48716, name = "Overseer Y'Sorna", searchTerms = { "y'sorna", "sorna", "y sorna" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48717, name = "Overseer Y'Morna", searchTerms = { "y'morna", "morna" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48719, name = "Zul'tan the Numerous", searchTerms = { "zul'tan", "numerous" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48708, name = "Umbraliss", searchTerms = { "umbraliss" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48709, name = "Ataxon", searchTerms = { "ataxon" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48713, name = "Jed'hin Champion Vorusk", searchTerms = { "jed'hin", "vorusk" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48714, name = "Overseer Y'Beda", searchTerms = { "y'beda", "beda" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48705, name = "Venomtail Skyfin", searchTerms = { "venomtail", "skyfin" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48712, name = "Sabuul", searchTerms = { "sabuul" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48936, name = "Slithon the Last", searchTerms = { "slithon", "the last" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48718, name = "Instructor Tarahna", searchTerms = { "tarahna", "instructor" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48710, name = "Sorolis the Ill-Fated", searchTerms = { "sorolis", "ill-fated" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48711, name = "Herald of Chaos", searchTerms = { "herald", "of chaos" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48697, name = "Kaara the Pale", searchTerms = { "kaara", "pale" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48700, name = "Baruut the Bloodthirsty", searchTerms = { "baruut", "bloodthirsty" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48695, name = "Wrangler Kravos", searchTerms = { "kravos", "wrangler" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48706, name = "Turek the Lucid", searchTerms = { "turek", "the lucid" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48704, name = "Vigilant Kuro", searchTerms = { "kuro" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48693, name = "Soultwisted Monstrosity", searchTerms = { "monstrosity", "soultwisted" }},
+        { button = nil, status = nil, searchResults = 0, questId = 48692, name = "Shadowcaster Voruun", searchTerms = { "voruun", "shadowcaster" }},
     }
 }
 
@@ -364,7 +364,9 @@ aet:SetScript("OnDragStop", aet.StopMovingOrSizing)
 
 aet.Close:SetScript ("OnClick", function()
     aet:Hide()
-    DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
+    if debug then
+        DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
+    end
 end)
 
 aet.Reset:SetScript("OnClick", function()
@@ -503,7 +505,9 @@ end
 local events = {}
 
 function events:PLAYER_ENTERING_WORLD(...)
-    -- print("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
+    if debug then
+        print("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
+    end
 end
 
 aet:SetScript("OnEvent", function(self, event, ...)
