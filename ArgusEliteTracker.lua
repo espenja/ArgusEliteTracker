@@ -205,18 +205,20 @@ local function updateWorldQuests(elites, zoneId)
     local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(zoneId)
     local worldQuestNames = {}
 
-    for i, info in ipairs(taskInfo) do
-        local questName = C_TaskQuest.GetQuestInfoByQuestID(info.questId)
-        if questName ~= nil then
-            table.insert(worldQuestNames, questName)
+    if taskInfo ~= nil then
+        for i, info in ipairs(taskInfo) do
+            local questName = C_TaskQuest.GetQuestInfoByQuestID(info.questId)
+            if questName ~= nil then
+                table.insert(worldQuestNames, questName)
+            end
         end
-    end
 
-    for i, elite in ipairs(elites) do
-        elite.isWq = false
-        for index = 1, #worldQuestNames do
-            if worldQuestNames[index]:lower() == elite.name:lower() then
-                elite.isWq = true
+        for i, elite in ipairs(elites) do
+            elite.isWq = false
+            for index = 1, #worldQuestNames do
+                if worldQuestNames[index]:lower() == elite.name:lower() then
+                    elite.isWq = true
+                end
             end
         end
     end
@@ -403,13 +405,17 @@ local function initiateSearch(self)
 end
 
 local function playerIsOnArgus()
-    local currentMapId = GetCurrentMapAreaID()
+    local currentMapId, _ = GetCurrentMapAreaID()
     local onArgus = false
 
     for i, v in pairs(zoneIds) do
         if zoneIds[i] == currentMapId then
             onArgus = true
         end
+    end
+
+    if debug then
+        print("On Argus: ", onArgus)
     end
 
     return onArgus
@@ -578,14 +584,13 @@ end
 ---------------------------------------------
 local events = {}
 
-function events:PLAYER_ENTERING_WORLD(...)
+function afterPlayerEnteredWorld()
     if debug then
-        print("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
+        print("called")
     end
 
-    if eliteOptions.aetHidden then return end
+    -- if eliteOptions.aetHidden then return end
     if eliteOptions.aetHiddenWhileOnArgus then return end
-
     local onArgus = playerIsOnArgus()
 
     if onArgus then
@@ -593,6 +598,14 @@ function events:PLAYER_ENTERING_WORLD(...)
     else
         aet:Hide()
     end
+end
+
+function events:PLAYER_ENTERING_WORLD(...)
+    if debug then
+        print("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
+    end
+    aet:Hide()
+    C_Timer.After(1, afterPlayerEnteredWorld)
 end
 
 aet:SetScript("OnEvent", function(self, event, ...)
