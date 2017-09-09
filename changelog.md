@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 - This changelog. Hello :)
 - See which elites you already have killed.
 - See which elites belong to a world quest if you are in the specific zone.
+For some reason this only works some of the time, and sometimes only after
+opening the world map.
 - Disable all search buttons while search is ongoing.
 
 ### Changed
