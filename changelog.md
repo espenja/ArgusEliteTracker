@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - 2017-09-10
+### Added
+- New toggle command so the opening of closing the window can be macroed easily (/aet toggle).
+- Added missing rares. Thanks to user datpro for helping out!
+
+### Changed
+- Alphabetized list of elites. Thanks to user datpro for helping out!
+- Fixed spelling mistakes in slash commands help text.
 
 ## [1.0.4] - 2017-09-09
 ### Added
