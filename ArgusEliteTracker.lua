@@ -605,6 +605,8 @@ SLASH_ARGUSELITETRACKER1 = "/aet"
 SLASH_ARGUSELITETRACKER2 = "/arguselitetracker"
 
 SlashCmdList.ARGUSELITETRACKER = function(argument)
+    if argument == "" then argument = "TOGGLE" end
+
     if string.upper(argument) == "HELP" then
         DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker: Commands are |cFF00FF00help|r|cFFFFFF00, |cFF00FF00show|r|cFFFFFF00, |cFF00FF00hide|cFFFFFF00, |cFF00FF00toggle|r|cFFFFFF00")
         DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker: Slash commands are |cFF00FF00/aet|r|cFFFFFF00, |cFF00FF00/arguselitetracker|r|cFFFFFF00.")
