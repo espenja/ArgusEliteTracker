@@ -570,15 +570,44 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
         if debug then
             DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
         end
-        aet:Hide()
+
         eliteOptions.aetHidden = true
+        if playerIsOnArgus() then
+            eliteOptions.aetHiddenWhileOnArgus = eliteOptions.aetHidden
+        end
+
+        aet:Hide()
     end
     if string.upper(argument) == "SHOW" then
         if debug then
             DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker is |cFF00FF00visible|r|cFFFFFF00.")
         end
+
         eliteOptions.aetHidden = false
+        if playerIsOnArgus() then
+            eliteOptions.aetHiddenWhileOnArgus = eliteOptions.aetHidden
+        end
+
         aet:Show()
+
+    end
+    if string.upper(argument) == "TOGGLE" then
+        if debug then
+            DEFAULT_CHAT_FRAME:AddMessage("Argus Elite Tracker |cFF00FF00toggled|r|cFFFFFF00.")
+        end
+
+        if aet:IsVisible() then
+            aet:Hide()
+            eliteOptions.aetHidden = true
+            
+        else
+            aet:Show()
+            eliteOptions.aetHidden = false
+        end
+
+        if playerIsOnArgus() then
+            eliteOptions.aetHiddenWhileOnArgus = eliteOptions.aetHidden
+        end
     end
 end
 
