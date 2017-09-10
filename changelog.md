@@ -3,10 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.6] - 2017-09-10
 ### Added
-- ArgusEliteTracker can now be toggled by just writing /aet
+- ArgusEliteTracker can now be toggled by just writing /aet.
+- Button for minimizing the frame. When minimized only shows the header.
 
 ### Changed
-- Frame now sizes to the height of number of elites while maintaining its position
+- Frame now sizes to the height of number of elites while maintaining its position.
+- Reset button is now a small button with the letter 'R'.
 
 ## [1.0.5] - 2017-09-10
 ### Added
