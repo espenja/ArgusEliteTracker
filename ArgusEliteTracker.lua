@@ -11,80 +11,77 @@ local plainBackdrop = {edgeFile = [[Interface\Buttons\WHITE8X8]], edgeSize = 0.7
 local eliteOptions = {
     aetHidden = false,
     aetHiddenWhileOnArgus = false,
-    headerHeight = 20,
-    zoneSelectorHeight = 30,
-    buttonHeight = 20,
-    xOffset = 10,
-    yOffset = 15,
     statusWidth = 50,
+    firstLoad = true,
+    minimized = false,
 }
 
 local zones = {
     krokuun = {
-        { button = nil, status = nil, searchResults = 0, questId = 48564, complete = false, isWq = false, name = "Commander Endaxis", searchTerms = { "endaxis" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48562, complete = false, isWq = false, name = "Commander Sathrenael", searchTerms = { "sathrenael" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48563, complete = false, isWq = false, name = "Commander Vecaya", searchTerms = { "vecaya" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48666, complete = false, isWq = false, name = "Imp Mother Laglath", searchTerms = { "laglath", "imp mother" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48561, complete = false, isWq = false, name = "Khazaduum", searchTerms = { "khazaduum" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48667, complete = false, isWq = false, name = "Naroua", searchTerms = { "naroua" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48627, complete = false, isWq = false, name = "Siegemaster Voraan", searchTerms = { "voraan", "siegemaster" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48565, complete = false, isWq = false, name = "Sister Subversia", searchTerms = { "subversia" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48628, complete = false, isWq = false, name = "Talestra the Vile", searchTerms = { "talestra", "the vile" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48665, complete = false, isWq = false, name = "Tar Spitter", searchTerms = { "tar", "spitter" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48664, complete = false, isWq = false, name = "Tereck the Selector", searchTerms = { "tereck", "selector" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48629, complete = false, isWq = false, name = "Vagath the Betrayed", searchTerms = { "vagath", "the betrayed" }},
+        { searchResults = 0, questId = 48564, complete = false, isWq = false, name = "Commander Endaxis", searchTerms = { "endaxis" }},
+        { searchResults = 0, questId = 48562, complete = false, isWq = false, name = "Commander Sathrenael", searchTerms = { "sathrenael" }},
+        { searchResults = 0, questId = 48563, complete = false, isWq = false, name = "Commander Vecaya", searchTerms = { "vecaya" }},
+        { searchResults = 0, questId = 48666, complete = false, isWq = false, name = "Imp Mother Laglath", searchTerms = { "laglath", "imp mother" }},
+        { searchResults = 0, questId = 48561, complete = false, isWq = false, name = "Khazaduum", searchTerms = { "khazaduum" }},
+        { searchResults = 0, questId = 48667, complete = false, isWq = false, name = "Naroua", searchTerms = { "naroua" }},
+        { searchResults = 0, questId = 48627, complete = false, isWq = false, name = "Siegemaster Voraan", searchTerms = { "voraan", "siegemaster" }},
+        { searchResults = 0, questId = 48565, complete = false, isWq = false, name = "Sister Subversia", searchTerms = { "subversia" }},
+        { searchResults = 0, questId = 48628, complete = false, isWq = false, name = "Talestra the Vile", searchTerms = { "talestra", "the vile" }},
+        { searchResults = 0, questId = 48665, complete = false, isWq = false, name = "Tar Spitter", searchTerms = { "tar", "spitter" }},
+        { searchResults = 0, questId = 48664, complete = false, isWq = false, name = "Tereck the Selector", searchTerms = { "tereck", "selector" }},
+        { searchResults = 0, questId = 48629, complete = false, isWq = false, name = "Vagath the Betrayed", searchTerms = { "vagath", "the betrayed" }},
    },
     antoranWastes = {
-        { button = nil, status = nil, searchResults = 0, questId = 48817, complete = false, isWq = false, name = "Admiral Rel'var", searchTerms = { "rel'var", "admiral" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48818, complete = false, isWq = false, name = "All-Seer Xanarian", searchTerms = { "xanarian", "all-seer" }},
-        { button = nil, status = nil, searchResults = 0, questId = 49183, complete = false, isWq = false, name = "Blistermaw", searchTerms = { "blistermaw" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48865, complete = false, isWq = false, name = "Chief Alchemist Munculus", searchTerms = { "munculus" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48816, complete = false, isWq = false, name = "Commander Texlaz", searchTerms = { "texlaz" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48968, complete = false, isWq = false, name = "Doomcaster Suprax", searchTerms = { "suprax" }},
-        { button = nil, status = nil, searchResults = 0, questId = 49241, complete = false, isWq = false, name = "Gar'zoth", searchTerms = { "gar'zoth", "gar zoth" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48821, complete = false, isWq = false, name = "Houndmaster Kerrax", searchTerms = { "kerrax", "houndmaster" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48815, complete = false, isWq = false, name = "Inquisitor Vethroz", searchTerms = { "vethroz", "inquisitor" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48813, complete = false, isWq = false, name = "Lieutenant Xakaar", searchTerms = { "lieutenant", "xakaar" }},
-        { button = nil, status = nil, searchResults = 0, questId = 49240, complete = false, isWq = false, name = "Mistress Il'thendra", searchTerms = { "il'thendra" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48970, complete = false, isWq = false, name = "Mother Rosula", searchTerms = { "rosula" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48809, complete = false, isWq = false, name = "Puscilla", searchTerms = { "puscilla" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48971, complete = false, isWq = false, name = "Rezira the Seer", searchTerms = { "rezira" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48967, complete = false, isWq = false, name = "Squadron Commander Vishax", searchTerms = { "vishax", "squadron" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48966, complete = false, isWq = false, name = "The Many-Faced Devourer", searchTerms = { "many-faced", "face" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48812, complete = false, isWq = false, name = "Varga", searchTerms = { "varga" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48811, complete = false, isWq = false, name = "Ven'orn", searchTerms = { "ven'orn", "venorn" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48824, complete = false, isWq = false, name = "Void Warden Valsuran", searchTerms = { "valsuran" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48810, complete = false, isWq = false, name = "Vrax'thul", searchTerms = { "vrax'thul", "vrax" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48822, complete = false, isWq = false, name = "Watcher Aival", searchTerms = { "aival" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48820, complete = false, isWq = false, name = "Worldsplitter Skuul", searchTerms = { "skuul", "worldsplitter" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48814, complete = false, isWq = false, name = "Wrath-Lord Yarez", searchTerms = { "wrath-lord", "yarez", "wrath lord" }},
+        { searchResults = 0, questId = 48817, complete = false, isWq = false, name = "Admiral Rel'var", searchTerms = { "rel'var", "admiral" }},
+        { searchResults = 0, questId = 48818, complete = false, isWq = false, name = "All-Seer Xanarian", searchTerms = { "xanarian", "all-seer" }},
+        { searchResults = 0, questId = 49183, complete = false, isWq = false, name = "Blistermaw", searchTerms = { "blistermaw" }},
+        { searchResults = 0, questId = 48865, complete = false, isWq = false, name = "Chief Alchemist Munculus", searchTerms = { "munculus" }},
+        { searchResults = 0, questId = 48816, complete = false, isWq = false, name = "Commander Texlaz", searchTerms = { "texlaz" }},
+        { searchResults = 0, questId = 48968, complete = false, isWq = false, name = "Doomcaster Suprax", searchTerms = { "suprax" }},
+        { searchResults = 0, questId = 49241, complete = false, isWq = false, name = "Gar'zoth", searchTerms = { "gar'zoth", "gar zoth" }},
+        { searchResults = 0, questId = 48821, complete = false, isWq = false, name = "Houndmaster Kerrax", searchTerms = { "kerrax", "houndmaster" }},
+        { searchResults = 0, questId = 48815, complete = false, isWq = false, name = "Inquisitor Vethroz", searchTerms = { "vethroz", "inquisitor" }},
+        { searchResults = 0, questId = 48813, complete = false, isWq = false, name = "Lieutenant Xakaar", searchTerms = { "lieutenant", "xakaar" }},
+        { searchResults = 0, questId = 49240, complete = false, isWq = false, name = "Mistress Il'thendra", searchTerms = { "il'thendra" }},
+        { searchResults = 0, questId = 48970, complete = false, isWq = false, name = "Mother Rosula", searchTerms = { "rosula" }},
+        { searchResults = 0, questId = 48809, complete = false, isWq = false, name = "Puscilla", searchTerms = { "puscilla" }},
+        { searchResults = 0, questId = 48971, complete = false, isWq = false, name = "Rezira the Seer", searchTerms = { "rezira" }},
+        { searchResults = 0, questId = 48967, complete = false, isWq = false, name = "Squadron Commander Vishax", searchTerms = { "vishax", "squadron" }},
+        { searchResults = 0, questId = 48966, complete = false, isWq = false, name = "The Many-Faced Devourer", searchTerms = { "many-faced", "face" }},
+        { searchResults = 0, questId = 48812, complete = false, isWq = false, name = "Varga", searchTerms = { "varga" }},
+        { searchResults = 0, questId = 48811, complete = false, isWq = false, name = "Ven'orn", searchTerms = { "ven'orn", "venorn" }},
+        { searchResults = 0, questId = 48824, complete = false, isWq = false, name = "Void Warden Valsuran", searchTerms = { "valsuran" }},
+        { searchResults = 0, questId = 48810, complete = false, isWq = false, name = "Vrax'thul", searchTerms = { "vrax'thul", "vrax" }},
+        { searchResults = 0, questId = 48822, complete = false, isWq = false, name = "Watcher Aival", searchTerms = { "aival" }},
+        { searchResults = 0, questId = 48820, complete = false, isWq = false, name = "Worldsplitter Skuul", searchTerms = { "skuul", "worldsplitter" }},
+        { searchResults = 0, questId = 48814, complete = false, isWq = false, name = "Wrath-Lord Yarez", searchTerms = { "wrath-lord", "yarez", "wrath lord" }},
    },
     macAree = {
-        { button = nil, status = nil, searchResults = 0, questId = 48709, complete = false, isWq = false, name = "Ataxon", searchTerms = { "ataxon" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48700, complete = false, isWq = false, name = "Baruut the Bloodthirsty", searchTerms = { "baruut", "bloodthirsty" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48707, complete = false, isWq = false, name = "Captain Faruq", searchTerms = { "faruq" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48720, complete = false, isWq = false, name = "Commander Xethgar", searchTerms = { "xethgar" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48702, complete = false, isWq = false, name = "Feasel the Muffin Thief", searchTerms = { "feasel", "muffin" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48711, complete = false, isWq = false, name = "Herald of Chaos", searchTerms = { "herald", "of chaos" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48718, complete = false, isWq = false, name = "Instructor Tarahna", searchTerms = { "tarahna", "instructor" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48713, complete = false, isWq = false, name = "Jed'hin Champion Vorusk", searchTerms = { "jed'hin", "vorusk" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48697, complete = false, isWq = false, name = "Kaara the Pale", searchTerms = { "kaara", "pale" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48714, complete = false, isWq = false, name = "Overseer Y'Beda", searchTerms = { "y'beda", "beda" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48717, complete = false, isWq = false, name = "Overseer Y'Morna", searchTerms = { "y'morna", "morna" }}, --jens :'D
-        { button = nil, status = nil, searchResults = 0, questId = 48716, complete = false, isWq = false, name = "Overseer Y'Sorna", searchTerms = { "y'sorna", "sorna", "y sorna" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48712, complete = false, isWq = false, name = "Sabuul", searchTerms = { "sabuul" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48692, complete = false, isWq = false, name = "Shadowcaster Voruun", searchTerms = { "voruun", "shadowcaster" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48721, complete = false, isWq = false, name = "Skreeg the Devourer", searchTerms = { "skreeg" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48936, complete = false, isWq = false, name = "Slithon the Last", searchTerms = { "slithon", "the last" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48710, complete = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerms = { "sorolis", "ill-fated" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48693, complete = false, isWq = false, name = "Soultwisted Monstrosity", searchTerms = { "monstrosity", "soultwisted" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48706, complete = false, isWq = false, name = "Turek the Lucid", searchTerms = { "turek", "the lucid" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48708, complete = false, isWq = false, name = "Umbraliss", searchTerms = { "umbraliss" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48705, complete = false, isWq = false, name = "Venomtail Skyfin", searchTerms = { "venomtail", "skyfin" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48704, complete = false, isWq = false, name = "Vigilant Kuro", searchTerms = { "kuro" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48703, complete = false, isWq = false, name = "Vigilant Thanos", searchTerms = { "thanos" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48695, complete = false, isWq = false, name = "Wrangler Kravos", searchTerms = { "kravos", "wrangler" }},
-        { button = nil, status = nil, searchResults = 0, questId = 48719, complete = false, isWq = false, name = "Zul'tan the Numerous", searchTerms = { "zul'tan", "numerous" }},
+        { searchResults = 0, questId = 48709, complete = false, isWq = false, name = "Ataxon", searchTerms = { "ataxon" }},
+        { searchResults = 0, questId = 48700, complete = false, isWq = false, name = "Baruut the Bloodthirsty", searchTerms = { "baruut", "bloodthirsty" }},
+        { searchResults = 0, questId = 48707, complete = false, isWq = false, name = "Captain Faruq", searchTerms = { "faruq" }},
+        { searchResults = 0, questId = 48720, complete = false, isWq = false, name = "Commander Xethgar", searchTerms = { "xethgar" }},
+        { searchResults = 0, questId = 48702, complete = false, isWq = false, name = "Feasel the Muffin Thief", searchTerms = { "feasel", "muffin" }},
+        { searchResults = 0, questId = 48711, complete = false, isWq = false, name = "Herald of Chaos", searchTerms = { "herald", "of chaos" }},
+        { searchResults = 0, questId = 48718, complete = false, isWq = false, name = "Instructor Tarahna", searchTerms = { "tarahna", "instructor" }},
+        { searchResults = 0, questId = 48713, complete = false, isWq = false, name = "Jed'hin Champion Vorusk", searchTerms = { "jed'hin", "vorusk" }},
+        { searchResults = 0, questId = 48697, complete = false, isWq = false, name = "Kaara the Pale", searchTerms = { "kaara", "pale" }},
+        { searchResults = 0, questId = 48714, complete = false, isWq = false, name = "Overseer Y'Beda", searchTerms = { "y'beda", "beda" }},
+        { searchResults = 0, questId = 48717, complete = false, isWq = false, name = "Overseer Y'Morna", searchTerms = { "y'morna", "morna" }}, --jens :'D
+        { searchResults = 0, questId = 48716, complete = false, isWq = false, name = "Overseer Y'Sorna", searchTerms = { "y'sorna", "sorna", "y sorna" }},
+        { searchResults = 0, questId = 48712, complete = false, isWq = false, name = "Sabuul", searchTerms = { "sabuul" }},
+        { searchResults = 0, questId = 48692, complete = false, isWq = false, name = "Shadowcaster Voruun", searchTerms = { "voruun", "shadowcaster" }},
+        { searchResults = 0, questId = 48721, complete = false, isWq = false, name = "Skreeg the Devourer", searchTerms = { "skreeg" }},
+        { searchResults = 0, questId = 48936, complete = false, isWq = false, name = "Slithon the Last", searchTerms = { "slithon", "the last" }},
+        { searchResults = 0, questId = 48710, complete = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerms = { "sorolis", "ill-fated" }},
+        { searchResults = 0, questId = 48693, complete = false, isWq = false, name = "Soultwisted Monstrosity", searchTerms = { "monstrosity", "soultwisted" }},
+        { searchResults = 0, questId = 48706, complete = false, isWq = false, name = "Turek the Lucid", searchTerms = { "turek", "the lucid" }},
+        { searchResults = 0, questId = 48708, complete = false, isWq = false, name = "Umbraliss", searchTerms = { "umbraliss" }},
+        { searchResults = 0, questId = 48705, complete = false, isWq = false, name = "Venomtail Skyfin", searchTerms = { "venomtail", "skyfin" }},
+        { searchResults = 0, questId = 48704, complete = false, isWq = false, name = "Vigilant Kuro", searchTerms = { "kuro" }},
+        { searchResults = 0, questId = 48703, complete = false, isWq = false, name = "Vigilant Thanos", searchTerms = { "thanos" }},
+        { searchResults = 0, questId = 48695, complete = false, isWq = false, name = "Wrangler Kravos", searchTerms = { "kravos", "wrangler" }},
+        { searchResults = 0, questId = 48719, complete = false, isWq = false, name = "Zul'tan the Numerous", searchTerms = { "zul'tan", "numerous" }},
     }
 }
 
@@ -110,8 +107,8 @@ local selectedZone = zones.krokuun
 --  Create a frame for the addon
 ---------------------------------------------
 
-local aet = CreateFrame("frame", "ArgusEliteTrackerFrame", UIParent)
-aet:SetSize(300, 440)
+local aet = CreateFrame("frame", "ArgusEliteTrackerFrames", UIParent)
+aet:SetSize(300, 20)
 aet:SetBackdrop({
     bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
     tile = true,
@@ -126,6 +123,19 @@ aet:SetMovable(true)
 aet:EnableMouse(true)
 aet:RegisterForDrag("LeftButton")
 aet:SetResizable(true)
+aet:SetClampedToScreen(true)
+
+aet.elitesContainer = CreateFrame("frame", nil, aet)
+aet.elitesContainer:SetSize(300, 50)
+aet.elitesContainer:SetBackdrop(plainBackdrop)
+aet.elitesContainer:SetBackdropColor(0, 0, 0, 1)
+aet.elitesContainer:SetBackdropBorderColor(1, 1, 1, 0)
+aet.elitesContainer:SetMovable(true)
+aet.elitesContainer:EnableMouse(true)
+aet.elitesContainer:RegisterForDrag("LeftButton")
+aet.elitesContainer:SetResizable(true)
+aet.elitesContainer:SetPoint("TOPLEFT", 0, -21)
+
 
 -- Create a header for our addon frame
 aet.TitleBar = CreateFrame ("frame", "argusheader", aet)
@@ -141,6 +151,16 @@ aet.TitleBar.Label:SetFont(defaultFontName, 12)
 aet.TitleBar.Label:SetPoint("CENTER", aet.TitleBar, "CENTER", 0, 0)
 aet.TitleBar.Label:SetText("Argus Elite Tracker")
 
+aet.Minimize = CreateFrame ("button", "argusminimize", aet)
+aet.Minimize:SetPoint ("right", aet.TitleBar, "right", -20, 0)
+aet.Minimize:SetSize (16, 16)
+aet.Minimize:SetBackdrop (plainBackdrop)
+aet.Minimize:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
+aet.Minimize:SetBackdropColor(0, 0, 0, 1)
+aet.Minimize:SetBackdropBorderColor (1, 1, 1, 0)
+aet.Minimize.Label = createLabel("-", 10, "CENTER", aet.Minimize)
+aet.Minimize.Label:SetTextColor(0.5, 0.5, 0.5, 1)
+
 aet.Close = CreateFrame ("button", "argusclose", aet)
 aet.Close:SetPoint ("right", aet.TitleBar, "right", -2, 0)
 aet.Close:SetSize (16, 16)
@@ -152,13 +172,13 @@ aet.Close.Label = createLabel("X", 10, "CENTER", aet.Close)
 aet.Close.Label:SetTextColor(0.5, 0.5, 0.5, 1)
 
 aet.Reset = CreateFrame("button", "argusreset", aet)
-aet.Reset:SetPoint("right", aet.TitleBar, "right", -20, 0)
-aet.Reset:SetSize(45, 16)
+aet.Reset:SetPoint("right", aet.TitleBar, "right", -38, 0)
+aet.Reset:SetSize(16, 16)
 aet.Reset:SetBackdrop(plainBackdrop)
 aet.Reset:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
 aet.Reset:SetBackdropColor(0, 0, 0, 1)
 aet.Reset:SetBackdropBorderColor(1, 1, 1, 0)
-aet.Reset.Label = createLabel("Reset", 10, "CENTER", aet.Reset)
+aet.Reset.Label = createLabel("R", 10, "CENTER", aet.Reset)
 aet.Reset.Label:SetTextColor(0.5, 0.5, 0.5, 0.5, 1)
 
 aet.SearchAll = CreateFrame("button", nil, aet)
@@ -173,34 +193,34 @@ aet.SearchAll.Label = createLabel("Search all", 10, "CENTER", aet.SearchAll)
 aet.SearchAll.Label:SetTextColor(0.95, 0.95, 0.95, 0.95, 1)
 
 -- krokuun
-aet.krokuun = CreateFrame("button", nil, aet)
-aet.krokuun:SetBackdrop(plainBackdrop)
-aet.krokuun:SetBackdropColor(1, 1, 1, 0.50)
-aet.krokuun:SetBackdropBorderColor(1, 1, 1, 0)
-aet.krokuun:SetFrameLevel(aet:GetFrameLevel() + 1)
-aet.krokuun:SetPoint("topleft", aet, "topleft", 10, -30)
-aet.krokuun:SetSize(75, 20)
-aet.krokuun.Label = createLabel("Krokuun", 12, "CENTER", aet.krokuun)
+aet.elitesContainer.krokuun = CreateFrame("button", nil, aet.elitesContainer)
+aet.elitesContainer.krokuun:SetBackdrop(plainBackdrop)
+aet.elitesContainer.krokuun:SetBackdropColor(1, 1, 1, 0.50)
+aet.elitesContainer.krokuun:SetBackdropBorderColor(1, 1, 1, 0)
+aet.elitesContainer.krokuun:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+aet.elitesContainer.krokuun:SetPoint("topleft", aet.elitesContainer, "topleft", 10, -10)
+aet.elitesContainer.krokuun:SetSize(75, 20)
+aet.elitesContainer.krokuun.Label = createLabel("Krokuun", 12, "CENTER", aet.elitesContainer.krokuun)
 
 -- antoranWastes
-aet.antoranWastes = CreateFrame("button", nil, aet)
-aet.antoranWastes:SetBackdrop(plainBackdrop)
-aet.antoranWastes:SetBackdropColor(1, 1, 1, 0.2)
-aet.antoranWastes:SetBackdropBorderColor(1, 1, 1, 0)
-aet.antoranWastes:SetFrameLevel(aet:GetFrameLevel() + 1)
-aet.antoranWastes:SetPoint("topleft", aet, "topleft", (aet:GetWidth() / 3), -30)
-aet.antoranWastes:SetSize((aet:GetWidth() / 3) - (2 * 5) + 10, 20)
-aet.antoranWastes.Label = createLabel("Antoran Wastes", 12, "CENTER", aet.antoranWastes)
+aet.elitesContainer.antoranWastes = CreateFrame("button", nil, aet.elitesContainer)
+aet.elitesContainer.antoranWastes:SetBackdrop(plainBackdrop)
+aet.elitesContainer.antoranWastes:SetBackdropColor(1, 1, 1, 0.2)
+aet.elitesContainer.antoranWastes:SetBackdropBorderColor(1, 1, 1, 0)
+aet.elitesContainer.antoranWastes:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+aet.elitesContainer.antoranWastes:SetPoint("topleft", aet.elitesContainer, "topleft", (aet:GetWidth() / 3), -10)
+aet.elitesContainer.antoranWastes:SetSize((aet:GetWidth() / 3) - (2 * 5) + 10, 20)
+aet.elitesContainer.antoranWastes.Label = createLabel("Antoran Wastes", 12, "CENTER", aet.elitesContainer.antoranWastes)
 
 -- macAree
-aet.macAree = CreateFrame("button", nil, aet)
-aet.macAree:SetBackdrop(plainBackdrop)
-aet.macAree:SetBackdropColor(1, 1, 1, 0.2)
-aet.macAree:SetBackdropBorderColor(1, 1, 1, 0)
-aet.macAree:SetFrameLevel(aet:GetFrameLevel() + 1)
-aet.macAree:SetPoint("topleft", aet, "topleft", 10 + (aet:GetWidth() / 3) * 2 + 5, -30)
-aet.macAree:SetSize(75, 20)
-aet.macAree.Label = createLabel("Mac'Aree", 12, "CENTER", aet.macAree)
+aet.elitesContainer.macAree = CreateFrame("button", nil, aet.elitesContainer)
+aet.elitesContainer.macAree:SetBackdrop(plainBackdrop)
+aet.elitesContainer.macAree:SetBackdropColor(1, 1, 1, 0.2)
+aet.elitesContainer.macAree:SetBackdropBorderColor(1, 1, 1, 0)
+aet.elitesContainer.macAree:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+aet.elitesContainer.macAree:SetPoint("topleft", aet.elitesContainer, "topleft", 10 + (aet:GetWidth() / 3) * 2 + 5, -10)
+aet.elitesContainer.macAree:SetSize(75, 20)
+aet.elitesContainer.macAree.Label = createLabel("Mac'Aree", 12, "CENTER", aet.elitesContainer.macAree)
 
 
 
@@ -430,6 +450,8 @@ end
 
 aet:SetScript("OnDragStart", aet.StartMoving)
 aet:SetScript("OnDragStop", aet.StopMovingOrSizing)
+-- aet.elitesContainer:SetScript("OnDragStart", aet.StartMoving)
+-- aet.elitesContainer:SetScript("OnDragStop", aet.StopMovingOrSizing)
 
 aet.Close:SetScript ("OnClick", function()
     aet:Hide()
@@ -446,12 +468,25 @@ aet.Close:SetScript ("OnClick", function()
     end
 end)
 
+aet.Minimize:SetScript("OnClick", function()
+    if aet.elitesContainer:IsVisible() then
+        aet.elitesContainer:Hide()
+        aet.Minimize.Label:SetText("+")
+    else
+        aet.elitesContainer:Show()
+        aet.Minimize.Label:SetText("-")
+    end
+end)
+
 aet.Reset:SetScript("OnClick", function()
     resetAll();
 end)
 
 
 local function updateFrame()
+    local height = (#selectedZone * 15) + 50
+
+    aet.elitesContainer:SetHeight(height)
     for i, elite in ipairs(selectedZone) do
         elite.button:Show()
         elite.status:Show()
@@ -460,6 +495,9 @@ end
 
 
 local function initiateZones()
+    local yOffset = 15
+    local statusWidth = 50
+
     for name, elites in pairs(zones) do
         local zoneId = zoneIds[name]
         updateWorldQuests(elites, zoneId)
@@ -470,13 +508,13 @@ local function initiateZones()
 
             elite.complete = IsQuestFlaggedCompleted(elite.questId)
 
-            elite.button = CreateFrame("button", nil, aet)
+            elite.button = CreateFrame("button", nil, aet.elitesContainer)
             elite.button:SetBackdrop(plainBackdrop)
             elite.button:SetBackdropColor(0, 0, 0, 0)
             elite.button:SetBackdropBorderColor(1, 1, 1, 0)
-            elite.button:SetFrameLevel(aet:GetFrameLevel() + 1)
-            elite.button:SetPoint("topleft", aet, "topleft", 10, -43 + (-(i * eliteOptions.yOffset)))
-            elite.button:SetSize(aet:GetWidth() - 20 - eliteOptions.statusWidth - 10, 16)
+            elite.button:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+            elite.button:SetPoint("topleft", aet.elitesContainer, "topleft", 10, -25 + (-(i * yOffset)))
+            elite.button:SetSize(aet:GetWidth() - 20 - statusWidth - 10, 16)
             elite.button.Label = createLabel(buttonText, 12, "CENTER", elite.button)
             elite.button.elite = elite
             elite.button:Hide()
@@ -485,13 +523,13 @@ local function initiateZones()
                 elite.button:SetScript("OnClick", initiateSearch)
             end
 
-            elite.status = CreateFrame("Frame", nil, aet)
+            elite.status = CreateFrame("Frame", nil, aet.elitesContainer)
             elite.status:SetBackdrop(plainBackdrop)
             elite.status:SetBackdropColor(0, 0, 0, 0)
             elite.status:SetBackdropBorderColor(1, 1, 1, 0)
-            elite.status:SetFrameLevel(aet:GetFrameLevel() + 1)
-            elite.status:SetPoint("topright", aet, "topright", -10, -43 + (-(i * eliteOptions.yOffset)))
-            elite.status:SetSize(eliteOptions.statusWidth, 15)
+            elite.status:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+            elite.status:SetPoint("topright", aet.elitesContainer, "topright", -10, -25 + (-(i * yOffset)))
+            elite.status:SetSize(statusWidth, 15)
             elite.status.Label = createLabel("N/A", 12, "CENTER", elite.status)
             elite.status:Hide()
 
@@ -503,31 +541,31 @@ local function initiateZones()
     end
 end
 
-aet.krokuun:SetScript ("OnClick", function()
+aet.elitesContainer.krokuun:SetScript ("OnClick", function()
     selectedZone = zones.krokuun
-    aet.krokuun:SetBackdropColor(1, 1, 1, 0.50)
-    aet.antoranWastes:SetBackdropColor(1, 1, 1, 0.20)
-    aet.macAree:SetBackdropColor(1, 1, 1, 0.20)
+    aet.elitesContainer.krokuun:SetBackdropColor(1, 1, 1, 0.50)
+    aet.elitesContainer.antoranWastes:SetBackdropColor(1, 1, 1, 0.20)
+    aet.elitesContainer.macAree:SetBackdropColor(1, 1, 1, 0.20)
     hideZone("antoranWastes")
     hideZone("macAree")
     updateFrame()
 end)
 
-aet.antoranWastes:SetScript ("OnClick", function()
+aet.elitesContainer.antoranWastes:SetScript ("OnClick", function()
     selectedZone = zones.antoranWastes
-    aet.krokuun:SetBackdropColor(1, 1, 1, 0.20)
-    aet.antoranWastes:SetBackdropColor(1, 1, 1, 0.50)
-    aet.macAree:SetBackdropColor(1, 1, 1, 0.20)
+    aet.elitesContainer.krokuun:SetBackdropColor(1, 1, 1, 0.20)
+    aet.elitesContainer.antoranWastes:SetBackdropColor(1, 1, 1, 0.50)
+    aet.elitesContainer.macAree:SetBackdropColor(1, 1, 1, 0.20)
     hideZone("krokuun")
     hideZone("macAree")
     updateFrame()
 end)
 
-aet.macAree:SetScript ("OnClick", function()
+aet.elitesContainer.macAree:SetScript ("OnClick", function()
     selectedZone = zones.macAree
-    aet.krokuun:SetBackdropColor(1, 1, 1, 0.20)
-    aet.antoranWastes:SetBackdropColor(1, 1, 1, 0.20)
-    aet.macAree:SetBackdropColor(1, 1, 1, 0.50)
+    aet.elitesContainer.krokuun:SetBackdropColor(1, 1, 1, 0.20)
+    aet.elitesContainer.antoranWastes:SetBackdropColor(1, 1, 1, 0.20)
+    aet.elitesContainer.macAree:SetBackdropColor(1, 1, 1, 0.50)
     hideZone("krokuun")
     hideZone("antoranWastes")
     updateFrame()
@@ -589,7 +627,6 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
         end
 
         aet:Show()
-
     end
     if string.upper(argument) == "TOGGLE" then
         if debug then
@@ -599,7 +636,6 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
         if aet:IsVisible() then
             aet:Hide()
             eliteOptions.aetHidden = true
-            
         else
             aet:Show()
             eliteOptions.aetHidden = false
@@ -625,7 +661,7 @@ function afterPlayerEnteredWorld()
     if eliteOptions.aetHiddenWhileOnArgus then return end
     local onArgus = playerIsOnArgus()
 
-    if onArgus then
+    if debug or onArgus then
         aet:Show()
     else
         aet:Hide()
