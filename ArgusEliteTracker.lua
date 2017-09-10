@@ -72,7 +72,7 @@ local zones = {
         { searchResults = 0, questId = 48712, complete = false, isWq = false, name = "Sabuul", searchTerms = { "sabuul" }},
         { searchResults = 0, questId = 48692, complete = false, isWq = false, name = "Shadowcaster Voruun", searchTerms = { "voruun", "shadowcaster" }},
         { searchResults = 0, questId = 48721, complete = false, isWq = false, name = "Skreeg the Devourer", searchTerms = { "skreeg" }},
-        { searchResults = 0, questId = 48936, complete = false, isWq = false, name = "Slithon the Last", searchTerms = { "slithon", "the last" }},
+        { searchResults = 0, questId = 48935, complete = false, isWq = false, name = "Slithon the Last", searchTerms = { "slithon", "the last" }},
         { searchResults = 0, questId = 48710, complete = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerms = { "sorolis", "ill-fated" }},
         { searchResults = 0, questId = 48693, complete = false, isWq = false, name = "Soultwisted Monstrosity", searchTerms = { "monstrosity", "soultwisted" }},
         { searchResults = 0, questId = 48706, complete = false, isWq = false, name = "Turek the Lucid", searchTerms = { "turek", "the lucid" }},
@@ -484,7 +484,7 @@ aet.Minimize:SetScript("OnClick", function()
 end)
 
 aet.Reset:SetScript("OnClick", function()
-    resetAll();
+    resetAll()
 end)
 
 
@@ -684,9 +684,9 @@ function events:PLAYER_ENTERING_WORLD(...)
 end
 
 aet:SetScript("OnEvent", function(self, event, ...)
-    events[event](self, ...);
-end);
+    events[event](self, ...)
+end)
 
 for key, value in pairs(events) do
-    aet:RegisterEvent(key);
+    aet:RegisterEvent(key)
 end
