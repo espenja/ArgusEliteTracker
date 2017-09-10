@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - 2017-09-10
+### Added
+- ArgusEliteTracker can now be toggled by just writing /aet
+
+### Changed
+- Frame now sizes to the height of number of elites while maintaining its position
+
 ## [1.0.5] - 2017-09-10
 ### Added
 - New toggle command so the opening of closing the window can be macroed easily (/aet toggle).
