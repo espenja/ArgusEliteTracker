@@ -285,9 +285,12 @@ end
 
 local function updateEliteStatus(elite)
     if elite.complete then
+        elite.button.Label:SetTextColor(1, 1, 1, 0.2)
+        elite.button:EnableMouse(false)
         elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
         elite.status.Label:SetText("Killed")
     elseif elite.isWq then
+        elite.button:EnableMouse(false)
         elite.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
         elite.status.Label:SetText("WQ")
     else
