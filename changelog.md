@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.7] - 2017-09-11
+### Added
+- Settings with options dialog and integration with the game's settings menus.
+- Option to show automatically when entering Argus.
+- Added all languages to filter when searching for single elite groups. This might strengthen search results.
+
+### Changed
+- Better single elite search functionality. Should return more groups than search all on average.
+- Fixed duplicate group result bug when searching for groups.
+- Fixed loading all world quests at the same time. Thanks @tdevnich10!
+- Fixed handling of when to load the addon frame.
+
+
 ## [1.0.6] - 2017-09-10
 ### Added
 - ArgusEliteTracker can now be toggled by just writing /aet.

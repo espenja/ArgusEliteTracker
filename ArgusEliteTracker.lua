@@ -1,5 +1,5 @@
 local addonName, addonData = ...
-local debugging = false
+local debugging = true
 
 local function debug(...)
     if debugging then
@@ -17,70 +17,70 @@ local plainBackdrop = {edgeFile = [[Interface\Buttons\WHITE8X8]], edgeSize = 0.7
 
 local zones = {
     krokuun = {
-        { searchResults = 0, questId = 48564, killed = false, isWq = false, name = "Commander Endaxis", searchTerms = { "endaxis" }},
-        { searchResults = 0, questId = 48562, killed = false, isWq = false, name = "Commander Sathrenael", searchTerms = { "sathrenael" }},
-        { searchResults = 0, questId = 48563, killed = false, isWq = false, name = "Commander Vecaya", searchTerms = { "vecaya" }},
-        { searchResults = 0, questId = 48666, killed = false, isWq = false, name = "Imp Mother Laglath", searchTerms = { "laglath", "imp mother" }},
-        { searchResults = 0, questId = 48561, killed = false, isWq = false, name = "Khazaduum", searchTerms = { "khazaduum" }},
-        { searchResults = 0, questId = 48667, killed = false, isWq = false, name = "Naroua", searchTerms = { "naroua" }},
-        { searchResults = 0, questId = 48627, killed = false, isWq = false, name = "Siegemaster Voraan", searchTerms = { "voraan", "siegemaster" }},
-        { searchResults = 0, questId = 48565, killed = false, isWq = false, name = "Sister Subversia", searchTerms = { "subversia" }},
-        { searchResults = 0, questId = 48628, killed = false, isWq = false, name = "Talestra the Vile", searchTerms = { "talestra", "the vile" }},
-        { searchResults = 0, questId = 48665, killed = false, isWq = false, name = "Tar Spitter", searchTerms = { "tar spitter" }},
-        { searchResults = 0, questId = 48664, killed = false, isWq = false, name = "Tereck the Selector", searchTerms = { "tereck", "selector" }},
-        { searchResults = 0, questId = 48629, killed = false, isWq = false, name = "Vagath the Betrayed", searchTerms = { "vagath", "the betrayed" }},
+        { searchResults = 0, questId = 48564, killed = false, isWq = false, name = "Commander Endaxis", searchTerms = { "endax" }},
+        { searchResults = 0, questId = 48562, killed = false, isWq = false, name = "Commander Sathrenael", searchTerms = { "sathr" }},
+        { searchResults = 0, questId = 48563, killed = false, isWq = false, name = "Commander Vecaya", searchTerms = { "vecay" }},
+        { searchResults = 0, questId = 48666, killed = false, isWq = false, name = "Imp Mother Laglath", searchTerms = { "lagla" }},
+        { searchResults = 0, questId = 48561, killed = false, isWq = false, name = "Khazaduum", searchTerms = { "khaza" }},
+        { searchResults = 0, questId = 48667, killed = false, isWq = false, name = "Naroua", searchTerms = { "narou" }},
+        { searchResults = 0, questId = 48627, killed = false, isWq = false, name = "Siegemaster Voraan", searchTerms = { "voraan" }},
+        { searchResults = 0, questId = 48565, killed = false, isWq = false, name = "Sister Subversia", searchTerms = { "subver" }},
+        { searchResults = 0, questId = 48628, killed = false, isWq = false, name = "Talestra the Vile", searchTerms = { "talest" }},
+        { searchResults = 0, questId = 48665, killed = false, isWq = false, name = "Tar Spitter", searchTerms = { "spitter" }},
+        { searchResults = 0, questId = 48664, killed = false, isWq = false, name = "Tereck the Selector", searchTerms = { "tereck",}},
+        { searchResults = 0, questId = 48629, killed = false, isWq = false, name = "Vagath the Betrayed", searchTerms = { "vagath" }},
    },
     antoranWastes = {
-        { searchResults = 0, questId = 48817, killed = false, isWq = false, name = "Admiral Rel'var", searchTerms = { "rel'var", "admiral" }},
-        { searchResults = 0, questId = 48818, killed = false, isWq = false, name = "All-Seer Xanarian", searchTerms = { "xanarian", "all-seer" }},
-        { searchResults = 0, questId = 49183, killed = false, isWq = false, name = "Blistermaw", searchTerms = { "blistermaw" }},
-        { searchResults = 0, questId = 48865, killed = false, isWq = false, name = "Chief Alchemist Munculus", searchTerms = { "munculus" }},
-        { searchResults = 0, questId = 48816, killed = false, isWq = false, name = "Commander Texlaz", searchTerms = { "texlaz" }},
-        { searchResults = 0, questId = 48968, killed = false, isWq = false, name = "Doomcaster Suprax", searchTerms = { "suprax" }},
-        { searchResults = 0, questId = 49241, killed = false, isWq = false, name = "Gar'zoth", searchTerms = { "gar'zoth", "gar zoth" }},
-        { searchResults = 0, questId = 48821, killed = false, isWq = false, name = "Houndmaster Kerrax", searchTerms = { "kerrax", "houndmaster" }},
-        { searchResults = 0, questId = 48815, killed = false, isWq = false, name = "Inquisitor Vethroz", searchTerms = { "vethroz", "inquisitor" }},
-        { searchResults = 0, questId = 48813, killed = false, isWq = false, name = "Lieutenant Xakaar", searchTerms = { "lieutenant", "xakaar" }},
-        { searchResults = 0, questId = 49240, killed = false, isWq = false, name = "Mistress Il'thendra", searchTerms = { "il'thendra" }},
-        { searchResults = 0, questId = 48970, killed = false, isWq = false, name = "Mother Rosula", searchTerms = { "rosula" }},
-        { searchResults = 0, questId = 48809, killed = false, isWq = false, name = "Puscilla", searchTerms = { "puscilla" }},
-        { searchResults = 0, questId = 48971, killed = false, isWq = false, name = "Rezira the Seer", searchTerms = { "rezira" }},
-        { searchResults = 0, questId = 48967, killed = false, isWq = false, name = "Squadron Commander Vishax", searchTerms = { "vishax", "squadron" }},
-        { searchResults = 0, questId = 48966, killed = false, isWq = false, name = "The Many-Faced Devourer", searchTerms = { "many-faced", "face" }},
+        { searchResults = 0, questId = 48817, killed = false, isWq = false, name = "Admiral Rel'var", searchTerms = { "rel'var" }},
+        { searchResults = 0, questId = 48818, killed = false, isWq = false, name = "All-Seer Xanarian", searchTerms = { "xanari "}},
+        { searchResults = 0, questId = 49183, killed = false, isWq = false, name = "Blistermaw", searchTerms = { "blister" }},
+        { searchResults = 0, questId = 48865, killed = false, isWq = false, name = "Chief Alchemist Munculus", searchTerms = { "muncu" }},
+        { searchResults = 0, questId = 48816, killed = false, isWq = false, name = "Commander Texlaz", searchTerms = { "texla" }},
+        { searchResults = 0, questId = 48968, killed = false, isWq = false, name = "Doomcaster Suprax", searchTerms = { "supra" }},
+        { searchResults = 0, questId = 49241, killed = false, isWq = false, name = "Gar'zoth", searchTerms = { "zoth" }},
+        { searchResults = 0, questId = 48821, killed = false, isWq = false, name = "Houndmaster Kerrax", searchTerms = { "kerra" }},
+        { searchResults = 0, questId = 48815, killed = false, isWq = false, name = "Inquisitor Vethroz", searchTerms = { "vethroz" }},
+        { searchResults = 0, questId = 48813, killed = false, isWq = false, name = "Lieutenant Xakaar", searchTerms = { "xaka" }},
+        { searchResults = 0, questId = 49240, killed = false, isWq = false, name = "Mistress Il'thendra", searchTerms = { "thendr" }},
+        { searchResults = 0, questId = 48970, killed = false, isWq = false, name = "Mother Rosula", searchTerms = { "rosul" }},
+        { searchResults = 0, questId = 48809, killed = false, isWq = false, name = "Puscilla", searchTerms = { "pusc" }},
+        { searchResults = 0, questId = 48971, killed = false, isWq = false, name = "Rezira the Seer", searchTerms = { "rezi" }},
+        { searchResults = 0, questId = 48967, killed = false, isWq = false, name = "Squadron Commander Vishax", searchTerms = { "vishax" }},
+        { searchResults = 0, questId = 48966, killed = false, isWq = false, name = "The Many-Faced Devourer", searchTerms = { "faced" }},
         { searchResults = 0, questId = 48812, killed = false, isWq = false, name = "Varga", searchTerms = { "varga" }},
-        { searchResults = 0, questId = 48811, killed = false, isWq = false, name = "Ven'orn", searchTerms = { "ven'orn", "venorn" }},
-        { searchResults = 0, questId = 48824, killed = false, isWq = false, name = "Void Warden Valsuran", searchTerms = { "valsuran" }},
-        { searchResults = 0, questId = 48810, killed = false, isWq = false, name = "Vrax'thul", searchTerms = { "vrax'thul", "vrax" }},
+        { searchResults = 0, questId = 48811, killed = false, isWq = false, name = "Ven'orn", searchTerms = { "ven'orn" }},
+        { searchResults = 0, questId = 48824, killed = false, isWq = false, name = "Void Warden Valsuran", searchTerms = { "valsur" }},
+        { searchResults = 0, questId = 48810, killed = false, isWq = false, name = "Vrax'thul", searchTerms = { "vrax" }},
         { searchResults = 0, questId = 48822, killed = false, isWq = false, name = "Watcher Aival", searchTerms = { "aival" }},
-        { searchResults = 0, questId = 48820, killed = false, isWq = false, name = "Worldsplitter Skuul", searchTerms = { "skuul", "worldsplitter" }},
-        { searchResults = 0, questId = 48814, killed = false, isWq = false, name = "Wrath-Lord Yarez", searchTerms = { "wrath-lord", "yarez", "wrath lord" }},
+        { searchResults = 0, questId = 48820, killed = false, isWq = false, name = "Worldsplitter Skuul", searchTerms = { "skuul" }},
+        { searchResults = 0, questId = 48814, killed = false, isWq = false, name = "Wrath-Lord Yarez", searchTerms = { "yarez" }},
    },
     macAree = {
-        { searchResults = 0, questId = 48709, killed = false, isWq = false, name = "Ataxon", searchTerms = { "ataxon" }},
-        { searchResults = 0, questId = 48700, killed = false, isWq = false, name = "Baruut the Bloodthirsty", searchTerms = { "baruut", "bloodthirsty" }},
+        { searchResults = 0, questId = 48709, killed = false, isWq = false, name = "Ataxon", searchTerms = { "atax" }},
+        { searchResults = 0, questId = 48700, killed = false, isWq = false, name = "Baruut the Bloodthirsty", searchTerms = { "baruut" }},
         { searchResults = 0, questId = 48707, killed = false, isWq = false, name = "Captain Faruq", searchTerms = { "faruq" }},
-        { searchResults = 0, questId = 48720, killed = false, isWq = false, name = "Commander Xethgar", searchTerms = { "xethgar" }},
-        { searchResults = 0, questId = 48702, killed = false, isWq = false, name = "Feasel the Muffin Thief", searchTerms = { "feasel", "muffin" }},
-        { searchResults = 0, questId = 48711, killed = false, isWq = false, name = "Herald of Chaos", searchTerms = { "herald", "of chaos" }},
-        { searchResults = 0, questId = 48718, killed = false, isWq = false, name = "Instructor Tarahna", searchTerms = { "tarahna", "instructor" }},
-        { searchResults = 0, questId = 48713, killed = false, isWq = false, name = "Jed'hin Champion Vorusk", searchTerms = { "jed'hin", "vorusk" }},
-        { searchResults = 0, questId = 48697, killed = false, isWq = false, name = "Kaara the Pale", searchTerms = { "kaara", "pale" }},
-        { searchResults = 0, questId = 48714, killed = false, isWq = false, name = "Overseer Y'Beda", searchTerms = { "y'beda", "beda" }},
-        { searchResults = 0, questId = 48717, killed = false, isWq = false, name = "Overseer Y'Morna", searchTerms = { "y'morna", "morna" }}, --jens :'D
-        { searchResults = 0, questId = 48716, killed = false, isWq = false, name = "Overseer Y'Sorna", searchTerms = { "y'sorna", "sorna", "y sorna" }},
+        { searchResults = 0, questId = 48720, killed = false, isWq = false, name = "Commander Xethgar", searchTerms = { "xeth" }},
+        { searchResults = 0, questId = 48702, killed = false, isWq = false, name = "Feasel the Muffin Thief", searchTerms = { "feasel" }},
+        { searchResults = 0, questId = 48711, killed = false, isWq = false, name = "Herald of Chaos", searchTerms = { "herald" }},
+        { searchResults = 0, questId = 48718, killed = false, isWq = false, name = "Instructor Tarahna", searchTerms = { "tarah" }},
+        { searchResults = 0, questId = 48713, killed = false, isWq = false, name = "Jed'hin Champion Vorusk", searchTerms = { "vorusk" }},
+        { searchResults = 0, questId = 48697, killed = false, isWq = false, name = "Kaara the Pale", searchTerms = { "kaara" }},
+        { searchResults = 0, questId = 48714, killed = false, isWq = false, name = "Overseer Y'Beda", searchTerms = { "beda" }},
+        { searchResults = 0, questId = 48717, killed = false, isWq = false, name = "Overseer Y'Morna", searchTerms = { "morna" }}, --jens :'D
+        { searchResults = 0, questId = 48716, killed = false, isWq = false, name = "Overseer Y'Sorna", searchTerms = { "sorna" }},
         { searchResults = 0, questId = 48712, killed = false, isWq = false, name = "Sabuul", searchTerms = { "sabuul" }},
-        { searchResults = 0, questId = 48692, killed = false, isWq = false, name = "Shadowcaster Voruun", searchTerms = { "voruun", "shadowcaster" }},
+        { searchResults = 0, questId = 48692, killed = false, isWq = false, name = "Shadowcaster Voruun", searchTerms = { "voruun" }},
         { searchResults = 0, questId = 48721, killed = false, isWq = false, name = "Skreeg the Devourer", searchTerms = { "skreeg" }},
-        { searchResults = 0, questId = 48935, killed = false, isWq = false, name = "Slithon the Last", searchTerms = { "slithon", "the last" }},
-        { searchResults = 0, questId = 48710, killed = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerms = { "sorolis", "ill-fated" }},
-        { searchResults = 0, questId = 48693, killed = false, isWq = false, name = "Soultwisted Monstrosity", searchTerms = { "monstrosity", "soultwisted" }},
-        { searchResults = 0, questId = 48706, killed = false, isWq = false, name = "Turek the Lucid", searchTerms = { "turek", "the lucid" }},
-        { searchResults = 0, questId = 48708, killed = false, isWq = false, name = "Umbraliss", searchTerms = { "umbraliss" }},
-        { searchResults = 0, questId = 48705, killed = false, isWq = false, name = "Venomtail Skyfin", searchTerms = { "venomtail", "skyfin", "Ядовитый" }},
+        { searchResults = 0, questId = 48935, killed = false, isWq = false, name = "Slithon the Last", searchTerms = { "slithon" }},
+        { searchResults = 0, questId = 48710, killed = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerms = { "sorolis" }},
+        { searchResults = 0, questId = 48693, killed = false, isWq = false, name = "Soultwisted Monstrosity", searchTerms = { "monstros" }},
+        { searchResults = 0, questId = 48706, killed = false, isWq = false, name = "Turek the Lucid", searchTerms = { "turek" }},
+        { searchResults = 0, questId = 48708, killed = false, isWq = false, name = "Umbraliss", searchTerms = { "umbrali" }},
+        { searchResults = 0, questId = 48705, killed = false, isWq = false, name = "Venomtail Skyfin", searchTerms = { "venomt" }},
         { searchResults = 0, questId = 48704, killed = false, isWq = false, name = "Vigilant Kuro", searchTerms = { "kuro" }},
         { searchResults = 0, questId = 48703, killed = false, isWq = false, name = "Vigilant Thanos", searchTerms = { "thanos" }},
-        { searchResults = 0, questId = 48695, killed = false, isWq = false, name = "Wrangler Kravos", searchTerms = { "kravos", "wrangler" }},
-        { searchResults = 0, questId = 48719, killed = false, isWq = false, name = "Zul'tan the Numerous", searchTerms = { "zul'tan", "numerous" }},
+        { searchResults = 0, questId = 48695, killed = false, isWq = false, name = "Wrangler Kravos", searchTerms = { "kravos" }},
+        { searchResults = 0, questId = 48719, killed = false, isWq = false, name = "Zul'tan the Numerous", searchTerms = { "zul'tan" }},
     }
 }
 
@@ -103,7 +103,6 @@ end
 local function resetAll()
     for name, elites in pairs(zones) do
         for i, elite in pairs(zones[name]) do
-            elite.searchIndex = 0
             elite.searchResults = 0
             setEliteNa(elite)
         end
@@ -169,31 +168,6 @@ local function updateEliteStatus(elite)
             elite.status.Label:SetText("(0) NO")
         end
     end
-end
-
-
-local function updateSearchedElite(elite)
-    if elite.killed or elite.isWq then
-        return
-    end
-
-    elite.searchResults = 0
-    local _, resultTable = C_LFGList.GetSearchResults()
-
-    for id = 1, #resultTable do
-        local resultId = resultTable[id]
-
-        local _, _, groupName, _, _, _, _, _, _, _, _, _, _, _ = C_LFGList.GetSearchResultInfo(resultId)
-        groupName = groupName:lower()
-        
-        for i = 1, #elite.searchTerms do
-            if groupName:find(elite.searchTerms[i]) then
-                elite.searchResults = elite.searchResults + 1
-            end
-        end
-    end
-
-    updateEliteStatus(elite)
 end
 
 
@@ -268,10 +242,15 @@ end
 local secondCounterAll = 0
 local searchForSecondsAll = 3
 
+
 local function searchForAllGroupsCallback()
 
     updateWorldQuestsForAllArgusZones()
     local numResults, resultTable = C_LFGList.GetSearchResults()
+     -- Blizzard wut, resultTable has a limit of 100,
+     -- but numResults shows over 100 results was found (highest I had was 180 something)
+    -- debug(numResults, resultTable)
+    -- local counter = 0
 
     for id = 1, #resultTable do
         local resultId = resultTable[id]
@@ -281,7 +260,6 @@ local function searchForAllGroupsCallback()
 
         for name, _ in pairs(zones) do
             for _, elite in pairs(zones[name]) do
-                elite.searchIndex = 0
                 elite.killed = IsQuestFlaggedCompleted(elite.questId)
 
                 if not elite.killed then
@@ -306,6 +284,7 @@ local function onUpdateAll(self, elapsed)
     if secondCounterAll >= searchForSecondsAll then
         self:SetScript("OnUpdate", nil)
         secondCounterAll = 0
+        resetAll()
         enableAllButtons()
         searchForAllGroupsCallback()
     end
@@ -315,11 +294,41 @@ end
 local function searchForAll()
     updateFrame()
     disableAllButtons()
-    local languages = C_LFGList.GetLanguageSearchFilter()
-    C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""), 0, 0, languages)
+    -- local languages = C_LFGList.GetLanguageSearchFilter()
+    -- Need to understand this better, seems like there's a limit to 100 responses
+    -- C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""), 0, 0, languages)
+    C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""))
     aet.SearchAll:SetScript("OnUpdate", onUpdateAll)
 end
 
+
+------------------------------------
+--  Search for one group
+------------------------------------
+
+local function updateSearchedElite(elite)
+    if elite.killed or elite.isWq then
+        return
+    end
+
+    elite.searchResults = 0
+    local numResults, resultTable = C_LFGList.GetSearchResults()
+
+    for id = 1, #resultTable do
+        local resultId = resultTable[id]
+
+        local _, _, groupName, _, _, _, _, _, _, _, _, _, _, _ = C_LFGList.GetSearchResultInfo(resultId)
+        groupName = groupName:lower()
+        
+        for i = 1, #elite.searchTerms do
+            if groupName:find(elite.searchTerms[i]) then
+                elite.searchResults = elite.searchResults + 1
+                break
+            end
+        end
+    end
+    updateEliteStatus(elite)
+end
 
 local secondCounter = 0
 local searchForSeconds = 3
@@ -336,9 +345,6 @@ local function onUpdate(self, elapsed)
     end
 end
 
-------------------------------------
---  Search for one group
-------------------------------------
 
 local function searchForGroup(elite)
 
@@ -351,7 +357,8 @@ local function searchForGroup(elite)
     end
 
     local languages = C_LFGList.GetLanguageSearchFilter()
-    C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""), 0, 0, languages)
+    C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(elite.searchTerms[1]), 0, 0, languages)
+    -- C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""))
     disableAllButtons()
     elite.button:SetScript("OnUpdate", onUpdate)
 end
@@ -362,6 +369,7 @@ local function initiateSearch(self)
     setEliteNa(self.elite)
     searchForGroup(self.elite)
 end
+
 
 
 local function initiateZones()
