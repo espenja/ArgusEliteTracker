@@ -2,6 +2,9 @@
 ## Title: ArgusEliteTracker
 ## Notes: Search the group finder tool to guesstimate if an elite is up at this time or not
 ## Author: Fictive
-## Version: 1.0.6
+## Version: 1.0.7
+## SavedVariables: ArgusEliteTrackerConfig
 
+widgets.lua
+optionsdialog.lua
 arguselitetracker.lua
