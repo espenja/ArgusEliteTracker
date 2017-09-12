@@ -1,5 +1,5 @@
 local addonName, addonData = ...
-local debugging = true
+local debugging = false
 
 local function debug(...)
     if debugging then
@@ -110,13 +110,133 @@ local function resetAll()
 end
 
 
-local function updateFrame()
-    local height = (#selectedZone * 15) + 50
+-- local function updateFrame()
+--     local height = (#selectedZone * 15) + 50
 
-    aet.elitesContainer:SetHeight(height)
+--     aet.elitesContainer:SetHeight(height)
+--     for i, elite in ipairs(selectedZone) do
+--         elite.button:Show()
+--         elite.status:Show()
+--     end
+-- end
+
+
+local function updateEliteStatus(elite)
+    if elite.killed then
+        elite.button.Label:SetTextColor(1, 1, 1, 0.2)
+        elite.button:EnableMouse(false)
+        elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+        elite.status.Label:SetText("Killed")
+    elseif elite.isWq then
+        elite.button:EnableMouse(false)
+        elite.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
+        elite.status.Label:SetText("WQ")
+    else
+        if elite.searchResults > 0 then
+            elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+            elite.status.Label:SetText("(" .. elite.searchResults .. ") YES")
+        else
+            elite.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
+            elite.status.Label:SetText("(0) NO")
+        end
+    end
+end
+
+
+local function HideFiltered()
+
+    local numberOfHidden = 0
+
     for i, elite in ipairs(selectedZone) do
-        elite.button:Show()
-        elite.status:Show()
+        elite.hidden = false
+        hiddenElites = {}
+
+
+        local function hideElite(elite)
+            local exists = hiddenElites[elite.name] ~= nil
+
+            if not exists then
+                hiddenElites[elite.name] = true
+                elite.hidden = true
+                numberOfHidden = numberOfHidden + 1
+            end
+
+            return exists
+        end
+
+        if ArgusEliteTrackerConfig.onlyShowElitesWithGroups then
+            if elite.searchResults < 1 then
+                hideElite(elite)
+                -- elite.hidden = true
+                -- numberOfHidden = numberOfHidden + 1
+            end
+        end
+
+        if ArgusEliteTrackerConfig.hideKilledElites == true then
+            if elite.killed then
+                hideElite(elite)
+                -- elite.hidden = true
+                -- numberOfHidden = numberOfHidden + 1
+            end
+        end
+
+        if ArgusEliteTrackerConfig.forceShowWorldQuestsIfNotKilled then
+            if elite.isWq then
+                if elite.hidden then
+                    numberOfHidden = numberOfHidden - 1
+                    elite.hidden = false
+                end
+                if elite.killed then
+                    if ArgusEliteTrackerConfig.hideKilledElites then
+                        elite.hidden = true
+                    else
+                        if hideElite(elite) then
+                            numberOfHidden = numberOfHidden -1
+                        end
+                        elite.hidden = false
+                    end
+                -- else
+                --     if ArgusEliteTrackerConfig.hideKilledElites then
+                --         if elite.hidden then
+                --             if hideElite(elite) then
+                --                 numberOfHidden = numberOfHidden - 1
+                --                 elite.hidden = false
+                --             end
+                --         end
+                --     end
+                end
+            end
+        end
+    end
+
+    return numberOfHidden
+end
+
+
+
+-- You're my man
+local function updateFrame()
+    local yOffset = 15
+
+    numberOfHidden = HideFiltered()
+    local height = ((#selectedZone - numberOfHidden) * 15) + 50
+    aet.elitesContainer:SetHeight(height)
+
+    local visibleCounter = 1
+
+    for i, elite in ipairs(selectedZone) do
+
+        if not elite.hidden then
+            elite.button:SetPoint("topleft", aet.elitesContainer, "topleft", 10, -25 + (-(visibleCounter * yOffset)))
+            elite.status:SetPoint("topright", aet.elitesContainer, "topright", -10, -25 + (-(visibleCounter * yOffset)))
+            elite.button:Show()
+            elite.status:Show()
+            visibleCounter = visibleCounter + 1
+        else
+            elite.button:Hide()
+            elite.status:Hide()
+        end
+        updateEliteStatus(elite)
     end
 end
 
@@ -147,31 +267,6 @@ local function hideZone(zone)
         elite.status:Hide()
     end
 end
-
-
-local function updateEliteStatus(elite)
-    if elite.killed then
-        elite.button.Label:SetTextColor(1, 1, 1, 0.2)
-        elite.button:EnableMouse(false)
-        elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
-        elite.status.Label:SetText("Killed")
-    elseif elite.isWq then
-        elite.button:EnableMouse(false)
-        elite.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
-        elite.status.Label:SetText("WQ")
-    else
-        if elite.searchResults > 0 then
-            elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
-            elite.status.Label:SetText("(" .. elite.searchResults .. ") YES")
-        else
-            elite.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
-            elite.status.Label:SetText("(0) NO")
-        end
-    end
-end
-
-
-
 
 
 local function disableAllButtons()
@@ -260,21 +355,24 @@ local function searchForAllGroupsCallback()
 
         for name, _ in pairs(zones) do
             for _, elite in pairs(zones[name]) do
-                elite.killed = IsQuestFlaggedCompleted(elite.questId)
+                elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
 
                 if not elite.killed then
                     setEliteNa(elite)
-                    for searchTermIndex = 1, #elite.searchTerms do
-                        if groupName:find(elite.searchTerms[searchTermIndex]) then
-                            elite.searchResults = elite.searchResults + 1
-                            break
-                        end
+                end
+
+                for searchTermIndex = 1, #elite.searchTerms do
+                    if groupName:find(elite.searchTerms[searchTermIndex]) then
+                        elite.searchResults = elite.searchResults + 1
+                        break
                     end
                 end
                 updateEliteStatus(elite)
             end
         end
     end
+
+    updateFrame()
 end
 
 
@@ -349,7 +447,7 @@ end
 local function searchForGroup(elite)
 
     updateWorldQuestsForAllArgusZones()
-    elite.killed = IsQuestFlaggedCompleted(elite.questId)
+    elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
 
     if elite.killed then
         updateEliteStatus(elite)
@@ -371,7 +469,6 @@ local function initiateSearch(self)
 end
 
 
-
 local function initiateZones()
 
     -- C_Timer.After(5, function() debug("initiateZones called") end)
@@ -386,7 +483,7 @@ local function initiateZones()
             local name = elite.name
             local buttonText = elite.name
 
-            elite.killed = IsQuestFlaggedCompleted(elite.questId)
+            elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
             -- debug(elite.name .. "is killed: " .. tostring(elite.killed))
 
             elite.button = CreateFrame("button", nil, aet.elitesContainer)
@@ -415,7 +512,6 @@ local function initiateZones()
             elite.status:Hide()
 
             if elite.killed or elite.isWq then
-                debug("YES")
                 updateEliteStatus(elite)
             else
                 setEliteNa(elite)                
@@ -472,36 +568,6 @@ function createArgusEliteTrackerFrames()
     aet.TitleBar.Label:SetText("Argus Elite Tracker")
     aet.elitesContainer:SetFrameLevel(aet.TitleBar:GetFrameLevel() - 1)
 
-    aet.Minimize = CreateFrame("button", "argusminimize", aet)
-    aet.Minimize:SetPoint("right", aet.TitleBar, "right", -20, 0)
-    aet.Minimize:SetSize(16, 16)
-    aet.Minimize:SetBackdrop(plainBackdrop)
-    aet.Minimize:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
-    aet.Minimize:SetBackdropColor(0, 0, 0, 1)
-    aet.Minimize:SetBackdropBorderColor(1, 1, 1, 0)
-    aet.Minimize.Label = addonData:createLabel("-", 10, "CENTER", aet.Minimize)
-    aet.Minimize.Label:SetTextColor(0.5, 0.5, 0.5, 1)
-
-    aet.Close = CreateFrame("button", "argusclose", aet)
-    aet.Close:SetPoint("right", aet.TitleBar, "right", -2, 0)
-    aet.Close:SetSize(16, 16)
-    aet.Close:SetBackdrop(plainBackdrop)
-    aet.Close:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
-    aet.Close:SetBackdropColor(0, 0, 0, 1)
-    aet.Close:SetBackdropBorderColor(1, 1, 1, 0)
-    aet.Close.Label = addonData:createLabel("X", 10, "CENTER", aet.Close)
-    aet.Close.Label:SetTextColor(0.5, 0.5, 0.5, 1)
-
-    aet.Reset = CreateFrame("button", "argusreset", aet)
-    aet.Reset:SetPoint("right", aet.TitleBar, "right", -38, 0)
-    aet.Reset:SetSize(16, 16)
-    aet.Reset:SetBackdrop(plainBackdrop)
-    aet.Reset:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
-    aet.Reset:SetBackdropColor(0, 0, 0, 1)
-    aet.Reset:SetBackdropBorderColor(1, 1, 1, 0)
-    aet.Reset.Label = addonData:createLabel("R", 10, "CENTER", aet.Reset)
-    aet.Reset.Label:SetTextColor(0.5, 0.5, 0.5, 0.5, 1)
-
     aet.SearchAll = CreateFrame("button", nil, aet)
     aet.SearchAll:SetPoint("left", aet.TitleBar, "left", 2, 0)
     aet.SearchAll:SetSize(55, 16)
@@ -512,6 +578,47 @@ function createArgusEliteTrackerFrames()
     aet.SearchAll:SetBackdropBorderColor(1, 1, 1, 0)
     aet.SearchAll.Label = addonData:createLabel("Search all", 10, "CENTER", aet.SearchAll)
     aet.SearchAll.Label:SetTextColor(0.95, 0.95, 0.95, 0.95, 1)
+
+    aet.Reset = CreateFrame("button", "argusreset", aet)
+    aet.Reset:SetPoint("right", aet.TitleBar, "right", -56, 0)
+    aet.Reset:SetSize(16, 16)
+    aet.Reset:SetBackdrop(plainBackdrop)
+    aet.Reset:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
+    aet.Reset:SetBackdropColor(0, 0, 0, 1)
+    aet.Reset:SetBackdropBorderColor(1, 1, 1, 0)
+    aet.Reset.Label = addonData:createLabel("R", 10, "CENTER", aet.Reset)
+    aet.Reset.Label:SetTextColor(0.75, 0.75, 0.75, 0.75, 1)
+
+    aet.Options = CreateFrame("button", nil, aet)
+    aet.Options:SetPoint("right", aet.TitleBar, "right", -38, 0)
+    aet.Options:SetSize(16, 16)
+    aet.Options:EnableMouse(true)
+    aet.Options:SetBackdrop(plainBackdrop)
+    aet.Options:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
+    aet.Options:SetBackdropColor(0, 0, 0, 1)
+    aet.Options:SetBackdropBorderColor(1, 1, 1, 0)
+    aet.Options.Label = addonData:createLabel("?", 10, "CENTER", aet.Options)
+    aet.Options.Label:SetTextColor(0.75, 0.75, 0.75, 1)
+
+    aet.Minimize = CreateFrame("button", "argusminimize", aet)
+    aet.Minimize:SetPoint("right", aet.TitleBar, "right", -20, 0)
+    aet.Minimize:SetSize(16, 16)
+    aet.Minimize:SetBackdrop(plainBackdrop)
+    aet.Minimize:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
+    aet.Minimize:SetBackdropColor(0, 0, 0, 1)
+    aet.Minimize:SetBackdropBorderColor(1, 1, 1, 0)
+    aet.Minimize.Label = addonData:createLabel("-", 10, "CENTER", aet.Minimize)
+    aet.Minimize.Label:SetTextColor(0.75, 0.75, 0.75, 1)
+
+    aet.Close = CreateFrame("button", "argusclose", aet)
+    aet.Close:SetPoint("right", aet.TitleBar, "right", -2, 0)
+    aet.Close:SetSize(16, 16)
+    aet.Close:SetBackdrop(plainBackdrop)
+    aet.Close:SetFrameLevel(aet.TitleBar:GetFrameLevel() + 1)
+    aet.Close:SetBackdropColor(0, 0, 0, 1)
+    aet.Close:SetBackdropBorderColor(1, 1, 1, 0)
+    aet.Close.Label = addonData:createLabel("X", 10, "CENTER", aet.Close)
+    aet.Close.Label:SetTextColor(0.75, 0.75, 0.75, 1)
 
     -- krokuun
     aet.elitesContainer.krokuun = CreateFrame("button", nil, aet.elitesContainer)
@@ -582,6 +689,10 @@ function createArgusEliteTrackerFrames()
 
     aet.SearchAll:SetScript("OnClick", function()
         searchForAll()
+    end)
+
+    aet.Options:SetScript("OnClick", function()
+        InterfaceOptionsFrame_OpenToCategory(addonData.configPanel)
     end)
 
     aet.Reset:SetScript("OnClick", function()
@@ -664,6 +775,9 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
         -- if playerIsOnArgus() then
         --     ArgusEliteTrackerConfig.aetHiddenWhileOnArgus = ArgusEliteTrackerConfig.aetHidden
         -- end
+    end
+    if string.upper(argument) == "OPTIONS" or string.upper(argument) == "CONFIG" then
+        InterfaceOptionsFrame_OpenToCategory(addonData.configPanel)
     end
 end
 

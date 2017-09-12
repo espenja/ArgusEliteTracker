@@ -1,11 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.7] - 2017-09-11
+## [1.0.7-beta] - 2017-09-11
 ### Added
 - Settings with options dialog and integration with the game's settings menus.
 - Option to show automatically when entering Argus.
+- Option to hide all killed elites
+- Option to show only elites with group results
 - Added all languages to filter when searching for single elite groups. This might strengthen search results.
+- Added button to main frame to open settings window
+- Added two new triggers, /aet config and /aet options to open settings window
 
 ### Changed
 - Better single elite search functionality. Should return more groups than search all on average.

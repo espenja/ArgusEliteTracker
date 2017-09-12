@@ -8,6 +8,8 @@ function addonData:createLabel(text, fontSize, alignment, parentFrame)
     local label = parentFrame:CreateFontString()
     label:SetFont(defaultFontName, fontSize)
     label:SetPoint(alignment, parentFrame, alignment, 0, 0)
+    label:SetJustifyH("LEFT")
+    label:SetJustifyV("TOP")
     label:SetText(text)
     label:SetTextColor(1, 1, 1, 1)
     return label
