@@ -89,6 +89,7 @@ local aet = CreateFrame("frame", "ArgusEliteTrackerFrames", UIParent)
 local events = {}
 local zoneIds = { krokuun = 1135, antoranWastes = 1171, macAree = 1170 }
 local selectedZone = zones.krokuun
+local selectedZoneName = "krokuun"
 
 
 
@@ -110,7 +111,7 @@ local function resetAll()
 end
 
 
--- local function updateFrame()
+-- local function updateArgusEliteTrackerFrame()
 --     local height = (#selectedZone * 15) + 50
 
 --     aet.elitesContainer:SetHeight(height)
@@ -215,7 +216,7 @@ end
 
 
 -- You're my man
-local function updateFrame()
+function updateArgusEliteTrackerFrame()
     local yOffset = 15
 
     numberOfHidden = HideFiltered()
@@ -256,7 +257,7 @@ local function playerIsOnArgus()
         if currentMapId == 1184 then onArgus = true end
     end
 
-    debug("On Argus: ", onArgus)
+    -- debug("On Argus: ", onArgus)
     return onArgus
 end
 
@@ -313,7 +314,6 @@ local function updateWorldQuests(elites, zoneId)
             for index = 1, #worldQuestNames do
                 if worldQuestNames[index]:lower() == elite.name:lower() then
                     elite.isWq = true
-                    -- C_Timer.After(5, function () debug("ELITE " .. elite.name .. " SET AS WORLD QUEST") end)
                 end
             end
         end
@@ -322,11 +322,18 @@ end
 
 
 local function updateWorldQuestsForAllArgusZones()
-    -- C_Timer.After(5, function() debug("called updateWorldQuestForAllArgusZones") end)
+    local currentMapOpen = GetCurrentMapAreaID()
+
     for name, elites in pairs(zones) do
-        local zoneId = zoneIds[name]
-        updateWorldQuests(elites, zoneId)
+        if name == selectedZoneName then
+            last = name
+        else
+            local zoneId = zoneIds[name]
+            updateWorldQuests(elites, zoneId)
+        end
     end
+
+    SetMapByID(currentMapOpen)
 end
 
 
@@ -335,7 +342,7 @@ end
 ------------------------------------
 
 local secondCounterAll = 0
-local searchForSecondsAll = 3
+local searchForSecondsAll = 5
 
 
 local function searchForAllGroupsCallback()
@@ -372,7 +379,7 @@ local function searchForAllGroupsCallback()
         end
     end
 
-    updateFrame()
+    updateArgusEliteTrackerFrame()
 end
 
 
@@ -390,7 +397,7 @@ end
 
 
 local function searchForAll()
-    updateFrame()
+    updateArgusEliteTrackerFrame()
     disableAllButtons()
     -- local languages = C_LFGList.GetLanguageSearchFilter()
     -- Need to understand this better, seems like there's a limit to 100 responses
@@ -429,7 +436,7 @@ local function updateSearchedElite(elite)
 end
 
 local secondCounter = 0
-local searchForSeconds = 3
+local searchForSeconds = 5
 
 local function onUpdate(self, elapsed)
 
@@ -467,6 +474,13 @@ local function initiateSearch(self)
     setEliteNa(self.elite)
     searchForGroup(self.elite)
 end
+
+
+-- LFGList.lua l730
+-- local activities = C_LFGList.GetAvailableActivities(self.selectedCategory, 0, bit.bor(self.baseFilters, self.selectedFilters));
+-- LFGList.lua l884
+-- if(C_LFGList.CreateListing(activityID, name, itemLevel, honorLevel, voiceChatInfo, description, autoAccept, privateGroup, questID)) then
+
 
 
 local function initiateZones()
@@ -664,7 +678,8 @@ function createArgusEliteTrackerFrames()
         aet.elitesContainer.macAree:SetBackdropColor(1, 1, 1, 0.20)
         hideZone("antoranWastes")
         hideZone("macAree")
-        updateFrame()
+        selectedZoneName = "krokuun"
+        updateArgusEliteTrackerFrame()
     end)
 
     aet.elitesContainer.antoranWastes:SetScript("OnClick", function()
@@ -674,7 +689,8 @@ function createArgusEliteTrackerFrames()
         aet.elitesContainer.macAree:SetBackdropColor(1, 1, 1, 0.20)
         hideZone("krokuun")
         hideZone("macAree")
-        updateFrame()
+        selectedZoneName = "antoranWastes"
+        updateArgusEliteTrackerFrame()
     end)
 
     aet.elitesContainer.macAree:SetScript("OnClick", function()
@@ -684,7 +700,8 @@ function createArgusEliteTrackerFrames()
         aet.elitesContainer.macAree:SetBackdropColor(1, 1, 1, 0.50)
         hideZone("krokuun")
         hideZone("antoranWastes")
-        updateFrame()
+        selectedZoneName = "macAree"
+        updateArgusEliteTrackerFrame()
     end)
 
     aet.SearchAll:SetScript("OnClick", function()
@@ -725,7 +742,7 @@ function createArgusEliteTrackerFrames()
     end)
 
     initiateZones()
-    updateFrame()
+    updateArgusEliteTrackerFrame()
 end
 
 
@@ -786,30 +803,66 @@ function afterPlayerEnteredWorld()
     -- if ArgusEliteTrackerConfig.aetHiddenWhileOnArgus then return end
     local onArgus = playerIsOnArgus()
 
-    if ArgusEliteTrackerConfig.minimized == true then
-        aet.elitesContainer:Hide()
+    
+
+    if ArgusEliteTrackerConfig.closed == true then
+        ArgusEliteTrackerConfig.closed = true
+        aet:Hide()
     else
+        ArgusEliteTrackerConfig.closed = false
+        aet:Show()
+    end
+
+    if ArgusEliteTrackerConfig.minimized then
+        aet.elitesContainer:Hide()
+        aet.Minimize.Label:SetText("+")
+    else
+        aet.Minimize.Label:SetText("-")
         aet.elitesContainer:Show()
     end
 
-    if (onArgus and ArgusEliteTrackerConfig.autoOpenOnArgus) or (ArgusEliteTrackerConfig.closed == false) then
-        if ArgusEliteTrackerConfig.autoOpenOnArgus and ArgusEliteTrackerConfig.minimized then
-            ArgusEliteTrackerConfig.minimized = false
-            aet.elitesContainer:Show()
-        end
 
-        ArgusEliteTrackerConfig.closed = false
-        aet:Show()
-    else
-        ArgusEliteTrackerConfig.closed = true
-        aet:Hide()
+    if onArgus then
+        if ArgusEliteTrackerConfig.autoOpenOnArgus then
+            aet:Show()
+            aet.elitesContainer:Show()
+            ArgusEliteTrackerConfig.closed = false
+            ArgusEliteTrackerConfig.minimized = false
+            aet.Minimize:SetText("-")
+        end
     end
+
+    -- if (onArgus and ArgusEliteTrackerConfig.autoOpenOnArgus) or (ArgusEliteTrackerConfig.closed == false) then
+    --     if ArgusEliteTrackerConfig.autoOpenOnArgus then
+    --         aet.elitesContainer:Show()
+    --     end
+
+    --     if ArgusEliteTrackerConfig.minimized and onArgus then
+    --         ArgusEliteTrackerConfig.minimized = false
+    --         aet.elitesContainer:Show()
+    --     end
+
+    --     ArgusEliteTrackerConfig.closed = false
+    --     aet:Show()
+    -- else
+    --     ArgusEliteTrackerConfig.closed = true
+    --     aet:Hide()
+    -- end
+
+    
+
+    -- if ArgusEliteTrackerConfig.minimized == true then
+    --     aet.elitesContainer:Hide()
+    -- else
+    --     aet.elitesContainer:Show()
+    -- end
 end
 
 
 function events:PLAYER_ENTERING_WORLD(...)
     debug("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
     aet:Hide()
+    aet.elitesContainer:Hide()
     C_Timer.After(1, afterPlayerEnteredWorld)
 end
 

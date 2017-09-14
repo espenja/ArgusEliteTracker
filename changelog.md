@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.7] - 2017-09-14
+### Changed
+- Fixed a bug where an open world map would switch to Krokuun if searching for elites at the same time
+- Fixed frame reloading if settings are changed in the options dialog
+- Fixed when to load addon based on options
+
 ## [1.0.7-beta] - 2017-09-11
 ### Added
 - Settings with options dialog and integration with the game's settings menus.

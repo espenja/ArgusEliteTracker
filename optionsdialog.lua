@@ -80,6 +80,8 @@ function configPanel:okay()
     ArgusEliteTrackerConfig.onlyShowElitesWithGroups = buttonOnlyWithGroup:GetChecked()
     ArgusEliteTrackerConfig.hideKilledElites = buttonHideKilled:GetChecked()
     ArgusEliteTrackerConfig.forceShowWorldQuestsIfNotKilled = buttonForceWorldQuests:GetChecked()
+    
+    updateArgusEliteTrackerFrame()
     -- ArgusEliteTrackerConfig.onlyShowSpecialElites = buttonOnlySpecialElites:GetChecked()
     
 end
