@@ -84,8 +84,15 @@ local zones = {
     }
 }
 
+
+aetzonesdebug = nil
+aetdebug = nil
+
+
+
+
 -- /run print(GetCurrentMapAreaID())
- aet = CreateFrame("frame", "ArgusEliteTrackerFrames", UIParent)
+local aet = CreateFrame("frame", "ArgusEliteTrackerFrames", UIParent)
 local events = {}
 local zoneIds = { krokuun = 1135, antoranWastes = 1171, macAree = 1170 }
 local selectedZone = zones.krokuun
@@ -95,7 +102,11 @@ aet.groups = {
     -- groupId = { elite }
 }
 
-aet.groupsIgnored = {}
+if debugging then
+    aetzonesdebug = zones
+    aetdebug = aet
+end
+
 
 
 local function setEliteNa(elite)
@@ -366,6 +377,7 @@ local function searchForAllGroupsCallback()
                     aet.groups[id] = elite
                     elite.groups[id] = { id = id, age = age }
                     elite.searchResults = elite.searchResults + 1
+                    elite.groupCount = elite.groupCount + 1
                     break
                 end
 
@@ -407,9 +419,12 @@ end
 ------------------------------------
 
 local function updateSearchedElite(elite)
-    if elite.killed or elite.isWq then
-        return
-    end
+
+    table.wipe(elite.groups)
+
+    -- if elite.killed or elite.isWq then
+    --     return
+    -- end
 
     elite.searchResults = 0
     local numResults, resultTable = C_LFGList.GetSearchResults()
@@ -430,11 +445,11 @@ local function updateSearchedElite(elite)
             aet.groups[id] = elite
             elite.groups[id] = { id = id, age = age }
             elite.searchResults = elite.searchResults + 1
+            elite.groupCount = elite.groupCount + 1
         end
     end
 
     debug(elite.searchResults)
-
     updateEliteStatus(elite)
 end
 
@@ -459,10 +474,10 @@ local function searchForGroup(elite)
     updateWorldQuestsForAllArgusZones()
     elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
 
-    if elite.killed then
-        updateEliteStatus(elite)
-        return
-    end
+    -- if elite.killed then
+    --     updateEliteStatus(elite)
+    --     return
+    -- end
 
     local languages = C_LFGList.GetLanguageSearchFilter()
     C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(elite.searchTerm), 0, 0, languages)
@@ -499,15 +514,20 @@ local function initiateZones()
 
             elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
             elite.groups = {}
+            elite.groupCount = 0
             -- debug(elite.name .. "is killed: " .. tostring(elite.killed))
 
-            -- elite.cButton = CreateFrame("button", nil, aet.elitesContainer)
-            -- elite.cButton:SetBackdrop(plainBackdrop)
-            -- elite.cButton:SetBackdropColor(0, 0, 0, 0)
-            -- elite.cButton:SetBackdropBorderColor(1, 1, 1, 0)
-            -- elite.cButton:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
-            -- elite.cButton:SetSize(16, 16)
-            -- elite.cButton.Label = addonData:createLabel("C", 12, "CENTER", elite.cButton)
+            elite.cButton = CreateFrame("button", nil, aet.elitesContainer)
+            elite.cButton:SetBackdrop(plainBackdrop)
+            elite.cButton:SetBackdropColor(0, 0, 0, 0)
+            elite.cButton:SetBackdropBorderColor(1, 1, 1, 0)
+            elite.cButton:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+            elite.cButton:SetSize(40, 16)
+            elite.cButton.Label = addonData:createLabel("Create", 12, "CENTER", elite.cButton)
+            elite.cButton.elite = elite
+            elite.cButton:SetScript("OnClick", function(self)
+                self.elite:CreateGroup()
+            end)
 
             elite.jButton = CreateFrame("button", nil, aet.elitesContainer)
             elite.jButton:SetBackdrop(plainBackdrop)
@@ -518,7 +538,6 @@ local function initiateZones()
             elite.jButton.Label = addonData:createLabel("Join", 12, "CENTER", elite.jButton)
             elite.jButton.elite = elite
             elite.jButton:SetScript("OnClick", function(self) 
-                debug("FAEN")
                 self.elite:ApplyToGroup()
             end)
 
@@ -545,7 +564,7 @@ local function initiateZones()
             elite.status.Label = addonData:createLabel("N/A", 12, "CENTER", elite.status)
 
             function elite:Hide()
-                -- self.cButton:Hide()
+                self.cButton:Hide()
                 self.jButton:Hide()
                 self.button:Hide()
                 self.status:Hide()
@@ -554,33 +573,54 @@ local function initiateZones()
             function elite:Show(yOffset)
 
                 if yOffset ~= nil then
-                    -- elite.cButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
+                    elite.cButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
                     elite.jButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
                     elite.button:SetPoint("topleft", aet.elitesContainer, "topleft", 50, yOffset)
                     elite.status:SetPoint("topright", aet.elitesContainer, "topright", -10, yOffset)
                 end
 
                 -- self.cButton:Show()
-                self.jButton:Show()
+
+                if elite.groupCount > 0 then
+                    self.jButton:Show()
+                    self.cButton:Hide()
+                elseif elite.groupCount == 0 then
+                    self.cButton:Show()
+                    self.jButton:Hide()
+                end
+
+                -- self.jButton:Show()
                 self.button:Show()
                 self.status:Show()
             end
 
             function elite:ApplyToGroup()
-                debug(self.name)
-                debug("number of groups : " .. tostring(#self.groups))
+                local any = false
 
-                if #self.groups == 0 then
+                for _, v in pairs(self.groups) do
+                    if not v.applied then 
+                        C_LFGList.ApplyToGroup(v.id, "Joined from ArgusEliteTracker", true, true, true);
+                        v.applied = true
+                        any = true
+                        break
+                    end
+                end
+
+                if not any then
                     self.searchResults = 0
                     updateArgusEliteTrackerFrame()
+                end
+            end
+
+            function elite:CreateGroup()
+                local activityId = 16
+                -- C_LFGList.CreateListing(activityID, name, itemLevel, honorLevel, voiceChatInfo, description, autoAccept, privateGroup, questID)
+                debug(self.name)
+
+                if(C_LFGList.CreateListing(16, "fictive", 0, 0, "", self.name .. ". Group created with ArgusEliteTracker.", true, false)) then
+                    debug("WOOOOOOOOOOOOOOOOO")
                 else
-                    for _, v in pairs(self.groups) do
-                        if not v.applied then 
-                            C_LFGList.ApplyToGroup(v.id, "Joined from ArgusEliteTracker", true, true, true);
-                            v.applied = true
-                            break
-                        end
-                    end
+                    debug("NOOOOOOO")
                 end
             end
 
@@ -881,10 +921,14 @@ end
 local function removeGroup(id)
     if aet.groups[id] ~= nil then
         elite = aet.groups[id]
-        debug("removing group " .. tostring(id) .. " from " .. elite.name)
+        -- debug("removing group " .. tostring(id) .. " from " .. elite.name)
         elite.searchResults = elite.searchResults - 1
         elite.groups[id] = nil
         aet.groups[id] = nil
+        elite.groupCount = elite.groupCount - 1
+
+        debug("group count: " .. elite.name .. ": " .. elite.groupCount)
+
         updateArgusEliteTrackerFrame()
     end
 end
@@ -898,7 +942,7 @@ function events:LFG_LIST_SEARCH_RESULT_UPDATED(...)
     if isDelisted then
         if aet.groups[id] ~= nil then
             removeGroup(id)
-            debug(tostring(id) .. " is DELISTED")
+            -- debug(tostring(id) .. " is DELISTED")
         end
     end
 end
@@ -906,7 +950,7 @@ end
 function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
 
     local id, newStatus, oldStatus = ...
-    debug("newStatus: " .. newStatus, "oldStatus: " .. oldStatus)
+    -- debug("newStatus: " .. newStatus, "oldStatus: " .. oldStatus)
 
     if newStatus == "declined" then
         removeGroup(id)
