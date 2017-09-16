@@ -1,5 +1,5 @@
 local addonName, addonData = ...
-local debugging = false
+local debugging = true
 
 local function debug(...)
     if debugging then
@@ -17,80 +17,85 @@ local plainBackdrop = {edgeFile = [[Interface\Buttons\WHITE8X8]], edgeSize = 0.7
 
 local zones = {
     krokuun = {
-        { searchResults = 0, questId = 48564, killed = false, isWq = false, name = "Commander Endaxis", searchTerms = { "endax" }},
-        { searchResults = 0, questId = 48562, killed = false, isWq = false, name = "Commander Sathrenael", searchTerms = { "sathr" }},
-        { searchResults = 0, questId = 48563, killed = false, isWq = false, name = "Commander Vecaya", searchTerms = { "vecay" }},
-        { searchResults = 0, questId = 48666, killed = false, isWq = false, name = "Imp Mother Laglath", searchTerms = { "lagla" }},
-        { searchResults = 0, questId = 48561, killed = false, isWq = false, name = "Khazaduum", searchTerms = { "khaza" }},
-        { searchResults = 0, questId = 48667, killed = false, isWq = false, name = "Naroua", searchTerms = { "narou" }},
-        { searchResults = 0, questId = 48627, killed = false, isWq = false, name = "Siegemaster Voraan", searchTerms = { "voraan" }},
-        { searchResults = 0, questId = 48565, killed = false, isWq = false, name = "Sister Subversia", searchTerms = { "subver" }},
-        { searchResults = 0, questId = 48628, killed = false, isWq = false, name = "Talestra the Vile", searchTerms = { "talest" }},
-        { searchResults = 0, questId = 48665, killed = false, isWq = false, name = "Tar Spitter", searchTerms = { "spitter" }},
-        { searchResults = 0, questId = 48664, killed = false, isWq = false, name = "Tereck the Selector", searchTerms = { "tereck",}},
-        { searchResults = 0, questId = 48629, killed = false, isWq = false, name = "Vagath the Betrayed", searchTerms = { "vagath" }},
+        { searchResults = 0, questId = 48564, killed = false, isWq = false, name = "Commander Endaxis", searchTerm = "endax" },
+        { searchResults = 0, questId = 48562, killed = false, isWq = false, name = "Commander Sathrenael", searchTerm = "sathr" },
+        { searchResults = 0, questId = 48563, killed = false, isWq = false, name = "Commander Vecaya", searchTerm = "vecay" },
+        { searchResults = 0, questId = 48666, killed = false, isWq = false, name = "Imp Mother Laglath", searchTerm = "lagla" },
+        { searchResults = 0, questId = 48561, killed = false, isWq = false, name = "Khazaduum", searchTerm = "khaza" },
+        { searchResults = 0, questId = 48667, killed = false, isWq = false, name = "Naroua", searchTerm = "narou" },
+        { searchResults = 0, questId = 48627, killed = false, isWq = false, name = "Siegemaster Voraan", searchTerm = "voraan" },
+        { searchResults = 0, questId = 48565, killed = false, isWq = false, name = "Sister Subversia", searchTerm = "subver" },
+        { searchResults = 0, questId = 48628, killed = false, isWq = false, name = "Talestra the Vile", searchTerm = "talest" },
+        { searchResults = 0, questId = 48665, killed = false, isWq = false, name = "Tar Spitter", searchTerm = "spitter" },
+        { searchResults = 0, questId = 48664, killed = false, isWq = false, name = "Tereck the Selector", searchTerm = "tereck" },
+        { searchResults = 0, questId = 48629, killed = false, isWq = false, name = "Vagath the Betrayed", searchTerm = "vagath" },
    },
     antoranWastes = {
-        { searchResults = 0, questId = 48817, killed = false, isWq = false, name = "Admiral Rel'var", searchTerms = { "rel'var" }},
-        { searchResults = 0, questId = 48818, killed = false, isWq = false, name = "All-Seer Xanarian", searchTerms = { "xanari "}},
-        { searchResults = 0, questId = 49183, killed = false, isWq = false, name = "Blistermaw", searchTerms = { "blister" }},
-        { searchResults = 0, questId = 48865, killed = false, isWq = false, name = "Chief Alchemist Munculus", searchTerms = { "muncu" }},
-        { searchResults = 0, questId = 48816, killed = false, isWq = false, name = "Commander Texlaz", searchTerms = { "texla" }},
-        { searchResults = 0, questId = 48968, killed = false, isWq = false, name = "Doomcaster Suprax", searchTerms = { "supra" }},
-        { searchResults = 0, questId = 49241, killed = false, isWq = false, name = "Gar'zoth", searchTerms = { "zoth" }},
-        { searchResults = 0, questId = 48821, killed = false, isWq = false, name = "Houndmaster Kerrax", searchTerms = { "kerra" }},
-        { searchResults = 0, questId = 48815, killed = false, isWq = false, name = "Inquisitor Vethroz", searchTerms = { "vethroz" }},
-        { searchResults = 0, questId = 48813, killed = false, isWq = false, name = "Lieutenant Xakaar", searchTerms = { "xaka" }},
-        { searchResults = 0, questId = 49240, killed = false, isWq = false, name = "Mistress Il'thendra", searchTerms = { "thendr" }},
-        { searchResults = 0, questId = 48970, killed = false, isWq = false, name = "Mother Rosula", searchTerms = { "rosul" }},
-        { searchResults = 0, questId = 48809, killed = false, isWq = false, name = "Puscilla", searchTerms = { "pusc" }},
-        { searchResults = 0, questId = 48971, killed = false, isWq = false, name = "Rezira the Seer", searchTerms = { "rezi" }},
-        { searchResults = 0, questId = 48967, killed = false, isWq = false, name = "Squadron Commander Vishax", searchTerms = { "vishax" }},
-        { searchResults = 0, questId = 48966, killed = false, isWq = false, name = "The Many-Faced Devourer", searchTerms = { "faced" }},
-        { searchResults = 0, questId = 48812, killed = false, isWq = false, name = "Varga", searchTerms = { "varga" }},
-        { searchResults = 0, questId = 48811, killed = false, isWq = false, name = "Ven'orn", searchTerms = { "ven'orn" }},
-        { searchResults = 0, questId = 48824, killed = false, isWq = false, name = "Void Warden Valsuran", searchTerms = { "valsur" }},
-        { searchResults = 0, questId = 48810, killed = false, isWq = false, name = "Vrax'thul", searchTerms = { "vrax" }},
-        { searchResults = 0, questId = 48822, killed = false, isWq = false, name = "Watcher Aival", searchTerms = { "aival" }},
-        { searchResults = 0, questId = 48820, killed = false, isWq = false, name = "Worldsplitter Skuul", searchTerms = { "skuul" }},
-        { searchResults = 0, questId = 48814, killed = false, isWq = false, name = "Wrath-Lord Yarez", searchTerms = { "yarez" }},
+        { searchResults = 0, questId = 48817, killed = false, isWq = false, name = "Admiral Rel'var", searchTerm = "rel'var" },
+        { searchResults = 0, questId = 48818, killed = false, isWq = false, name = "All-Seer Xanarian", searchTerm = "xanari" },
+        { searchResults = 0, questId = 49183, killed = false, isWq = false, name = "Blistermaw", searchTerm = "blister" },
+        { searchResults = 0, questId = 48865, killed = false, isWq = false, name = "Chief Alchemist Munculus", searchTerm = "muncu" },
+        { searchResults = 0, questId = 48816, killed = false, isWq = false, name = "Commander Texlaz", searchTerm = "texla" },
+        { searchResults = 0, questId = 48968, killed = false, isWq = false, name = "Doomcaster Suprax", searchTerm = "supra" },
+        { searchResults = 0, questId = 49241, killed = false, isWq = false, name = "Gar'zoth", searchTerm = "zoth" },
+        { searchResults = 0, questId = 48821, killed = false, isWq = false, name = "Houndmaster Kerrax", searchTerm = "kerra" },
+        { searchResults = 0, questId = 48815, killed = false, isWq = false, name = "Inquisitor Vethroz", searchTerm = "vethroz" },
+        { searchResults = 0, questId = 48813, killed = false, isWq = false, name = "Lieutenant Xakaar", searchTerm = "xaka" },
+        { searchResults = 0, questId = 49240, killed = false, isWq = false, name = "Mistress Il'thendra", searchTerm = "thendr" },
+        { searchResults = 0, questId = 48970, killed = false, isWq = false, name = "Mother Rosula", searchTerm = "rosul" },
+        { searchResults = 0, questId = 48809, killed = false, isWq = false, name = "Puscilla", searchTerm = "pusc" },
+        { searchResults = 0, questId = 48971, killed = false, isWq = false, name = "Rezira the Seer", searchTerm = "rezi" },
+        { searchResults = 0, questId = 48967, killed = false, isWq = false, name = "Squadron Commander Vishax", searchTerm = "vishax" },
+        { searchResults = 0, questId = 48966, killed = false, isWq = false, name = "The Many-Faced Devourer", searchTerm = "faced" },
+        { searchResults = 0, questId = 48812, killed = false, isWq = false, name = "Varga", searchTerm = "varga" },
+        { searchResults = 0, questId = 48811, killed = false, isWq = false, name = "Ven'orn", searchTerm = "ven'orn" },
+        { searchResults = 0, questId = 48824, killed = false, isWq = false, name = "Void Warden Valsuran", searchTerm = "valsur" },
+        { searchResults = 0, questId = 48810, killed = false, isWq = false, name = "Vrax'thul", searchTerm = "vrax" },
+        { searchResults = 0, questId = 48822, killed = false, isWq = false, name = "Watcher Aival", searchTerm = "aival" },
+        { searchResults = 0, questId = 48820, killed = false, isWq = false, name = "Worldsplitter Skuul", searchTerm = "skuul" },
+        { searchResults = 0, questId = 48814, killed = false, isWq = false, name = "Wrath-Lord Yarez", searchTerm = "yarez" },
    },
     macAree = {
-        { searchResults = 0, questId = 48709, killed = false, isWq = false, name = "Ataxon", searchTerms = { "atax" }},
-        { searchResults = 0, questId = 48700, killed = false, isWq = false, name = "Baruut the Bloodthirsty", searchTerms = { "baruut" }},
-        { searchResults = 0, questId = 48707, killed = false, isWq = false, name = "Captain Faruq", searchTerms = { "faruq" }},
-        { searchResults = 0, questId = 48720, killed = false, isWq = false, name = "Commander Xethgar", searchTerms = { "xeth" }},
-        { searchResults = 0, questId = 48702, killed = false, isWq = false, name = "Feasel the Muffin Thief", searchTerms = { "feasel" }},
-        { searchResults = 0, questId = 48711, killed = false, isWq = false, name = "Herald of Chaos", searchTerms = { "herald" }},
-        { searchResults = 0, questId = 48718, killed = false, isWq = false, name = "Instructor Tarahna", searchTerms = { "tarah" }},
-        { searchResults = 0, questId = 48713, killed = false, isWq = false, name = "Jed'hin Champion Vorusk", searchTerms = { "vorusk" }},
-        { searchResults = 0, questId = 48697, killed = false, isWq = false, name = "Kaara the Pale", searchTerms = { "kaara" }},
-        { searchResults = 0, questId = 48714, killed = false, isWq = false, name = "Overseer Y'Beda", searchTerms = { "beda" }},
-        { searchResults = 0, questId = 48717, killed = false, isWq = false, name = "Overseer Y'Morna", searchTerms = { "morna" }}, --jens :'D
-        { searchResults = 0, questId = 48716, killed = false, isWq = false, name = "Overseer Y'Sorna", searchTerms = { "sorna" }},
-        { searchResults = 0, questId = 48712, killed = false, isWq = false, name = "Sabuul", searchTerms = { "sabuul" }},
-        { searchResults = 0, questId = 48692, killed = false, isWq = false, name = "Shadowcaster Voruun", searchTerms = { "voruun" }},
-        { searchResults = 0, questId = 48721, killed = false, isWq = false, name = "Skreeg the Devourer", searchTerms = { "skreeg" }},
-        { searchResults = 0, questId = 48935, killed = false, isWq = false, name = "Slithon the Last", searchTerms = { "slithon" }},
-        { searchResults = 0, questId = 48710, killed = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerms = { "sorolis" }},
-        { searchResults = 0, questId = 48693, killed = false, isWq = false, name = "Soultwisted Monstrosity", searchTerms = { "monstros" }},
-        { searchResults = 0, questId = 48706, killed = false, isWq = false, name = "Turek the Lucid", searchTerms = { "turek" }},
-        { searchResults = 0, questId = 48708, killed = false, isWq = false, name = "Umbraliss", searchTerms = { "umbrali" }},
-        { searchResults = 0, questId = 48705, killed = false, isWq = false, name = "Venomtail Skyfin", searchTerms = { "venomt" }},
-        { searchResults = 0, questId = 48704, killed = false, isWq = false, name = "Vigilant Kuro", searchTerms = { "kuro" }},
-        { searchResults = 0, questId = 48703, killed = false, isWq = false, name = "Vigilant Thanos", searchTerms = { "thanos" }},
-        { searchResults = 0, questId = 48695, killed = false, isWq = false, name = "Wrangler Kravos", searchTerms = { "kravos" }},
-        { searchResults = 0, questId = 48719, killed = false, isWq = false, name = "Zul'tan the Numerous", searchTerms = { "zul'tan" }},
+        { searchResults = 0, questId = 48709, killed = false, isWq = false, name = "Ataxon", searchTerm = "atax" },
+        { searchResults = 0, questId = 48700, killed = false, isWq = false, name = "Baruut the Bloodthirsty", searchTerm = "baruut" },
+        { searchResults = 0, questId = 48707, killed = false, isWq = false, name = "Captain Faruq", searchTerm = "faruq" },
+        { searchResults = 0, questId = 48720, killed = false, isWq = false, name = "Commander Xethgar", searchTerm = "xeth" },
+        { searchResults = 0, questId = 48702, killed = false, isWq = false, name = "Feasel the Muffin Thief", searchTerm = "feasel" },
+        { searchResults = 0, questId = 48711, killed = false, isWq = false, name = "Herald of Chaos", searchTerm = "herald" },
+        { searchResults = 0, questId = 48718, killed = false, isWq = false, name = "Instructor Tarahna", searchTerm = "tarah" },
+        { searchResults = 0, questId = 48713, killed = false, isWq = false, name = "Jed'hin Champion Vorusk", searchTerm = "vorusk" },
+        { searchResults = 0, questId = 48697, killed = false, isWq = false, name = "Kaara the Pale", searchTerm = "kaara" },
+        { searchResults = 0, questId = 48714, killed = false, isWq = false, name = "Overseer Y'Beda", searchTerm = "beda" },
+        { searchResults = 0, questId = 48717, killed = false, isWq = false, name = "Overseer Y'Morna", searchTerm = "morna" }, --jens :'D
+        { searchResults = 0, questId = 48716, killed = false, isWq = false, name = "Overseer Y'Sorna", searchTerm = "sorna" },
+        { searchResults = 0, questId = 48712, killed = false, isWq = false, name = "Sabuul", searchTerm = "sabuul" },
+        { searchResults = 0, questId = 48692, killed = false, isWq = false, name = "Shadowcaster Voruun", searchTerm = "voruun" },
+        { searchResults = 0, questId = 48721, killed = false, isWq = false, name = "Skreeg the Devourer", searchTerm = "skreeg" },
+        { searchResults = 0, questId = 48935, killed = false, isWq = false, name = "Slithon the Last", searchTerm = "slithon" },
+        { searchResults = 0, questId = 48710, killed = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerm = "sorolis" },
+        { searchResults = 0, questId = 48693, killed = false, isWq = false, name = "Soultwisted Monstrosity", searchTerm = "monstros" },
+        { searchResults = 0, questId = 48706, killed = false, isWq = false, name = "Turek the Lucid", searchTerm = "turek" },
+        { searchResults = 0, questId = 48708, killed = false, isWq = false, name = "Umbraliss", searchTerm = "umbrali" },
+        { searchResults = 0, questId = 48705, killed = false, isWq = false, name = "Venomtail Skyfin", searchTerm = "venomt" },
+        { searchResults = 0, questId = 48704, killed = false, isWq = false, name = "Vigilant Kuro", searchTerm = "kuro" },
+        { searchResults = 0, questId = 48703, killed = false, isWq = false, name = "Vigilant Thanos", searchTerm = "thanos" },
+        { searchResults = 0, questId = 48695, killed = false, isWq = false, name = "Wrangler Kravos", searchTerm = "kravos" },
+        { searchResults = 0, questId = 48719, killed = false, isWq = false, name = "Zul'tan the Numerous", searchTerm = "zul'tan" },
     }
 }
 
 -- /run print(GetCurrentMapAreaID())
-local aet = CreateFrame("frame", "ArgusEliteTrackerFrames", UIParent)
+ aet = CreateFrame("frame", "ArgusEliteTrackerFrames", UIParent)
 local events = {}
 local zoneIds = { krokuun = 1135, antoranWastes = 1171, macAree = 1170 }
 local selectedZone = zones.krokuun
 local selectedZoneName = "krokuun"
 
+aet.groups = {
+    -- groupId = { elite }
+}
+
+aet.groupsIgnored = {}
 
 
 local function setEliteNa(elite)
@@ -109,17 +114,6 @@ local function resetAll()
         end
     end
 end
-
-
--- local function updateArgusEliteTrackerFrame()
---     local height = (#selectedZone * 15) + 50
-
---     aet.elitesContainer:SetHeight(height)
---     for i, elite in ipairs(selectedZone) do
---         elite.button:Show()
---         elite.status:Show()
---     end
--- end
 
 
 local function updateEliteStatus(elite)
@@ -168,16 +162,12 @@ local function HideFiltered()
         if ArgusEliteTrackerConfig.onlyShowElitesWithGroups then
             if elite.searchResults < 1 then
                 hideElite(elite)
-                -- elite.hidden = true
-                -- numberOfHidden = numberOfHidden + 1
             end
         end
 
         if ArgusEliteTrackerConfig.hideKilledElites == true then
             if elite.killed then
                 hideElite(elite)
-                -- elite.hidden = true
-                -- numberOfHidden = numberOfHidden + 1
             end
         end
 
@@ -201,15 +191,6 @@ local function HideFiltered()
                         end
                         elite.hidden = false
                     end
-                -- else
-                --     if ArgusEliteTrackerConfig.hideKilledElites then
-                --         if elite.hidden then
-                --             if hideElite(elite) then
-                --                 numberOfHidden = numberOfHidden - 1
-                --                 elite.hidden = false
-                --             end
-                --         end
-                --     end
                 end
             end
         end
@@ -222,8 +203,6 @@ end
 
 -- You're my man
 function updateArgusEliteTrackerFrame()
-    local yOffset = 15
-
     numberOfHidden = HideFiltered()
     local height = ((#selectedZone - numberOfHidden) * 15) + 50
     aet.elitesContainer:SetHeight(height)
@@ -232,15 +211,13 @@ function updateArgusEliteTrackerFrame()
 
     for i, elite in ipairs(selectedZone) do
 
+        local yOffset = -25 + (-(visibleCounter * 15))
+
         if not elite.hidden then
-            elite.button:SetPoint("topleft", aet.elitesContainer, "topleft", 10, -25 + (-(visibleCounter * yOffset)))
-            elite.status:SetPoint("topright", aet.elitesContainer, "topright", -10, -25 + (-(visibleCounter * yOffset)))
-            elite.button:Show()
-            elite.status:Show()
+            elite:Show(yOffset)
             visibleCounter = visibleCounter + 1
         else
-            elite.button:Hide()
-            elite.status:Hide()
+            elite:Hide()
         end
         updateEliteStatus(elite)
     end
@@ -262,15 +239,13 @@ local function playerIsOnArgus()
         if currentMapId == 1184 then onArgus = true end
     end
 
-    -- debug("On Argus: ", onArgus)
     return onArgus
 end
 
 
 local function hideZone(zone)
     for i, elite in ipairs(zones[zone]) do
-        elite.button:Hide()
-        elite.status:Hide()
+        elite:Hide()
     end
 end
 
@@ -342,6 +317,16 @@ local function updateWorldQuestsForAllArgusZones()
 end
 
 
+local function resetAllGroups()
+
+    for name, _ in pairs(zones) do
+        for _, elite in pairs(zones[name]) do
+            table.wipe(elite.groups)
+        end
+    end
+end
+
+
 ------------------------------------
 --  Search all groups
 ------------------------------------
@@ -353,6 +338,8 @@ local searchForSecondsAll = 5
 local function searchForAllGroupsCallback()
 
     updateWorldQuestsForAllArgusZones()
+    resetAllGroups()
+
     local numResults, resultTable = C_LFGList.GetSearchResults()
      -- Blizzard wut, resultTable has a limit of 100,
      -- but numResults shows over 100 results was found (highest I had was 180 something)
@@ -362,7 +349,9 @@ local function searchForAllGroupsCallback()
     for id = 1, #resultTable do
         local resultId = resultTable[id]
 
-        local _, _, groupName, _, _, _, _, _, _, _, _, _, _, _ = C_LFGList.GetSearchResultInfo(resultId)
+        local  id, activityId, groupName, comment, voiceChat, iLvl,
+                honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted = C_LFGList.GetSearchResultInfo(resultId);
+        
         groupName = groupName:lower()
 
         for name, _ in pairs(zones) do
@@ -373,12 +362,13 @@ local function searchForAllGroupsCallback()
                     setEliteNa(elite)
                 end
 
-                for searchTermIndex = 1, #elite.searchTerms do
-                    if groupName:find(elite.searchTerms[searchTermIndex]) then
-                        elite.searchResults = elite.searchResults + 1
-                        break
-                    end
+                if groupName:find(elite.searchTerm) and not isDelisted then
+                    aet.groups[id] = elite
+                    elite.groups[id] = { id = id, age = age }
+                    elite.searchResults = elite.searchResults + 1
+                    break
                 end
+
                 updateEliteStatus(elite)
             end
         end
@@ -424,19 +414,27 @@ local function updateSearchedElite(elite)
     elite.searchResults = 0
     local numResults, resultTable = C_LFGList.GetSearchResults()
 
+    debug("returned: " .. tostring(#resultTable))
+
     for id = 1, #resultTable do
         local resultId = resultTable[id]
 
-        local _, _, groupName, _, _, _, _, _, _, _, _, _, _, _ = C_LFGList.GetSearchResultInfo(resultId)
+        local id, activityId, groupName, comment, voiceChat, iLvl, honorLevel,
+            age, numBNetFriends, numCharFriends, numGuildMates, isDelisted = C_LFGList.GetSearchResultInfo(resultId);
+
         groupName = groupName:lower()
+        debug(groupName)
+        debug(groupName .. " is delisted: " .. tostring(isDelisted))
         
-        for i = 1, #elite.searchTerms do
-            if groupName:find(elite.searchTerms[i]) then
-                elite.searchResults = elite.searchResults + 1
-                break
-            end
+        if groupName:find(elite.searchTerm) and not isDelisted then
+            aet.groups[id] = elite
+            elite.groups[id] = { id = id, age = age }
+            elite.searchResults = elite.searchResults + 1
         end
     end
+
+    debug(elite.searchResults)
+
     updateEliteStatus(elite)
 end
 
@@ -467,8 +465,7 @@ local function searchForGroup(elite)
     end
 
     local languages = C_LFGList.GetLanguageSearchFilter()
-    C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(elite.searchTerms[1]), 0, 0, languages)
-    -- C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""))
+    C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(elite.searchTerm), 0, 0, languages)
     disableAllButtons()
     elite.button:SetScript("OnUpdate", onUpdate)
 end
@@ -486,8 +483,6 @@ end
 -- LFGList.lua l884
 -- if(C_LFGList.CreateListing(activityID, name, itemLevel, honorLevel, voiceChatInfo, description, autoAccept, privateGroup, questID)) then
 
-
-
 local function initiateZones()
 
     -- C_Timer.After(5, function() debug("initiateZones called") end)
@@ -503,18 +498,39 @@ local function initiateZones()
             local buttonText = elite.name
 
             elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
+            elite.groups = {}
             -- debug(elite.name .. "is killed: " .. tostring(elite.killed))
+
+            -- elite.cButton = CreateFrame("button", nil, aet.elitesContainer)
+            -- elite.cButton:SetBackdrop(plainBackdrop)
+            -- elite.cButton:SetBackdropColor(0, 0, 0, 0)
+            -- elite.cButton:SetBackdropBorderColor(1, 1, 1, 0)
+            -- elite.cButton:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+            -- elite.cButton:SetSize(16, 16)
+            -- elite.cButton.Label = addonData:createLabel("C", 12, "CENTER", elite.cButton)
+
+            elite.jButton = CreateFrame("button", nil, aet.elitesContainer)
+            elite.jButton:SetBackdrop(plainBackdrop)
+            elite.jButton:SetBackdropColor(0, 0, 0, 0)
+            elite.jButton:SetBackdropBorderColor(1, 1, 1, 0)
+            elite.jButton:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+            elite.jButton:SetSize(35, 16)
+            elite.jButton.Label = addonData:createLabel("Join", 12, "CENTER", elite.jButton)
+            elite.jButton.elite = elite
+            elite.jButton:SetScript("OnClick", function(self) 
+                debug("FAEN")
+                self.elite:ApplyToGroup()
+            end)
+
 
             elite.button = CreateFrame("button", nil, aet.elitesContainer)
             elite.button:SetBackdrop(plainBackdrop)
             elite.button:SetBackdropColor(0, 0, 0, 0)
             elite.button:SetBackdropBorderColor(1, 1, 1, 0)
             elite.button:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
-            elite.button:SetPoint("topleft", aet.elitesContainer, "topleft", 10, -25 + (-(i * yOffset)))
-            elite.button:SetSize(aet:GetWidth() - 20 - statusWidth - 10, 16)
+            elite.button:SetSize(aet:GetWidth() - 50 - statusWidth - 10, 16)
             elite.button.Label = addonData:createLabel(buttonText, 12, "CENTER", elite.button)
             elite.button.elite = elite
-            elite.button:Hide()
 
             if not elite.killed then
                 elite.button:SetScript("OnClick", initiateSearch)
@@ -525,10 +541,50 @@ local function initiateZones()
             elite.status:SetBackdropColor(0, 0, 0, 0)
             elite.status:SetBackdropBorderColor(1, 1, 1, 0)
             elite.status:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
-            elite.status:SetPoint("topright", aet.elitesContainer, "topright", -10, -25 + (-(i * yOffset)))
             elite.status:SetSize(statusWidth, 15)
             elite.status.Label = addonData:createLabel("N/A", 12, "CENTER", elite.status)
-            elite.status:Hide()
+
+            function elite:Hide()
+                -- self.cButton:Hide()
+                self.jButton:Hide()
+                self.button:Hide()
+                self.status:Hide()
+            end
+
+            function elite:Show(yOffset)
+
+                if yOffset ~= nil then
+                    -- elite.cButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
+                    elite.jButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
+                    elite.button:SetPoint("topleft", aet.elitesContainer, "topleft", 50, yOffset)
+                    elite.status:SetPoint("topright", aet.elitesContainer, "topright", -10, yOffset)
+                end
+
+                -- self.cButton:Show()
+                self.jButton:Show()
+                self.button:Show()
+                self.status:Show()
+            end
+
+            function elite:ApplyToGroup()
+                debug(self.name)
+                debug("number of groups : " .. tostring(#self.groups))
+
+                if #self.groups == 0 then
+                    self.searchResults = 0
+                    updateArgusEliteTrackerFrame()
+                else
+                    for _, v in pairs(self.groups) do
+                        if not v.applied then 
+                            C_LFGList.ApplyToGroup(v.id, "Joined from ArgusEliteTracker", true, true, true);
+                            v.applied = true
+                            break
+                        end
+                    end
+                end
+            end
+
+            elite:Hide()
 
             if elite.killed or elite.isWq then
                 updateEliteStatus(elite)
@@ -541,8 +597,6 @@ local function initiateZones()
     -- This will cause an ADDON_ACTION_BLOCKED event (because it didn't originate from a user hardware click?)
     -- searchForAll()
 end
-
-
 
 
 ---------------------------------------------
@@ -736,13 +790,6 @@ function createArgusEliteTrackerFrames()
     aet.Close:SetScript("OnClick", function()
         aet:Hide()
         ArgusEliteTrackerConfig.closed = true
-
-        -- if playerIsOnArgus() then
-        --     ArgusEliteTrackerConfig.aetHiddenWhileOnArgus = true
-        -- else
-        --     ArgusEliteTrackerConfig.aetHiddenWhileOnArgus = false
-        -- end 
-
         debug("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
     end)
 
@@ -768,19 +815,11 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
     if string.upper(argument) == "HIDE" then
         debug("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
         ArgusEliteTrackerConfig.closed = true
-        -- if playerIsOnArgus() then
-        --     ArgusEliteTrackerConfig.aetHiddenWhileOnArgus = ArgusEliteTrackerConfig.aetHidden
-        -- end
-
         aet:Hide()
     end
     if string.upper(argument) == "SHOW" then
         debug("Argus Elite Tracker is |cFF00FF00visible|r|cFFFFFF00.")
         ArgusEliteTrackerConfig.closed = false
-        -- if playerIsOnArgus() then
-        --     ArgusEliteTrackerConfig.aetHiddenWhileOnArgus = ArgusEliteTrackerConfig.aetHidden
-        -- end
-
         aet:Show()
     end
     if string.upper(argument) == "TOGGLE" then
@@ -793,10 +832,6 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
             aet:Show()
             ArgusEliteTrackerConfig.closed = false
         end
-
-        -- if playerIsOnArgus() then
-        --     ArgusEliteTrackerConfig.aetHiddenWhileOnArgus = ArgusEliteTrackerConfig.aetHidden
-        -- end
     end
     if string.upper(argument) == "OPTIONS" or string.upper(argument) == "CONFIG" then
         InterfaceOptionsFrame_OpenToCategory(addonData.configPanel)
@@ -805,10 +840,7 @@ end
 
 
 function afterPlayerEnteredWorld()
-    -- if ArgusEliteTrackerConfig.aetHiddenWhileOnArgus then return end
     local onArgus = playerIsOnArgus()
-
-    
 
     if ArgusEliteTrackerConfig.closed == true then
         ArgusEliteTrackerConfig.closed = true
@@ -826,7 +858,6 @@ function afterPlayerEnteredWorld()
         aet.elitesContainer:Show()
     end
 
-
     if onArgus then
         if ArgusEliteTrackerConfig.autoOpenOnArgus then
             aet:Show()
@@ -836,31 +867,6 @@ function afterPlayerEnteredWorld()
             aet.Minimize:SetText("-")
         end
     end
-
-    -- if (onArgus and ArgusEliteTrackerConfig.autoOpenOnArgus) or (ArgusEliteTrackerConfig.closed == false) then
-    --     if ArgusEliteTrackerConfig.autoOpenOnArgus then
-    --         aet.elitesContainer:Show()
-    --     end
-
-    --     if ArgusEliteTrackerConfig.minimized and onArgus then
-    --         ArgusEliteTrackerConfig.minimized = false
-    --         aet.elitesContainer:Show()
-    --     end
-
-    --     ArgusEliteTrackerConfig.closed = false
-    --     aet:Show()
-    -- else
-    --     ArgusEliteTrackerConfig.closed = true
-    --     aet:Hide()
-    -- end
-
-    
-
-    -- if ArgusEliteTrackerConfig.minimized == true then
-    --     aet.elitesContainer:Hide()
-    -- else
-    --     aet.elitesContainer:Show()
-    -- end
 end
 
 
@@ -872,11 +878,63 @@ function events:PLAYER_ENTERING_WORLD(...)
 end
 
 
+local function removeGroup(id)
+    if aet.groups[id] ~= nil then
+        elite = aet.groups[id]
+        debug("removing group " .. tostring(id) .. " from " .. elite.name)
+        elite.searchResults = elite.searchResults - 1
+        elite.groups[id] = nil
+        aet.groups[id] = nil
+        updateArgusEliteTrackerFrame()
+    end
+end
+
+
+function events:LFG_LIST_SEARCH_RESULT_UPDATED(...)
+    id = ...
+    local   id, activityId, groupName, comment, voiceChat, iLvl, honorLevel,
+            age, numBNetFriends, numCharFriends, numGuildMates, isDelisted = C_LFGList.GetSearchResultInfo(id);
+
+    if isDelisted then
+        if aet.groups[id] ~= nil then
+            removeGroup(id)
+            debug(tostring(id) .. " is DELISTED")
+        end
+    end
+end
+
+function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
+
+    local id, newStatus, oldStatus = ...
+    debug("newStatus: " .. newStatus, "oldStatus: " .. oldStatus)
+
+    if newStatus == "declined" then
+        removeGroup(id)
+    elseif newStatus == "declined_full" then
+        removeGroup(id)
+    elseif newStatus == "declined_delisted" then
+        removeGroup(id)
+    elseif newStatus == "timedout" then
+        removeGroup(id)
+    elseif newStatus == "invitedeclined" then
+        removeGroup(id)
+    elseif newStatus == "failed" then
+        removeGroup(id)
+    elseif newStatus == "cancelled" then
+        removeGroup(id)
+    elseif newStatus == "applied" then
+        debug("we applied")
+    elseif newStatus == "invited" then
+        debug("we were invited ^_^")
+    end
+end
+
 ---------------------------------------------
 --  Register events
 ---------------------------------------------
 
 aet:SetScript("OnEvent", function(self, event, ...)
+    -- debug("event: " .. event)
     events[event](self, ...)
 end)
 
