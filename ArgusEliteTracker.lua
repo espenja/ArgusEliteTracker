@@ -97,6 +97,7 @@ local events = {}
 local zoneIds = { krokuun = 1135, antoranWastes = 1171, macAree = 1170 }
 local selectedZone = zones.krokuun
 local selectedZoneName = "krokuun"
+local groupCreationActive = false
 
 aet.groups = {
     -- groupId = { elite }
@@ -269,10 +270,24 @@ local function disableAllButtons()
         for i, elite in pairs(zones[name]) do
             elite.button:EnableMouse(false)
             elite.button.Label:SetTextColor(1, 1, 1, 0.2)
+            elite.cButton:EnableMouse(false)
+            elite.cButton.Label:SetTextColor(1, 1, 1, 0.2)
+            elite.jButton:EnableMouse(false)
+            elite.jButton.Label:SetTextColor(1, 1, 1, 0.2)
         end
     end
 end
 
+local function disableGroupFunctionality()
+    for name,elites in pairs(zones) do
+        for i,elite in pairs(zones[name]) do
+            elite.cButton:EnableMouse(false)
+            elite.cButton.Label:SetTextColor(1, 1, 1, 0.2)
+            elite.jButton:EnableMouse(false)
+            elite.jButton.Label:SetTextColor(1, 1, 1, 0.2)
+        end
+    end
+end
 
 local function enableAllButtons()
     aet.SearchAll:EnableMouse(true)
@@ -282,6 +297,21 @@ local function enableAllButtons()
         for i, elite in pairs(zones[name]) do
             elite.button:EnableMouse(true)
             elite.button.Label:SetTextColor(1, 1, 1, 1)
+            elite.cButton:EnableMouse(true)
+            elite.cButton.Label:SetTextColor(1, 1, 1, 1)
+            elite.jButton:EnableMouse(true)
+            elite.jButton.Label:SetTextColor(1, 1, 1, 1)
+        end
+    end
+end
+
+local function enableGroupFunctionality()
+    for name,elites in pairs(zones) do
+        for i,elite in pairs(zones[name]) do
+            elite.cButton:EnableMouse(false)
+            elite.cButton.Label:SetTextColor(1, 1, 1, 1)
+            elite.jButton:EnableMouse(false)
+            elite.jButton.Label:SetTextColor(1, 1, 1, 1)
         end
     end
 end
@@ -534,7 +564,7 @@ local function initiateZones()
             elite.jButton:SetBackdropColor(0, 0, 0, 0)
             elite.jButton:SetBackdropBorderColor(1, 1, 1, 0)
             elite.jButton:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
-            elite.jButton:SetSize(35, 16)
+            elite.jButton:SetSize(40, 16)
             elite.jButton.Label = addonData:createLabel("Join", 12, "CENTER", elite.jButton)
             elite.jButton.elite = elite
             elite.jButton:SetScript("OnClick", function(self) 
@@ -594,6 +624,27 @@ local function initiateZones()
                 self.status:Show()
             end
 
+            function elite:Update()
+                if elite.killed then
+                    elite.button.Label:SetTextColor(1, 1, 1, 0.2)
+                    -- elite.button:EnableMouse(false)
+                    elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+                    elite.status.Label:SetText("Killed")
+                elseif elite.isWq then
+                    elite.button:EnableMouse(false)
+                    elite.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
+                    elite.status.Label:SetText("WQ")
+                else
+                    if elite.searchResults > 0 then
+                        elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+                        elite.status.Label:SetText("(" .. elite.searchResults .. ") YES")
+                    else
+                        elite.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
+                        elite.status.Label:SetText("(0) NO")
+                    end
+                end
+            end
+
             function elite:ApplyToGroup()
                 local any = false
 
@@ -618,7 +669,7 @@ local function initiateZones()
                 debug(self.name)
 
                 if(C_LFGList.CreateListing(16, "fictive", 0, 0, "", self.name .. ". Group created with ArgusEliteTracker.", true, false)) then
-                    debug("WOOOOOOOOOOOOOOOOO")
+                    
                 else
                     debug("NOOOOOOO")
                 end
@@ -971,6 +1022,39 @@ function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
     elseif newStatus == "invited" then
         debug("we were invited ^_^")
     end
+end
+
+
+function updateGroupFunctionality()
+
+    local groupLeader = UnitIsGroupLeader("player")
+    groupCreationActive = select(1, C_LFGList.GetActiveEntryInfo())
+
+    debug("groupCreationActive: " .. tostring(groupCreationActive))
+
+    if groupCreationActive then
+        disableGroupFunctionality()
+    else
+        if (not IsInGroup()) or (UnitIsGroupLeader("player")) then
+            enableGroupFunctionality()
+        else
+            disableGroupFunctionality()
+        end
+    end
+
+    updateArgusEliteTrackerFrame()
+end
+
+function events:GROUP_LEFT(...)
+    updateGroupFunctionality()
+end
+
+function events:GROUP_JOINED(...)
+    updateGroupFunctionality()
+end
+
+function events:PARTY_LEADER_CHANGED(...)
+    updateGroupFunctionality()
 end
 
 ---------------------------------------------
