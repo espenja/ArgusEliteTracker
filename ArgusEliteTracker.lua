@@ -17,70 +17,70 @@ local plainBackdrop = {edgeFile = [[Interface\Buttons\WHITE8X8]], edgeSize = 0.7
 
 local zones = {
     krokuun = {
-        { searchResults = 0, questId = 48564, killed = false, isWq = false, name = "Commander Endaxis", searchTerm = "endax" },
-        { searchResults = 0, questId = 48562, killed = false, isWq = false, name = "Commander Sathrenael", searchTerm = "sathr" },
-        { searchResults = 0, questId = 48563, killed = false, isWq = false, name = "Commander Vecaya", searchTerm = "vecay" },
-        { searchResults = 0, questId = 48666, killed = false, isWq = false, name = "Imp Mother Laglath", searchTerm = "lagla" },
-        { searchResults = 0, questId = 48561, killed = false, isWq = false, name = "Khazaduum", searchTerm = "khaza" },
-        { searchResults = 0, questId = 48667, killed = false, isWq = false, name = "Naroua", searchTerm = "narou" },
-        { searchResults = 0, questId = 48627, killed = false, isWq = false, name = "Siegemaster Voraan", searchTerm = "voraan" },
-        { searchResults = 0, questId = 48565, killed = false, isWq = false, name = "Sister Subversia", searchTerm = "subver" },
-        { searchResults = 0, questId = 48628, killed = false, isWq = false, name = "Talestra the Vile", searchTerm = "talest" },
-        { searchResults = 0, questId = 48665, killed = false, isWq = false, name = "Tar Spitter", searchTerm = "spitter" },
-        { searchResults = 0, questId = 48664, killed = false, isWq = false, name = "Tereck the Selector", searchTerm = "tereck" },
-        { searchResults = 0, questId = 48629, killed = false, isWq = false, name = "Vagath the Betrayed", searchTerm = "vagath" },
+        { questId = 48564, name = "Commander Endaxis",          searchTerm = "endax" },
+        { questId = 48562, name = "Commander Sathrenael",       searchTerm = "sathr" },
+        { questId = 48563, name = "Commander Vecaya",           searchTerm = "vecay" },
+        { questId = 48666, name = "Imp Mother Laglath",         searchTerm = "lagla" },
+        { questId = 48561, name = "Khazaduum",                  searchTerm = "khaza" },
+        { questId = 48667, name = "Naroua",                     searchTerm = "narou" },
+        { questId = 48627, name = "Siegemaster Voraan",         searchTerm = "voraan" },
+        { questId = 48565, name = "Sister Subversia",           searchTerm = "subver" },
+        { questId = 48628, name = "Talestra the Vile",          searchTerm = "talest" },
+        { questId = 48665, name = "Tar Spitter",                searchTerm = "spitter" },
+        { questId = 48664, name = "Tereck the Selector",        searchTerm = "tereck" },
+        { questId = 48629, name = "Vagath the Betrayed",        searchTerm = "vagath" },
    },
     antoranWastes = {
-        { searchResults = 0, questId = 48817, killed = false, isWq = false, name = "Admiral Rel'var", searchTerm = "rel'var" },
-        { searchResults = 0, questId = 48818, killed = false, isWq = false, name = "All-Seer Xanarian", searchTerm = "xanari" },
-        { searchResults = 0, questId = 49183, killed = false, isWq = false, name = "Blistermaw", searchTerm = "blister" },
-        { searchResults = 0, questId = 48865, killed = false, isWq = false, name = "Chief Alchemist Munculus", searchTerm = "muncu" },
-        { searchResults = 0, questId = 48816, killed = false, isWq = false, name = "Commander Texlaz", searchTerm = "texla" },
-        { searchResults = 0, questId = 48968, killed = false, isWq = false, name = "Doomcaster Suprax", searchTerm = "supra" },
-        { searchResults = 0, questId = 49241, killed = false, isWq = false, name = "Gar'zoth", searchTerm = "zoth" },
-        { searchResults = 0, questId = 48821, killed = false, isWq = false, name = "Houndmaster Kerrax", searchTerm = "kerra" },
-        { searchResults = 0, questId = 48815, killed = false, isWq = false, name = "Inquisitor Vethroz", searchTerm = "vethroz" },
-        { searchResults = 0, questId = 48813, killed = false, isWq = false, name = "Lieutenant Xakaar", searchTerm = "xaka" },
-        { searchResults = 0, questId = 49240, killed = false, isWq = false, name = "Mistress Il'thendra", searchTerm = "thendr" },
-        { searchResults = 0, questId = 48970, killed = false, isWq = false, name = "Mother Rosula", searchTerm = "rosul" },
-        { searchResults = 0, questId = 48809, killed = false, isWq = false, name = "Puscilla", searchTerm = "pusc" },
-        { searchResults = 0, questId = 48971, killed = false, isWq = false, name = "Rezira the Seer", searchTerm = "rezi" },
-        { searchResults = 0, questId = 48967, killed = false, isWq = false, name = "Squadron Commander Vishax", searchTerm = "vishax" },
-        { searchResults = 0, questId = 48966, killed = false, isWq = false, name = "The Many-Faced Devourer", searchTerm = "faced" },
-        { searchResults = 0, questId = 48812, killed = false, isWq = false, name = "Varga", searchTerm = "varga" },
-        { searchResults = 0, questId = 48811, killed = false, isWq = false, name = "Ven'orn", searchTerm = "ven'orn" },
-        { searchResults = 0, questId = 48824, killed = false, isWq = false, name = "Void Warden Valsuran", searchTerm = "valsur" },
-        { searchResults = 0, questId = 48810, killed = false, isWq = false, name = "Vrax'thul", searchTerm = "vrax" },
-        { searchResults = 0, questId = 48822, killed = false, isWq = false, name = "Watcher Aival", searchTerm = "aival" },
-        { searchResults = 0, questId = 48820, killed = false, isWq = false, name = "Worldsplitter Skuul", searchTerm = "skuul" },
-        { searchResults = 0, questId = 48814, killed = false, isWq = false, name = "Wrath-Lord Yarez", searchTerm = "yarez" },
+        { questId = 48817, name = "Admiral Rel'var",            searchTerm = "rel'var" },
+        { questId = 48818, name = "All-Seer Xanarian",          searchTerm = "xanari" },
+        { questId = 49183, name = "Blistermaw",                 searchTerm = "blister" },
+        { questId = 48865, name = "Chief Alchemist Munculus",   searchTerm = "muncu" },
+        { questId = 48816, name = "Commander Texlaz",           searchTerm = "texla" },
+        { questId = 48968, name = "Doomcaster Suprax",          searchTerm = "supra" },
+        { questId = 49241, name = "Gar'zoth",                   searchTerm = "zoth" },
+        { questId = 48821, name = "Houndmaster Kerrax",         searchTerm = "kerra" },
+        { questId = 48815, name = "Inquisitor Vethroz",         searchTerm = "vethroz" },
+        { questId = 48813, name = "Lieutenant Xakaar",          searchTerm = "xaka" },
+        { questId = 49240, name = "Mistress Il'thendra",        searchTerm = "thendr" },
+        { questId = 48970, name = "Mother Rosula",              searchTerm = "rosul" },
+        { questId = 48809, name = "Puscilla",                   searchTerm = "pusc" },
+        { questId = 48971, name = "Rezira the Seer",            searchTerm = "rezi" },
+        { questId = 48967, name = "Squadron Commander Vishax",  searchTerm = "vishax" },
+        { questId = 48966, name = "The Many-Faced Devourer",    searchTerm = "faced" },
+        { questId = 48812, name = "Varga",                      searchTerm = "varga" },
+        { questId = 48811, name = "Ven'orn",                    searchTerm = "ven'orn" },
+        { questId = 48824, name = "Void Warden Valsuran",       searchTerm = "valsur" },
+        { questId = 48810, name = "Vrax'thul",                  searchTerm = "vrax" },
+        { questId = 48822, name = "Watcher Aival",              searchTerm = "aival" },
+        { questId = 48820, name = "Worldsplitter Skuul",        searchTerm = "skuul" },
+        { questId = 48814, name = "Wrath-Lord Yarez",           searchTerm = "yarez" },
    },
     macAree = {
-        { searchResults = 0, questId = 48709, killed = false, isWq = false, name = "Ataxon", searchTerm = "atax" },
-        { searchResults = 0, questId = 48700, killed = false, isWq = false, name = "Baruut the Bloodthirsty", searchTerm = "baruut" },
-        { searchResults = 0, questId = 48707, killed = false, isWq = false, name = "Captain Faruq", searchTerm = "faruq" },
-        { searchResults = 0, questId = 48720, killed = false, isWq = false, name = "Commander Xethgar", searchTerm = "xeth" },
-        { searchResults = 0, questId = 48702, killed = false, isWq = false, name = "Feasel the Muffin Thief", searchTerm = "feasel" },
-        { searchResults = 0, questId = 48711, killed = false, isWq = false, name = "Herald of Chaos", searchTerm = "herald" },
-        { searchResults = 0, questId = 48718, killed = false, isWq = false, name = "Instructor Tarahna", searchTerm = "tarah" },
-        { searchResults = 0, questId = 48713, killed = false, isWq = false, name = "Jed'hin Champion Vorusk", searchTerm = "vorusk" },
-        { searchResults = 0, questId = 48697, killed = false, isWq = false, name = "Kaara the Pale", searchTerm = "kaara" },
-        { searchResults = 0, questId = 48714, killed = false, isWq = false, name = "Overseer Y'Beda", searchTerm = "beda" },
-        { searchResults = 0, questId = 48717, killed = false, isWq = false, name = "Overseer Y'Morna", searchTerm = "morna" }, --jens :'D
-        { searchResults = 0, questId = 48716, killed = false, isWq = false, name = "Overseer Y'Sorna", searchTerm = "sorna" },
-        { searchResults = 0, questId = 48712, killed = false, isWq = false, name = "Sabuul", searchTerm = "sabuul" },
-        { searchResults = 0, questId = 48692, killed = false, isWq = false, name = "Shadowcaster Voruun", searchTerm = "voruun" },
-        { searchResults = 0, questId = 48721, killed = false, isWq = false, name = "Skreeg the Devourer", searchTerm = "skreeg" },
-        { searchResults = 0, questId = 48935, killed = false, isWq = false, name = "Slithon the Last", searchTerm = "slithon" },
-        { searchResults = 0, questId = 48710, killed = false, isWq = false, name = "Sorolis the Ill-Fated", searchTerm = "sorolis" },
-        { searchResults = 0, questId = 48693, killed = false, isWq = false, name = "Soultwisted Monstrosity", searchTerm = "monstros" },
-        { searchResults = 0, questId = 48706, killed = false, isWq = false, name = "Turek the Lucid", searchTerm = "turek" },
-        { searchResults = 0, questId = 48708, killed = false, isWq = false, name = "Umbraliss", searchTerm = "umbrali" },
-        { searchResults = 0, questId = 48705, killed = false, isWq = false, name = "Venomtail Skyfin", searchTerm = "venomt" },
-        { searchResults = 0, questId = 48704, killed = false, isWq = false, name = "Vigilant Kuro", searchTerm = "kuro" },
-        { searchResults = 0, questId = 48703, killed = false, isWq = false, name = "Vigilant Thanos", searchTerm = "thanos" },
-        { searchResults = 0, questId = 48695, killed = false, isWq = false, name = "Wrangler Kravos", searchTerm = "kravos" },
-        { searchResults = 0, questId = 48719, killed = false, isWq = false, name = "Zul'tan the Numerous", searchTerm = "zul'tan" },
+        { questId = 48709, name = "Ataxon",                     searchTerm = "atax" },
+        { questId = 48700, name = "Baruut the Bloodthirsty",    searchTerm = "baruut" },
+        { questId = 48707, name = "Captain Faruq",              searchTerm = "faruq" },
+        { questId = 48720, name = "Commander Xethgar",          searchTerm = "xeth" },
+        { questId = 48702, name = "Feasel the Muffin Thief",    searchTerm = "feasel" },
+        { questId = 48711, name = "Herald of Chaos",            searchTerm = "herald" },
+        { questId = 48718, name = "Instructor Tarahna",         searchTerm = "tarah" },
+        { questId = 48713, name = "Jed'hin Champion Vorusk",    searchTerm = "vorusk" },
+        { questId = 48697, name = "Kaara the Pale",             searchTerm = "kaara" },
+        { questId = 48714, name = "Overseer Y'Beda",            searchTerm = "beda" },
+        { questId = 48717, name = "Overseer Y'Morna",           searchTerm = "morna" }, --jens :'D
+        { questId = 48716, name = "Overseer Y'Sorna",           searchTerm = "sorna" },
+        { questId = 48712, name = "Sabuul",                     searchTerm = "sabuul" },
+        { questId = 48692, name = "Shadowcaster Voruun",        searchTerm = "voruun" },
+        { questId = 48721, name = "Skreeg the Devourer",        searchTerm = "skreeg" },
+        { questId = 48935, name = "Slithon the Last",           searchTerm = "slithon" },
+        { questId = 48710, name = "Sorolis the Ill-Fated",      searchTerm = "sorolis" },
+        { questId = 48693, name = "Soultwisted Monstrosity",    searchTerm = "monstros" },
+        { questId = 48706, name = "Turek the Lucid",            searchTerm = "turek" },
+        { questId = 48708, name = "Umbraliss",                  searchTerm = "umbrali" },
+        { questId = 48705, name = "Venomtail Skyfin",           searchTerm = "venomt" },
+        { questId = 48704, name = "Vigilant Kuro",              searchTerm = "kuro" },
+        { questId = 48703, name = "Vigilant Thanos",            searchTerm = "thanos" },
+        { questId = 48695, name = "Wrangler Kravos",            searchTerm = "kravos" },
+        { questId = 48719, name = "Zul'tan the Numerous",       searchTerm = "zul'tan" },
     }
 }
 
@@ -98,6 +98,10 @@ local zoneIds = { krokuun = 1135, antoranWastes = 1171, macAree = 1170 }
 local selectedZone = zones.krokuun
 local selectedZoneName = "krokuun"
 local groupCreationActive = false
+
+aet.quests = {
+    -- questId = elite
+}
 
 aet.groups = {
     -- groupId = { elite }
@@ -128,26 +132,30 @@ local function resetAll()
 end
 
 
-local function updateEliteStatus(elite)
-    if elite.killed then
-        elite.button.Label:SetTextColor(1, 1, 1, 0.2)
-        elite.button:EnableMouse(false)
-        elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
-        elite.status.Label:SetText("Killed")
-    elseif elite.isWq then
-        elite.button:EnableMouse(false)
-        elite.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
-        elite.status.Label:SetText("WQ")
-    else
-        if elite.searchResults > 0 then
-            elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
-            elite.status.Label:SetText("(" .. elite.searchResults .. ") YES")
-        else
-            elite.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
-            elite.status.Label:SetText("(0) NO")
-        end
-    end
-end
+-- local function updateEliteStatus(elite)
+--     if elite.killed then
+--         elite.button.Label:SetTextColor(1, 1, 1, 0.2)
+--         elite.button:EnableMouse(false)
+--         elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+--         elite.status.Label:SetText("Killed")
+--     elseif elite.isWq then
+--         elite.button:EnableMouse(false)
+--         elite.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
+--         elite.status.Label:SetText("WQ")
+--     else
+--         if elite.searchResults > 0 then
+--             elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+--             elite.status.Label:SetText("(" .. elite.searchResults .. ") YES")
+--         else
+--             elite.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
+--             elite.status.Label:SetText("(0) NO")
+--         end
+--     end
+
+--     if elite.jButton:IsVisible() then
+--         elite.jButton.Label:SetText("Join (" .. ")")
+--     end
+-- end
 
 
 local function HideFiltered()
@@ -215,6 +223,7 @@ end
 
 -- You're my man
 function updateArgusEliteTrackerFrame()
+    updateGroupFunctionality()
     numberOfHidden = HideFiltered()
     local height = ((#selectedZone - numberOfHidden) * 15) + 50
     aet.elitesContainer:SetHeight(height)
@@ -231,7 +240,7 @@ function updateArgusEliteTrackerFrame()
         else
             elite:Hide()
         end
-        updateEliteStatus(elite)
+        elite:Update()
     end
 end
 
@@ -308,10 +317,46 @@ end
 local function enableGroupFunctionality()
     for name,elites in pairs(zones) do
         for i,elite in pairs(zones[name]) do
-            elite.cButton:EnableMouse(false)
+            elite.cButton:EnableMouse(true)
             elite.cButton.Label:SetTextColor(1, 1, 1, 1)
-            elite.jButton:EnableMouse(false)
+            elite.jButton:EnableMouse(true)
             elite.jButton.Label:SetTextColor(1, 1, 1, 1)
+        end
+    end
+end
+
+local function disableJoinGroupFunctionality()
+    for name,elites in pairs(zones) do
+        for i,elites in pairs(zones[name]) do
+            elite.jButton:EnableMouse(false)
+            elite.jButton:SetTextColor(1, 1, 1, 0.2)
+        end
+    end
+end
+
+local function enableJoinGroupFunctionality()
+    for name,elites in pairs(zones) do
+        for i,elites in pairs(zones[name]) do
+            elite.jButton:EnableMouse(true)
+            elite.jButton:SetTextColor(1, 1, 1, 1)
+        end
+    end
+end
+
+local function disableCreateGroupFunctionality()
+    for name,elites in pairs(zones) do
+        for i,elites in pairs(zones[name]) do
+            elite.cButton:EnableMouse(false)
+            elite.cButton:SetTextColor(1, 1, 1, 0.2)
+        end
+    end
+end
+
+local function enableCreateGroupFunctionality()
+    for name,elites in pairs(zones) do
+        for i,elites in pairs(zones[name]) do
+            elite.cButton:EnableMouse(true)
+            elite.cButton:SetTextColor(1, 1, 1, 1)
         end
     end
 end
@@ -326,15 +371,17 @@ local function updateWorldQuests(elites, zoneId)
         for i, info in ipairs(taskInfo) do
             local questName = C_TaskQuest.GetQuestInfoByQuestID(info.questId)
             if questName ~= nil then
-                table.insert(worldQuestNames, questName)
+                table.insert(worldQuestNames, { questName = questName, questId = info.questId })
             end
         end
 
         for i, elite in ipairs(elites) do
             elite.isWq = false
+            elite.wqId = nil
             for index = 1, #worldQuestNames do
-                if worldQuestNames[index]:lower() == elite.name:lower() then
+                if worldQuestNames[index].questName:lower() == elite.name:lower() then
                     elite.isWq = true
+                    elite.wqId = worldQuestNames[index].questId
                 end
             end
         end
@@ -346,12 +393,8 @@ local function updateWorldQuestsForAllArgusZones()
     local currentMapOpen = GetCurrentMapAreaID()
 
     for name, elites in pairs(zones) do
-        if name == selectedZoneName then
-            last = name
-        else
-            local zoneId = zoneIds[name]
-            updateWorldQuests(elites, zoneId)
-        end
+        local zoneId = zoneIds[name]
+        updateWorldQuests(elites, zoneId)
     end
 
     SetMapByID(currentMapOpen)
@@ -394,6 +437,7 @@ local function searchForAllGroupsCallback()
                 honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted = C_LFGList.GetSearchResultInfo(resultId);
         
         groupName = groupName:lower()
+        local ageInMinutes = age / 60
 
         for name, _ in pairs(zones) do
             for _, elite in pairs(zones[name]) do
@@ -403,20 +447,22 @@ local function searchForAllGroupsCallback()
                     setEliteNa(elite)
                 end
 
-                if groupName:find(elite.searchTerm) and not isDelisted then
+                if groupName:find(elite.searchTerm) and not isDelisted and ageInMinutes < 5 then
                     aet.groups[id] = elite
                     elite.groups[id] = { id = id, age = age }
                     elite.searchResults = elite.searchResults + 1
-                    elite.groupCount = elite.groupCount + 1
+                    -- elite.groupCount = elite.groupCount + 1
                     break
                 end
 
-                updateEliteStatus(elite)
+                -- updateEliteStatus(elite)
+                elite:Update()
             end
         end
     end
 
     updateArgusEliteTrackerFrame()
+    -- updateGroupFunctionality()
 end
 
 
@@ -470,17 +516,21 @@ local function updateSearchedElite(elite)
         groupName = groupName:lower()
         debug(groupName)
         debug(groupName .. " is delisted: " .. tostring(isDelisted))
+
+        local ageInMinutes = age / 60
         
-        if groupName:find(elite.searchTerm) and not isDelisted then
+        if groupName:find(elite.searchTerm) and not isDelisted and ageInMinutes < 5 then
             aet.groups[id] = elite
             elite.groups[id] = { id = id, age = age }
             elite.searchResults = elite.searchResults + 1
-            elite.groupCount = elite.groupCount + 1
+            -- elite.groupCount = elite.groupCount + 1
         end
     end
 
     debug(elite.searchResults)
-    updateEliteStatus(elite)
+    -- updateEliteStatus(elite)
+    elite:Update()
+    updateArgusEliteTrackerFrame()
 end
 
 local secondCounter = 0
@@ -510,7 +560,16 @@ local function searchForGroup(elite)
     -- end
 
     local languages = C_LFGList.GetLanguageSearchFilter()
-    C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(elite.searchTerm), 0, 0, languages)
+
+    if elite.isWq and elite.wqId ~= nil then
+        C_LFGList.Search(1, LFGListSearchPanel_ParseSearchTerms(elite.searchTerm), 0, 0, languages)
+    else
+        C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(elite.searchTerm), 0, 0, languages)
+    end
+
+    debug(elite.searchTerm)
+
+    
     disableAllButtons()
     elite.button:SetScript("OnUpdate", onUpdate)
 end
@@ -542,9 +601,10 @@ local function initiateZones()
             local name = elite.name
             local buttonText = elite.name
 
+            elite.searchResults = 0
             elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
             elite.groups = {}
-            elite.groupCount = 0
+            -- elite.groupCount = 0
             -- debug(elite.name .. "is killed: " .. tostring(elite.killed))
 
             elite.cButton = CreateFrame("button", nil, aet.elitesContainer)
@@ -580,10 +640,7 @@ local function initiateZones()
             elite.button:SetSize(aet:GetWidth() - 50 - statusWidth - 10, 16)
             elite.button.Label = addonData:createLabel(buttonText, 12, "CENTER", elite.button)
             elite.button.elite = elite
-
-            if not elite.killed then
-                elite.button:SetScript("OnClick", initiateSearch)
-            end
+            elite.button:SetScript("OnClick", initiateSearch)
 
             elite.status = CreateFrame("Frame", nil, aet.elitesContainer)
             elite.status:SetBackdrop(plainBackdrop)
@@ -611,10 +668,12 @@ local function initiateZones()
 
                 -- self.cButton:Show()
 
-                if elite.groupCount > 0 then
+                -- if elite.groupCount > 0 then
+                if elite:GetGroupCount() > 0 then
                     self.jButton:Show()
                     self.cButton:Hide()
-                elseif elite.groupCount == 0 then
+                -- elseif elite.groupCount == 0 then
+                elseif elite:GetGroupCount() == 0 then
                     self.cButton:Show()
                     self.jButton:Hide()
                 end
@@ -624,6 +683,27 @@ local function initiateZones()
                 self.status:Show()
             end
 
+
+            function elite:GetGroupCount()
+                local counter = 0
+                for id, value in pairs(self.groups) do
+                    counter = counter + 1
+                end
+                return counter
+            end
+
+
+            function elite:GetApplied()
+                local counter = 0
+                for id, value in pairs(self.groups) do
+                    if value.applied then
+                        counter = counter + 1
+                    end
+                end
+
+                return counter
+            end
+
             function elite:Update()
                 if elite.killed then
                     elite.button.Label:SetTextColor(1, 1, 1, 0.2)
@@ -631,7 +711,7 @@ local function initiateZones()
                     elite.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
                     elite.status.Label:SetText("Killed")
                 elseif elite.isWq then
-                    elite.button:EnableMouse(false)
+                    -- elite.button:EnableMouse(false)
                     elite.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
                     elite.status.Label:SetText("WQ")
                 else
@@ -643,12 +723,37 @@ local function initiateZones()
                         elite.status.Label:SetText("(0) NO")
                     end
                 end
+
+                if elite.jButton:IsVisible() then
+                    local applied = self:GetApplied()
+                    local groupCount = self:GetGroupCount()
+                    -- elite.jButton.Label:SetText("Join " .. tostring(elite.groupCount-applied))
+                    debug("groupcount: " .. tostring(groupCount))
+                    elite.jButton.Label:SetText("Join " .. tostring(groupCount-applied))
+
+                    if groupCount - applied == 0 then
+                        elite.jButton.Label:SetTextColor(0.30, 0.91, 0.46, 0.7)
+                    elseif applied > 0 then
+                        elite.jButton.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+                    else
+                        elite.jButton.Label:SetTextColor(1, 1, 1, 1)
+                    end
+                end
             end
 
             function elite:ApplyToGroup()
+
+                debug("in here")
+
+                if C_LFGList.GetNumApplications() >= 5 then
+                    debug("Applied to too many groups")
+                    return
+                end
+
                 local any = false
 
                 for _, v in pairs(self.groups) do
+                    debug("in here too")
                     if not v.applied then 
                         C_LFGList.ApplyToGroup(v.id, "Joined from ArgusEliteTracker", true, true, true);
                         v.applied = true
@@ -657,28 +762,35 @@ local function initiateZones()
                     end
                 end
 
-                if not any then
-                    self.searchResults = 0
-                    updateArgusEliteTrackerFrame()
-                end
+                self:Update()
+                updateArgusEliteTrackerFrame()
             end
 
             function elite:CreateGroup()
-                local activityId = 16
+                -- LFGList.lua l884
                 -- C_LFGList.CreateListing(activityID, name, itemLevel, honorLevel, voiceChatInfo, description, autoAccept, privateGroup, questID)
                 debug(self.name)
 
-                if(C_LFGList.CreateListing(16, "fictive", 0, 0, "", self.name .. ". Group created with ArgusEliteTracker.", true, false)) then
-                    
+                if self.isWq and self.wqId ~= nil then
+                    local actityId = C_LFGList.GetActivityIDForQuestID(self.wqId)
+                    if(C_LFGList.CreateListing(activityId, "", 0, 0, "", self.name .. ". Group created with ArgusEliteTracker.", true, false, self.wqId)) then
+                    else
+                        debug("nOOoOooOoOo")
+                    end
                 else
-                    debug("NOOOOOOO")
+                    if(C_LFGList.CreateListing(16, self.name, 0, 0, "", self.name .. ". Group created with ArgusEliteTracker.", true, false)) then
+                        
+                    else
+                        debug("NOOOOOOO")
+                    end
                 end
             end
 
             elite:Hide()
 
             if elite.killed or elite.isWq then
-                updateEliteStatus(elite)
+                -- updateEliteStatus(elite)
+                elite:Update()
             else
                 setEliteNa(elite)                
             end
@@ -884,7 +996,14 @@ function createArgusEliteTrackerFrames()
         debug("Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00.")
     end)
 
+    for name, elites in pairs(zones) do
+        for i, elite in pairs(zones[name]) do
+            aet.quests[elite.questId] = elite
+        end
+    end
+
     initiateZones()
+    -- C_Timer.After(5, updateWorldQuestsForAllArgusZones)
     updateArgusEliteTrackerFrame()
 end
 
@@ -958,8 +1077,20 @@ function afterPlayerEnteredWorld()
             aet.Minimize:SetText("-")
         end
     end
+
+    updateArgusEliteTrackerFrame()
+    -- updateGroupFunctionality()
 end
 
+function events:QUEST_TURNED_IN(questId, experience, money)
+    debug("QUEST TURNED IN: " .. tostring(questId))
+    if aet.quests[questId] == nil then return end
+
+    debug("GOT HERE")
+    local elite = aet.quests[questId]
+    elite.killed = IsQuestFlaggedCompleted(elite.questId)
+    updateArgusEliteTrackerFrame()
+end
 
 function events:PLAYER_ENTERING_WORLD(...)
     debug("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
@@ -973,12 +1104,12 @@ local function removeGroup(id)
     if aet.groups[id] ~= nil then
         elite = aet.groups[id]
         -- debug("removing group " .. tostring(id) .. " from " .. elite.name)
-        elite.searchResults = elite.searchResults - 1
+        -- elite.searchResults = elite.searchResults - 1
         elite.groups[id] = nil
         aet.groups[id] = nil
-        elite.groupCount = elite.groupCount - 1
-
-        debug("group count: " .. elite.name .. ": " .. elite.groupCount)
+        -- elite.groupCount = elite.groupCount - 1
+        -- debug("group count: " .. elite.name .. ": " .. elite.groupCount)
+        debug("group count: " .. elite.name .. ": " .. tostring(elite:GetGroupCount()))
 
         updateArgusEliteTrackerFrame()
     end
@@ -1003,58 +1134,87 @@ function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
     local id, newStatus, oldStatus = ...
     -- debug("newStatus: " .. newStatus, "oldStatus: " .. oldStatus)
 
-    if newStatus == "declined" then
-        removeGroup(id)
-    elseif newStatus == "declined_full" then
-        removeGroup(id)
-    elseif newStatus == "declined_delisted" then
-        removeGroup(id)
-    elseif newStatus == "timedout" then
-        removeGroup(id)
-    elseif newStatus == "invitedeclined" then
-        removeGroup(id)
-    elseif newStatus == "failed" then
-        removeGroup(id)
-    elseif newStatus == "cancelled" then
-        removeGroup(id)
-    elseif newStatus == "applied" then
-        debug("we applied")
-    elseif newStatus == "invited" then
-        debug("we were invited ^_^")
+    if      newStatus == "declined"             then removeGroup(id)
+    elseif  newStatus == "declined_full"        then removeGroup(id)
+    elseif  newStatus == "declined_delisted"    then removeGroup(id)
+    elseif  newStatus == "timedout"             then removeGroup(id)
+    elseif  newStatus == "invitedeclined"       then removeGroup(id)
+    elseif  newStatus == "failed"               then removeGroup(id)
+    elseif  newStatus == "cancelled"            then removeGroup(id)
+    elseif  newStatus == "applied"              then debug("we applied")
+    elseif  newStatus == "invited"              then debug("we were invited ^_^")
     end
+    updateArgusEliteTrackerFrame()
 end
 
 
 function updateGroupFunctionality()
 
-    local groupLeader = UnitIsGroupLeader("player")
+    debug("updateGroupFunctionality called")
+    -- local groupLeader = UnitIsGroupLeader("player")
     groupCreationActive = select(1, C_LFGList.GetActiveEntryInfo())
-
-    debug("groupCreationActive: " .. tostring(groupCreationActive))
+    
 
     if groupCreationActive then
+        debug("groupCreationActive: " .. tostring(groupCreationActive))
         disableGroupFunctionality()
     else
-        if (not IsInGroup()) or (UnitIsGroupLeader("player")) then
-            enableGroupFunctionality()
+        if C_LFGList.IsCurrentlyApplying() then
+            debug("currently applying")
+            disableCreateGroupFunctionality()
+
+            if C_LFGList.GetNumApplications() >= 5 then
+                debug("listed for too many groups")
+                disableJoinGroupFunctionality()
+            else
+                if IsInGroup() then
+                    debug("we're in a group")
+                    if UnitIsGroupLeader("player") then
+                        debug("we are the leader")
+                        enableJoinGroupFunctionality()
+                    else
+                        debug("we are NOT the leader")
+                        disableJoinGroupFunctionality()
+                    end
+                else
+                    debug("we're not in a group")
+                    enableJoinGroupFunctionality()
+                end
+            end
         else
-            disableGroupFunctionality()
+            if IsInGroup() then
+                debug("we are in a group")
+                if UnitIsGroupLeader("player") then
+                    debug("we are the leader")
+                    enableGroupFunctionality()
+                else
+                    debug("we are not the leader")
+                    disableGroupFunctionality()
+                end
+            else
+                debug("we are not in a group")
+                debug("we got here")
+                enableGroupFunctionality()
+            end
         end
     end
 
-    updateArgusEliteTrackerFrame()
+    -- updateArgusEliteTrackerFrame()
 end
 
 function events:GROUP_LEFT(...)
-    updateGroupFunctionality()
+    -- updateGroupFunctionality()
+    updateArgusEliteTrackerFrame()
 end
 
 function events:GROUP_JOINED(...)
-    updateGroupFunctionality()
+    -- updateGroupFunctionality()
+    updateArgusEliteTrackerFrame()
 end
 
 function events:PARTY_LEADER_CHANGED(...)
-    updateGroupFunctionality()
+    -- updateGroupFunctionality()
+    updateArgusEliteTrackerFrame()
 end
 
 ---------------------------------------------
