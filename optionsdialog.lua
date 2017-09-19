@@ -69,7 +69,6 @@ configPanel:SetScript("OnEvent", function(self, event, arg1)
         buttonHideKilled:SetChecked(ArgusEliteTrackerConfig.hideKilledElites)
         buttonForceWorldQuests:SetChecked(ArgusEliteTrackerConfig.forceShowWorldQuestsIfNotKilled)
         -- buttonOnlySpecialElites:SetChecked(ArgusEliteTrackerConfig.onlyShowSpecialElites)
-
         createArgusEliteTrackerFrames()
     end
 end)
