@@ -556,12 +556,17 @@ local function initiateZones()
             end
 
             function elite:UpdateGroupButtons()
-                if self:GetGroupCount() > 0 then
-                    self.jButton:Show()
-                    self.cButton:Hide()
-                elseif self:GetGroupCount() == 0 then
-                    self.cButton:Show()
-                    self.jButton:Hide()
+
+                if elite.hidden then
+                    elite:Hide()
+                else
+                    if self:GetGroupCount() > 0 then
+                        self.jButton:Show()
+                        self.cButton:Hide()
+                    elseif self:GetGroupCount() == 0 then
+                        self.cButton:Show()
+                        self.jButton:Hide()
+                    end
                 end
             end
 
@@ -738,9 +743,9 @@ local function initiateZones()
                         self.jButton.Label:SetTextColor(1, 1, 1, 1)
                     end
                 end
-
-                self:UpdateGroupButtons()
                 self:UpdateGroups()
+                self:UpdateGroupButtons()
+                
             end
 
 
