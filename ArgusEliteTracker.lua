@@ -1,5 +1,5 @@
 local addonName, addonData = ...
-local debugging = true
+local debugging = false
 
 local function debug(...)
     if debugging then
@@ -1165,16 +1165,6 @@ function afterPlayerEnteredWorld()
 
     updateArgusEliteTrackerFrame()
 end
-
--- function events:QUEST_TURNED_IN(questId, experience, money)
---     debug("QUEST TURNED IN: " .. tostring(questId))
---     if aet.quests[questId] == nil then return end
-
---     debug("GOT HERE")
---     local elite = aet.quests[questId]
---     elite.killed = IsQuestFlaggedCompleted(elite.questId)
---     updateArgusEliteTrackerFrame()
--- end
 
 function events:PLAYER_ENTERING_WORLD(...)
     debug("|cFF00FF00" .. addonName .. "|r|cFFFFFFFF is loaded.")
