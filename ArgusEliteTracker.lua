@@ -8,9 +8,7 @@ local function debug(...)
 end
 
 
-local isLoaded = false
 local defaultFontName = "Fonts/FRIZQT__.TTF"
-local mainFrameBackgrop = nil
 local plainBackdrop = {edgeFile = [[Interface\Buttons\WHITE8X8]], edgeSize = 0.75, bgFile = [[Interface\Tooltips\UI-Tooltip-Background]], tileSize = 4, tile = false}
 
 local zones = {
@@ -469,7 +467,6 @@ local function updateSearchedElite(elite)
             age, numBNetFriends, numCharFriends, numGuildMates, isDelisted = C_LFGList.GetSearchResultInfo(resultId);
 
         groupName = groupName:lower()
-        -- debug(groupName .. " is delisted: " .. tostring(isDelisted))
 
         local ageInMinutes = age / 60
         
@@ -578,6 +575,19 @@ local function initiateZones()
             end)
 
 
+            elite.lButton = CreateFrame("button", nil, aet.elitesContainer)
+            elite.lButton:SetBackdrop(plainBackdrop)
+            elite.lButton:SetBackdropColor(0, 0, 0, 0)
+            elite.lButton:SetBackdropBorderColor(1, 1, 1, 0)
+            elite.lButton:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
+            elite.lButton:SetSize(40, 16)
+            elite.lButton.Label = addonData:createLabel("Leave", 12, "CENTER", elite.lButton)
+            elite.lButton.elite = elite
+            elite.lButton:SetScript("OnClick", function(self) 
+                self.elite:LeaveGroup()
+            end)
+
+
             elite.button = CreateFrame("button", nil, aet.elitesContainer)
             elite.button:SetBackdrop(plainBackdrop)
             elite.button:SetBackdropColor(0, 0, 0, 0)
@@ -601,29 +611,9 @@ local function initiateZones()
             function elite:Hide()
                 self.cButton:Hide()
                 self.jButton:Hide()
+                self.lButton:Hide()
                 self.button:Hide()
                 self.status:Hide()
-            end
-
-            function elite:UpdateGroupButtons()
-
-                if editMode then
-                    self.jButton:Hide()
-                    self.cButton:Hide()
-                    return
-                end
-
-                if elite.hidden then
-                    elite:Hide()
-                else
-                    if self:GetGroupCount() > 0 then
-                        self.jButton:Show()
-                        self.cButton:Hide()
-                    elseif self:GetGroupCount() == 0 then
-                        self.cButton:Show()
-                        self.jButton:Hide()
-                    end
-                end
             end
 
 
@@ -631,11 +621,13 @@ local function initiateZones()
                 if yOffset ~= nil then
                     self.cButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
                     self.jButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
+                    self.lButton:SetPoint("topleft", aet.elitesContainer, "topleft", 10, yOffset)
                     self.button:SetPoint("topleft", aet.elitesContainer, "topleft", 50, yOffset)
                     self.status:SetPoint("topright", aet.elitesContainer, "topright", -10, yOffset)
                 end
 
-                self:UpdateGroupButtons()
+                -- self:UpdateGroupButtons()
+                self:UpdateGroups()
                 self.button:Show()
                 self.status:Show()
             end
@@ -679,6 +671,7 @@ local function initiateZones()
 
 
             function elite:EnableCreateGroup()
+                if searching then return end
                 self.cButton:EnableMouse(true)
                 self.cButton.Label:SetTextColor(1, 1, 1, 1)
             end
@@ -690,12 +683,22 @@ local function initiateZones()
 
             function elite:EnableJoinGroup()
                 self.jButton:EnableMouse(true)
-                self.jButton.Label:SetTextColor(1, 1, 1, 1)
             end
 
             function elite:DisableJoinGroup()
                 self.jButton:EnableMouse(false)
                 self.jButton.Label:SetTextColor(1, 1, 1, 0.2)
+            end
+
+            function elite:EnableLeaveGroup()
+                if searching then return end
+                self.lButton:EnableMouse(true)
+                self.lButton.Label:SetTextColor(1, 1, 1, 1)
+            end
+
+            function elite:DisableLeaveGroup()
+                self.lButton:EnableMouse(false)
+                self.lButton.Label:SetTextColor(1, 1, 1, 0.2)
             end
 
             function elite:EnableCreateAndJoinGroup()
@@ -718,11 +721,17 @@ local function initiateZones()
 
             function elite:UpdateGroups()
                 self:RemoveInvalidGroups()
-                -- debug("updateGroupFunctionality called")
+
+                if editMode then
+                    self.jButton:Hide()
+                    self.cButton:Hide()
+                    self.lButton:Hide()
+                    return
+                end
+
                 groupCreationActive = select(1, C_LFGList.GetActiveEntryInfo())
 
                 if groupCreationActive then
-                    -- debug("groupCreationActive: " .. tostring(groupCreationActive))
                     self:DisableCreateAndJoinGroup()
                 else
                     if C_LFGList.IsCurrentlyApplying() then
@@ -759,17 +768,30 @@ local function initiateZones()
                             end
                         else
                             -- debug("we are not in a group")
-                            -- debug("we got here")
                             self:EnableCreateAndJoinGroup()
                         end
                     end
                 end
+
+                if self:GetGroupCount() > 0 then
+                    self.jButton:Show()
+                    self.cButton:Hide()
+                elseif self:GetGroupCount() == 0 then
+                    self.cButton:Show()
+                    self.jButton:Hide()
+                end
+
+                self.lButton:Hide()
+
+                if self.inGroup then
+                    self.jButton:Hide()
+                    self.cButton:Hide()
+                    self.lButton:Show()
+                end
             end
 
             function elite:EditMode()
-                -- elite.forceHidden = not elite.forceHidden
                 ArgusEliteTrackerConfig.forceHidden[self.questId] = not ArgusEliteTrackerConfig.forceHidden[self.questId]
-                -- debug(ArgusEliteTrackerConfig.forceHidden[self.questId])
                 self:Update()
             end
 
@@ -811,6 +833,8 @@ local function initiateZones()
                     end
                 end
 
+                self:RemoveInvalidGroups()
+
                 if self:GetGroupCount() > 0 then
                     local applied = self:GetApplied()
                     local groupCount = self:GetGroupCount()
@@ -826,13 +850,22 @@ local function initiateZones()
                     end
                 end
                 self:UpdateGroups()
-                self:UpdateGroupButtons()
+
+                if self.hidden then
+                    self:Hide()
+                end
+            end
+
+
+            function elite:LeaveGroup()
+                LeaveParty()
+                self.inGroup = false
             end
 
 
             function elite:ApplyToGroup()
                 if C_LFGList.GetNumApplications() >= 5 then
-                    debug("Applied to too many groups")
+                    DEFAULT_CHAT_FRAME:AddMessage("|cFFFF0000Applied to too many groups.")
                     return
                 end
 
@@ -858,12 +891,13 @@ local function initiateZones()
                 if self.isWq and self.wqId ~= nil then
                     local activityId = C_LFGList.GetActivityIDForQuestID(self.wqId)
                     if(C_LFGList.CreateListing(activityId, "", 0, 0, "", self.name .. ". Group created with ArgusEliteTracker.", true, false, self.wqId)) then
+                        self.inGroup = true
                     else
                         debug("nOOoOooOoOo")
                     end
                 else
                     if(C_LFGList.CreateListing(16, self.name, 0, 0, "", self.name .. ". Group created with ArgusEliteTracker.", true, false)) then
-                        
+                        self.inGroup = true
                     else
                         debug("NOOOOOOO")
                     end
@@ -1213,16 +1247,58 @@ function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
     updateArgusEliteTrackerFrame()
 end
 
+function events:LFG_LIST_JOINED_GROUP(...)
+    id = ...
+    
+    for name, elites in pairs(zones) do
+        for i, elite in pairs(zones[name]) do
+            if aet.groups[id] then
+                if aet.groups[id] == elite then
+                    elite.inGroup = true
+                    elite.groups[id] = nil
+                    aet.groups[id] = nil
+                else
+                    elite.inGroup = false
+                end
+            else
+                elite.inGroup = false
+            end
+        end
+    end
 
-function updateGroupFunctionality()
     updateArgusEliteTrackerFrame()
 end
 
+
 function events:GROUP_LEFT(...)
+    -- If we are in a party when joining
+    -- LFG_LIST_JOINED_GROUP will be called first, then GROUP_LEFT
+    -- then GROUP_JOINED, then PARTY_LEADER_CHANGED
+    -- To keep the inGroup = true variable for the elite we joined,
+    -- wait 1.5 seconds to hopefully skip this event if we are once again
+    -- in a group
+    C_Timer.After(1.5, function() 
+        if not IsInGroup() then
+            for name,elites in pairs(zones) do
+                for i,elite in pairs(zones[name]) do
+                    elite.inGroup = false
+                end
+            end
+        end
+    end)
+    
     updateArgusEliteTrackerFrame()
 end
 
 function events:GROUP_JOINED(...)
+    for name,elites in pairs(zones) do
+        for i,elite in pairs(zones[name]) do
+            for id, value in pairs(elite.groups) do
+                value.applied = false
+            end
+        end
+    end
+
     updateArgusEliteTrackerFrame()
 end
 

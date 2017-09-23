@@ -1,6 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2017-09-21
+### Added
+- Ability to join groups and create groups when no groups are found.
+- Ability to leave groups 
+- Searches for world quests via the Quest Dungeon finder when clicking the elite name
+- Frame can grow upwards.
+- Force hide elites by using the Edit button.
+- Ability to show elites that are World Quests even though force hidden is turned on.
+
+### Changed
+- Restructured code base
+- Less loops
+
+
 ## [1.0.7] - 2017-09-14
 ### Changed
 - Fixed a bug where an open world map would switch to Krokuun if searching for elites at the same time
