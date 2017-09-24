@@ -118,6 +118,15 @@ local function resetAll()
 end
 
 
+local function UpdateKilledStatusForAll()
+    for name, elites in pairs(zones) do
+        for i, elite in pairs(zones[name]) do
+            elite.killed = IsQuestFlaggedCompleted(elite.questId)
+        end
+    end
+end
+
+
 local function HideFiltered()
 
     if editMode then
@@ -208,9 +217,10 @@ local function HideFiltered()
     return numberOfHidden
 end
 
-
 -- You're my man
 function updateArgusEliteTrackerFrame()
+    UpdateKilledStatusForAll()
+
     aet.elitesContainer:ClearAllPoints()
     aet.elitesContainer.krokuun:ClearAllPoints()
     aet.elitesContainer.antoranWastes:ClearAllPoints()
@@ -342,7 +352,7 @@ local function updateWorldQuests(elites, zoneId)
             elite.isWq = false
             elite.wqId = nil
             for index = 1, #worldQuestNames do
-                if worldQuestNames[index].questName:lower():find(elite.name:lower()) then
+                if worldQuestNames[index].questName:lower():find(elite.name:lower(), 1, true) then
                     elite.isWq = true
                     elite.wqId = worldQuestNames[index].questId
                 end
@@ -410,7 +420,7 @@ local function searchForAllGroupsCallback()
                     elite:SetNa()
                 end
 
-                if groupName:find(elite.searchTerm) and not isDelisted and ageInMinutes < 5 then
+                if groupName:find(elite.searchTerm, 1, true) and not isDelisted and ageInMinutes < 5 then
                     aet.groups[id] = elite
                     elite.groups[id] = { id = id, age = age }
                     elite.searchResults = elite.searchResults + 1
@@ -470,7 +480,7 @@ local function updateSearchedElite(elite)
 
         local ageInMinutes = age / 60
         
-        if groupName:find(elite.searchTerm) and not isDelisted and ageInMinutes < 5 then
+        if groupName:find(elite.searchTerm, 1, true) and not isDelisted and ageInMinutes < 5 then
             aet.groups[id] = elite
             elite.groups[id] = { id = id, age = age }
             elite.searchResults = elite.searchResults + 1
