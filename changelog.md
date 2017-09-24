@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.1.0] - 2017-09-21
+## [1.1.0] - 2017-09-24
 ### Added
 - Ability to join groups and create groups when no groups are found.
 - Ability to leave groups 
@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Restructured code base
 - Less loops
+- Fix bug where world quests for elites would not trigger as world quests in the addon
 
 
 ## [1.0.7] - 2017-09-14

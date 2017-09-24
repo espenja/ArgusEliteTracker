@@ -199,10 +199,14 @@ local function HideFiltered()
 
         if ArgusEliteTrackerConfig.forceShowWorldQuestsIfForceHidden then
             if ArgusEliteTrackerConfig.forceHidden[elite.questId] then
-                if elite.hidden then
-                    numberOfHidden = numberOfHidden - 1
+                if elite.isWq then
+                    if elite.hidden then
+                        numberOfHidden = numberOfHidden - 1
+                    end
+                    elite.hidden = false
+                else
+                    hideElite(elite)
                 end
-                elite.hidden = false
             end
         else
             if ArgusEliteTrackerConfig.forceHidden[elite.questId] then
