@@ -118,13 +118,13 @@ local function resetAll()
 end
 
 
-local function UpdateKilledStatusForAll()
-    for name, elites in pairs(zones) do
-        for i, elite in pairs(zones[name]) do
-            elite.killed = IsQuestFlaggedCompleted(elite.questId)
-        end
-    end
-end
+-- local function UpdateKilledStatusForAll()
+--     for name, elites in pairs(zones) do
+--         for i, elite in pairs(zones[name]) do
+--             elite.killed = IsQuestFlaggedCompleted(elite.questId)
+--         end
+--     end
+-- end
 
 
 local function HideFiltered()
@@ -223,7 +223,7 @@ end
 
 -- You're my man
 function updateArgusEliteTrackerFrame()
-    UpdateKilledStatusForAll()
+    -- UpdateKilledStatusForAll()
 
     aet.elitesContainer:ClearAllPoints()
     aet.elitesContainer.krokuun:ClearAllPoints()
