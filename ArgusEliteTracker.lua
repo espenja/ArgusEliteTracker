@@ -1,5 +1,5 @@
 local addonName, addonData = ...
-local debugging = true
+local debugging = false
 
 local function debug(...)
     if debugging then
