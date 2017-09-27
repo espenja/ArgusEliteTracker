@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2017-09-27
+### Added
+- TomTom integration. Right click elite name to add TomTom waypoint.
+
+### Changed
+- Reduced time between searches
+
 ## [1.1.0] - 2017-09-24
 ### Added
 - Ability to join groups and create groups when no groups are found.
