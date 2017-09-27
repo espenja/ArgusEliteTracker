@@ -1,5 +1,5 @@
 local addonName, addonData = ...
-local debugging = false
+local debugging = true
 
 local function debug(...)
     if debugging then
@@ -13,70 +13,70 @@ local plainBackdrop = {edgeFile = [[Interface\Buttons\WHITE8X8]], edgeSize = 0.7
 
 local zones = {
     krokuun = {
-        { questId = 48564, name = "Commander Endaxis",          searchTerm = "endax" },     -- 1
-        { questId = 48562, name = "Commander Sathrenael",       searchTerm = "sathr" },     -- 2
-        { questId = 48563, name = "Commander Vecaya",           searchTerm = "vecay" },     -- 3
-        { questId = 48666, name = "Imp Mother Laglath",         searchTerm = "lagla" },     -- 4
-        { questId = 48561, name = "Khazaduum",                  searchTerm = "khaza" },     -- 5
-        { questId = 48667, name = "Naroua",                     searchTerm = "narou" },     -- 6
-        { questId = 48627, name = "Siegemaster Voraan",         searchTerm = "voraan" },    -- 7
-        { questId = 48565, name = "Sister Subversia",           searchTerm = "subver" },    -- 8
-        { questId = 48628, name = "Talestra the Vile",          searchTerm = "talest" },    -- 9
-        { questId = 48665, name = "Tar Spitter",                searchTerm = "spitter" },   -- 10
-        { questId = 48664, name = "Tereck the Selector",        searchTerm = "tereck" },    -- 11
-        { questId = 48629, name = "Vagath the Betrayed",        searchTerm = "vagath" },    -- 12
+        { questId = 48564, name = "Commander Endaxis",          x = .4442, y = .5875, mapId = 1135, searchTerm = "endax" },     -- 1
+        { questId = 48562, name = "Commander Sathrenael",       x = .3368, y = .7587, mapId = 1135, searchTerm = "sathr" },     -- 2
+        { questId = 48563, name = "Commander Vecaya",           x = .3924, y = .5952, mapId = 1135, searchTerm = "vecay" },     -- 3
+        { questId = 48666, name = "Imp Mother Laglath",         x = .4153, y = .7026, mapId = 1135, searchTerm = "lagla" },     -- 4
+        { questId = 48561, name = "Khazaduum",                  x = .4507, y = .0896, mapId = 1135, searchTerm = "khaza" },     -- 5
+        { questId = 48667, name = "Naroua",                     x = .7021, y = .3438, mapId = 1135, searchTerm = "narou" },     -- 6
+        { questId = 48627, name = "Siegemaster Voraan",         x = .5815, y = .7474, mapId = 1135, searchTerm = "voraan" },    -- 7
+        { questId = 48565, name = "Sister Subversia",           x = .5394, y = .3139, mapId = 1135, searchTerm = "subver" },    -- 8
+        { questId = 48628, name = "Talestra the Vile",          x = .5555, y = .8018, mapId = 1135, searchTerm = "talest" },    -- 9
+        { questId = 48665, name = "Tar Spitter",                x = .6928, y = .8045, mapId = 1135, searchTerm = "spitter" },   -- 10
+        { questId = 48664, name = "Tereck the Selector",        x = .6927, y = .5886, mapId = 1135, searchTerm = "tereck" },    -- 11
+        { questId = 48629, name = "Vagath the Betrayed",        x = .6113, y = .2069, mapId = 1135, searchTerm = "vagath" },    -- 12
    },
     antoranWastes = {
-        { questId = 48817, name = "Admiral Rel'var",            searchTerm = "rel'var" },   -- 1
-        { questId = 48818, name = "All-Seer Xanarian",          searchTerm = "xanari" },    -- 2
-        { questId = 49183, name = "Blistermaw",                 searchTerm = "blister" },   -- 3
-        { questId = 48865, name = "Chief Alchemist Munculus",   searchTerm = "muncu" },     -- 4
-        { questId = 48816, name = "Commander Texlaz",           searchTerm = "texla" },     -- 5
-        { questId = 48968, name = "Doomcaster Suprax",          searchTerm = "supra" },     -- 6
-        { questId = 49241, name = "Gar'zoth",                   searchTerm = "zoth" },      -- 7
-        { questId = 48821, name = "Houndmaster Kerrax",         searchTerm = "kerra" },     -- 8
-        { questId = 48815, name = "Inquisitor Vethroz",         searchTerm = "vethroz" },   -- 9
-        { questId = 48813, name = "Lieutenant Xakaar",          searchTerm = "xaka" },      -- 10
-        { questId = 49240, name = "Mistress Il'thendra",        searchTerm = "thendr" },    -- 12
-        { questId = 48970, name = "Mother Rosula",              searchTerm = "rosul" },     -- 13
-        { questId = 48809, name = "Puscilla",                   searchTerm = "pusc" },      -- 14
-        { questId = 48971, name = "Rezira the Seer",            searchTerm = "rezi" },      -- 15
-        { questId = 48967, name = "Squadron Commander Vishax",  searchTerm = "vishax" },    -- 16
-        { questId = 48966, name = "The Many-Faced Devourer",    searchTerm = "faced" },     -- 17
-        { questId = 48812, name = "Varga",                      searchTerm = "varga" },     -- 18
-        { questId = 48811, name = "Ven'orn",                    searchTerm = "ven'orn" },   -- 19
-        { questId = 48824, name = "Void Warden Valsuran",       searchTerm = "valsur" },    -- 20
-        { questId = 48810, name = "Vrax'thul",                  searchTerm = "vrax" },      -- 21
-        { questId = 48822, name = "Watcher Aival",              searchTerm = "aival" },     -- 22
-        { questId = 48820, name = "Worldsplitter Skuul",        searchTerm = "skuul" },     -- 23
-        { questId = 48814, name = "Wrath-Lord Yarez",           searchTerm = "yarez" },     -- 24
+        { questId = 48817, name = "Admiral Rel'var",            x = .7362, y = .7079, mapId = 1171, searchTerm = "rel'var" },   -- 1
+        { questId = 48818, name = "All-Seer Xanarian",          x = .7530, y = .5681, mapId = 1171, searchTerm = "xanari" },    -- 2
+        { questId = 49183, name = "Blistermaw",                 x = .6178, y = .3697, mapId = 1171, searchTerm = "blister" },   -- 3
+        { questId = 48865, name = "Chief Alchemist Munculus",   x = .6091, y = .2275, mapId = 1171, searchTerm = "muncu" },     -- 4
+        { questId = 48816, name = "Commander Texlaz",           x = .8189, y = .6821, mapId = 1171, searchTerm = "texla" },     -- 5
+        { questId = 48968, name = "Doomcaster Suprax",          x = .5849, y = .1180, mapId = 1171, searchTerm = "supra" },     -- 6
+        { questId = 49241, name = "Gar'zoth",                   x = .5623, y = .4585, mapId = 1171, searchTerm = "zoth" },      -- 7
+        { questId = 48821, name = "Houndmaster Kerrax",         x = .6296, y = .2486, mapId = 1171, searchTerm = "kerra" },     -- 8
+        { questId = 48815, name = "Inquisitor Vethroz",         x = .6068, y = .4767, mapId = 1171, searchTerm = "vethroz" },   -- 9
+        { questId = 48813, name = "Lieutenant Xakaar",          x = .6240, y = .5428, mapId = 1171, searchTerm = "xaka" },      -- 10
+        { questId = 49240, name = "Mistress Il'thendra",        x = .5737, y = .3352, mapId = 1171, searchTerm = "thendr" },    -- 12
+        { questId = 48970, name = "Mother Rosula",              x = .6672, y = .1812, mapId = 1171, searchTerm = "rosul" },     -- 13
+        { questId = 48809, name = "Puscilla",                   x = .6442, y = .2035, mapId = 1171, searchTerm = "pusc" },      -- 14
+        { questId = 48971, name = "Rezira the Seer",            x = .6503, y = .8231, mapId = 1171, searchTerm = "rezi" },      -- 15
+        { questId = 48967, name = "Squadron Commander Vishax",  x = .8372, y = .8114, mapId = 1171, searchTerm = "vishax" },    -- 16
+        { questId = 48966, name = "The Many-Faced Devourer",    x = .5483, y = .3915, mapId = 1171, searchTerm = "faced" },     -- 17
+        { questId = 48812, name = "Varga",                      x = .6432, y = .4862, mapId = 1171, searchTerm = "varga" },     -- 18
+        { questId = 48811, name = "Ven'orn",                    x = .6487, y = .5651, mapId = 1171, searchTerm = "ven'orn" },   -- 19
+        { questId = 48824, name = "Void Warden Valsuran",       x = .5536, y = .2166, mapId = 1171, searchTerm = "valsur" },    -- 20
+        { questId = 48810, name = "Vrax'thul",                  x = .5306, y = .3612, mapId = 1171, searchTerm = "vrax" },      -- 21
+        { questId = 48822, name = "Watcher Aival",              x = .5273, y = .3003, mapId = 1171, searchTerm = "aival" },     -- 22
+        { questId = 48820, name = "Worldsplitter Skuul",        x = .5090, y = .5580, mapId = 1171, searchTerm = "skuul" },     -- 23
+        { questId = 48814, name = "Wrath-Lord Yarez",           x = .6177, y = .6453, mapId = 1171, searchTerm = "yarez" },     -- 24
    },
     macAree = {
-        { questId = 48709, name = "Ataxon",                     searchTerm = "atax" },      -- 1
-        { questId = 48700, name = "Baruut the Bloodthirsty",    searchTerm = "baruut" },    -- 2
-        { questId = 48707, name = "Captain Faruq",              searchTerm = "faruq" },     -- 3
-        { questId = 48720, name = "Commander Xethgar",          searchTerm = "xeth" },      -- 4
-        { questId = 48702, name = "Feasel the Muffin Thief",    searchTerm = "feasel" },    -- 5
-        { questId = 48711, name = "Herald of Chaos",            searchTerm = "herald" },    -- 6
-        { questId = 48718, name = "Instructor Tarahna",         searchTerm = "tarah" },     -- 7
-        { questId = 48713, name = "Jed'hin Champion Vorusk",    searchTerm = "vorusk" },    -- 8
-        { questId = 48697, name = "Kaara the Pale",             searchTerm = "kaara" },     -- 9
-        { questId = 48714, name = "Overseer Y'Beda",            searchTerm = "beda" },      -- 10
-        { questId = 48717, name = "Overseer Y'Morna",           searchTerm = "morna" }, --jens :'D -- 11
-        { questId = 48716, name = "Overseer Y'Sorna",           searchTerm = "sorna" },     -- 12
-        { questId = 48712, name = "Sabuul",                     searchTerm = "sabuul" },    -- 13
-        { questId = 48692, name = "Shadowcaster Voruun",        searchTerm = "voruun" },    -- 14
-        { questId = 48721, name = "Skreeg the Devourer",        searchTerm = "skreeg" },    -- 15
-        { questId = 48935, name = "Slithon the Last",           searchTerm = "slithon" },   -- 16
-        { questId = 48710, name = "Sorolis the Ill-Fated",      searchTerm = "sorolis" },   -- 17
-        { questId = 48693, name = "Soultwisted Monstrosity",    searchTerm = "monstros" },  -- 18
-        { questId = 48706, name = "Turek the Lucid",            searchTerm = "turek" },     -- 19
-        { questId = 48708, name = "Umbraliss",                  searchTerm = "umbrali" },   -- 20
-        { questId = 48705, name = "Venomtail Skyfin",           searchTerm = "venomt" },    -- 21
-        { questId = 48704, name = "Vigilant Kuro",              searchTerm = "kuro" },      -- 22
-        { questId = 48703, name = "Vigilant Thanos",            searchTerm = "thanos" },    -- 23
-        { questId = 48695, name = "Wrangler Kravos",            searchTerm = "kravos" },    -- 24
-        { questId = 48719, name = "Zul'tan the Numerous",       searchTerm = "zul'tan" },   -- 25
+        { questId = 48709, name = "Ataxon",                     x = .3012, y = .4018, mapId = 1170, searchTerm = "atax" },      -- 1
+        { questId = 48700, name = "Baruut the Bloodthirsty",    x = .4365, y = .6072, mapId = 1170, searchTerm = "baruut" },    -- 2
+        { questId = 48707, name = "Captain Faruq",              x = .2683, y = .3046, mapId = 1170, searchTerm = "faruq" },     -- 3
+        { questId = 48720, name = "Commander Xethgar",          x = .5670, y = .1477, mapId = 1170, searchTerm = "xeth" },      -- 4
+        { questId = 48702, name = "Feasel the Muffin Thief",    x = .4120, y = .1178, mapId = 1170, searchTerm = "feasel" },    -- 5
+        { questId = 48711, name = "Herald of Chaos",            x = .3580, y = .5897, mapId = 1170, searchTerm = "herald" },    -- 6
+        { questId = 48718, name = "Instructor Tarahna",         x = .6172, y = .5031, mapId = 1170, searchTerm = "tarah" },     -- 7
+        { questId = 48713, name = "Jed'hin Champion Vorusk",    x = .4838, y = .4106, mapId = 1170, searchTerm = "vorusk" },    -- 8
+        { questId = 48697, name = "Kaara the Pale",             x = .3866, y = .5560, mapId = 1170, searchTerm = "kaara" },     -- 9
+        { questId = 48714, name = "Overseer Y'Beda",            x = .5863, y = .3808, mapId = 1170, searchTerm = "beda" },      -- 10
+        { questId = 48717, name = "Overseer Y'Morna",           x = .6084, y = .3041, mapId = 1170, searchTerm = "morna" }, --jens :'D -- 11
+        { questId = 48716, name = "Overseer Y'Sorna",           x = .5801, y = .3116, mapId = 1170, searchTerm = "sorna" },     -- 12
+        { questId = 48712, name = "Sabuul",                     x = .4355, y = .4919, mapId = 1170, searchTerm = "sabuul" },    -- 13
+        { questId = 48692, name = "Shadowcaster Voruun",        x = .4476, y = .7173, mapId = 1170, searchTerm = "voruun" },    -- 14
+        { questId = 48721, name = "Skreeg the Devourer",        x = .4979, y = .0940, mapId = 1170, searchTerm = "skreeg" },    -- 15
+        { questId = 48935, name = "Slithon the Last",           x = .4976, y = .5288, mapId = 1170, searchTerm = "slithon" },   -- 16
+        { questId = 48710, name = "Sorolis the Ill-Fated",      x = .7025, y = .4608, mapId = 1170, searchTerm = "sorolis" },   -- 17
+        { questId = 48693, name = "Soultwisted Monstrosity",    x = .5277, y = .6723, mapId = 1170, searchTerm = "monstros" },  -- 18
+        { questId = 48706, name = "Turek the Lucid",            x = .3911, y = .6662, mapId = 1170, searchTerm = "turek" },     -- 19
+        { questId = 48708, name = "Umbraliss",                  x = .3492, y = .3724, mapId = 1170, searchTerm = "umbrali" },   -- 20
+        { questId = 48705, name = "Venomtail Skyfin",           x = .3401, y = .4783, mapId = 1170, searchTerm = "venomt" },    -- 21
+        { questId = 48704, name = "Vigilant Kuro",              x = .6388, y = .6425, mapId = 1170, searchTerm = "kuro" },      -- 22
+        { questId = 48703, name = "Vigilant Thanos",            x = .3632, y = .2371, mapId = 1170, searchTerm = "thanos" },    -- 23
+        { questId = 48695, name = "Wrangler Kravos",            x = .5565, y = .5995, mapId = 1170, searchTerm = "kravos" },    -- 24
+        { questId = 48719, name = "Zul'tan the Numerous",       x = .6653, y = .2851, mapId = 1170, searchTerm = "zul'tan" },   -- 25
     }
 }
 
@@ -392,7 +392,7 @@ end
 ------------------------------------
 
 local secondCounterAll = 0
-local searchForSecondsAll = 5
+local searchForSecondsAll = 3
 
 
 local function searchForAllGroupsCallback()
@@ -496,7 +496,7 @@ end
 
 
 local secondCounter = 0
-local searchForSeconds = 5
+local searchForSeconds = 3
 
 local function onUpdate(self, elapsed)
     secondCounter = secondCounter + elapsed
@@ -528,10 +528,24 @@ local function searchForGroup(elite)
 end
 
 
-local function initiateSearch(self)
-    self.elite.searchResults = 0
-    self.elite:SetNa()
-    searchForGroup(self.elite)
+local function initiateSearch(self, button)
+    local elite = self.elite
+
+    if(button == "LeftButton") then
+        elite.searchResults = 0
+        elite:SetNa()
+        searchForGroup(elite)
+    elseif button == "RightButton" then
+        if TomTom and IsAddOnLoaded("TomTom") then
+            if elite.tomtom then
+                TomTom:RemoveWaypoint(elite.tomtom)
+                elite.tomtom = nil
+            end
+
+            elite.tomtom = TomTom:AddMFWaypoint(elite.mapId, false, elite.x, elite.y, { title = elite.name })
+            TomTom:SetClosestWaypoint()
+        end
+    end
 end
 
 
@@ -610,6 +624,7 @@ local function initiateZones()
             elite.button:SetSize(aet:GetWidth() - 50 - statusWidth - 10, 16)
             elite.button.Label = addonData:createLabel(buttonText, 12, "CENTER", elite.button)
             elite.button.elite = elite
+            elite.button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
             elite.button:SetScript("OnClick", initiateSearch)
 
 
