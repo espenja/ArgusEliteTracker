@@ -118,6 +118,25 @@ local function resetAll()
 end
 
 
+local function addCommanderOfArgusIds()
+
+    local count = GetAchievementNumCriteria(12078)
+    local commanderTracker = {}
+    
+    for index = 1, count, 1 do
+        local name,_,completed = GetAchievementCriteriaInfo(12078, index)
+        commanderTracker[name] = index
+   end
+
+    for name, elites in pairs(zones) do
+        for i, elite in pairs(zones[name]) do
+            elite.coaId = commanderTracker[elite.name]
+            elite:Update()
+        end
+    end
+end
+
+
 -- local function UpdateKilledStatusForAll()
 --     for name, elites in pairs(zones) do
 --         for i, elite in pairs(zones[name]) do
@@ -194,6 +213,12 @@ local function HideFiltered()
                         elite.hidden = false
                     end
                 end
+            end
+        end
+
+        if ArgusEliteTrackerConfig.commanderOfArgusMode then
+            if elite.coaComplete then
+                hideElite(elite)
             end
         end
 
@@ -391,13 +416,11 @@ end
 --  Search all groups
 ------------------------------------
 
-local secondCounterAll = 0
-local searchForSecondsAll = 3
-
-
 local function searchForAllGroupsCallback()
 
     searching = false
+    resetAll()
+    enableAllButtons()
     updateWorldQuestsForAllArgusZones()
     resetAllGroups()
 
@@ -438,19 +461,6 @@ local function searchForAllGroupsCallback()
 end
 
 
-local function onUpdateAll(self, elapsed)
-    secondCounterAll = secondCounterAll + elapsed
-
-    if secondCounterAll >= searchForSecondsAll then
-        self:SetScript("OnUpdate", nil)
-        secondCounterAll = 0
-        resetAll()
-        enableAllButtons()
-        searchForAllGroupsCallback()
-    end
-end
-
-
 local function searchForAll()
     updateArgusEliteTrackerFrame()
     searching = true
@@ -459,7 +469,7 @@ local function searchForAll()
     -- Need to understand this better, seems like there's a limit to 100 responses
     -- C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""), 0, 0, languages)
     C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""))
-    aet.SearchAll:SetScript("OnUpdate", onUpdateAll)
+    C_Timer.After(3, searchForAllGroupsCallback)
 end
 
 
@@ -469,6 +479,7 @@ end
 local function updateSearchedElite(elite)
 
     searching = false
+    enableAllButtons()
     resetAllGroups()
     elite.searchResults = 0
 
@@ -495,21 +506,6 @@ local function updateSearchedElite(elite)
 end
 
 
-local secondCounter = 0
-local searchForSeconds = 3
-
-local function onUpdate(self, elapsed)
-    secondCounter = secondCounter + elapsed
-
-    if secondCounter >= searchForSeconds then
-        self:SetScript("OnUpdate", nil)
-        secondCounter = 0
-        enableAllButtons()
-        updateSearchedElite(self.elite)
-    end
-end
-
-
 local function searchForGroup(elite)
 
     searching = true
@@ -524,7 +520,9 @@ local function searchForGroup(elite)
     end
 
     disableAllButtons()
-    elite.button:SetScript("OnUpdate", onUpdate)
+    C_Timer.After(3, function() 
+        updateSearchedElite(elite)
+    end)
 end
 
 
@@ -824,6 +822,16 @@ local function initiateZones()
                 self:Update()
             end
 
+            function elite:UpdateCommanderOfArgus()
+                local _, _, complete = GetAchievementCriteriaInfo(12078, self.coaId)
+                self.coaComplete = complete
+            end
+
+            function elite:UpdateLabel()
+                local text = not self.coaComplete and  "* " .. elite.name or elite.name
+                elite.button.Label:SetText(text)
+            end
+
 
             function elite:Update()
                 if editMode then
@@ -844,6 +852,10 @@ local function initiateZones()
                     self.status:Show()
                     self.button:SetScript("OnClick", initiateSearch)
                 end
+
+                -- Update Commander of Argus
+                self:UpdateCommanderOfArgus()
+                self:UpdateLabel()
 
                 if self.killed then
                     self.button.Label:SetTextColor(1, 1, 1, 0.2)
@@ -937,6 +949,9 @@ local function initiateZones()
             elite:Show()
         end
     end
+
+    addCommanderOfArgusIds()
+    -- updateArgusEliteTrackerFrame()
     -- This will cause an ADDON_ACTION_BLOCKED event (because it didn't originate from a user hardware click?)
     -- searchForAll()
 end

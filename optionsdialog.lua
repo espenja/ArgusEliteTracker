@@ -17,9 +17,10 @@ addonData:createOptionsLabel(configPanel, 16, -145, "GameFontHighlight", 24, "Th
 local buttonAutoOpenOnArgus     = addonData:createCheckButton(configPanel, 16, -175, "Open automatically when entering an Argus zone")
 local buttonGrowUpwards         = addonData:createCheckButton(configPanel, 16, -200, "Grow frame upwards")
 local buttonOnlyWithGroup       = addonData:createCheckButton(configPanel, 16, -225, "Only show elites that have an active group")
-local buttonForceWorldQuests    = addonData:createCheckButton(configPanel, 40, -255, "... but still show all world quests if the elite has not been killed")
+local buttonForceWorldQuests    = addonData:createCheckButton(configPanel, 40, -250, "... but still show all world quests if the elite has not been killed")
 local buttonHideKilled          = addonData:createCheckButton(configPanel, 16, -285, "Hide elites that have already been killed")
-local buttonWorldQuestForced    = addonData:createCheckButton(configPanel, 16, -305, "If elites are force hidden, show them anyway if they are World Quests")
+local buttonWorldQuestForced    = addonData:createCheckButton(configPanel, 16, -310, "If elites are force hidden, show them anyway if they are World Quests")
+local buttonCommanderOfArgus    = addonData:createCheckButton(configPanel, 16, -335, "Commander of Argus mode")
 
 -- local buttonOnlySpecialElites   = addonData:createCheckButton(configPanel, 16, -100, "Only display elites that drop mount, pets, etc")
 
@@ -31,6 +32,7 @@ configPanel:SetScript("OnShow", function()
     buttonHideKilled:SetChecked(ArgusEliteTrackerConfig.hideKilledElites)
     buttonForceWorldQuests:SetChecked(ArgusEliteTrackerConfig.forceShowWorldQuestsIfNotKilled)
     buttonWorldQuestForced:SetChecked(ArgusEliteTrackerConfig.forceShowWorldQuestsIfForceHidden)
+    buttonCommanderOfArgus:SetChecked(ArgusEliteTrackerConfig.commanderOfArgusMode)
     -- buttonOnlySpecialElites:SetChecked(ArgusEliteTrackerConfig.onlyShowSpecialElites)
 end)
 
@@ -76,6 +78,10 @@ configPanel:SetScript("OnEvent", function(self, event, arg1)
             ArgusEliteTrackerConfig.forceHidden = {}
         end
 
+        if ArgusEliteTrackerConfig.commanderOfArgusMode == nil then
+            ArgusEliteTrackerConfig.commanderOfArgusMode = false
+        end
+
         -- if ArgusEliteTrackerConfig.onlyShowSpecialElites == nil then
         --     ArgusEliteTrackerConfig.onlyShowSpecialElites = false
         -- end
@@ -86,6 +92,7 @@ configPanel:SetScript("OnEvent", function(self, event, arg1)
         buttonHideKilled:SetChecked(ArgusEliteTrackerConfig.hideKilledElites)
         buttonForceWorldQuests:SetChecked(ArgusEliteTrackerConfig.forceShowWorldQuestsIfNotKilled)
         buttonWorldQuestForced:SetChecked(ArgusEliteTrackerConfig.forceShowWorldQuestsIfForceHidden)
+        buttonCommanderOfArgus:SetChecked(ArgusEliteTrackerConfig.commanderOfArgusMode)
         -- buttonOnlySpecialElites:SetChecked(ArgusEliteTrackerConfig.onlyShowSpecialElites)
         createArgusEliteTrackerFrames()
     end
@@ -99,6 +106,7 @@ function configPanel:okay()
     ArgusEliteTrackerConfig.hideKilledElites = buttonHideKilled:GetChecked()
     ArgusEliteTrackerConfig.forceShowWorldQuestsIfNotKilled = buttonForceWorldQuests:GetChecked()
     ArgusEliteTrackerConfig.forceShowWorldQuestsIfForceHidden = buttonWorldQuestForced:GetChecked()
+    ArgusEliteTrackerConfig.commanderOfArgusMode = buttonCommanderOfArgus:GetChecked()
     
     updateArgusEliteTrackerFrame()
     -- ArgusEliteTrackerConfig.onlyShowSpecialElites = buttonOnlySpecialElites:GetChecked()
@@ -112,5 +120,6 @@ function configPanel:default()
     buttonHideKilled:SetChecked(false)
     buttonForceWorldQuests:SetChecked(true)
     buttonWorldQuestForced:SetChecked(true)
+    buttonCommanderOfArgus:SetChecked(false)
     -- buttonOnlySpecialElites:SetChecked(false)
 end
