@@ -25,6 +25,8 @@ function addonData:createOptionsLabel(parent, x, y, font, fontSize, text)
     label:SetJustifyH("LEFT")
     label:SetJustifyV("TOP")
     label:SetText(text)
+
+    return label
 end
 
 
