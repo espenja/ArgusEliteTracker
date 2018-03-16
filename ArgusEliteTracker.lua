@@ -138,7 +138,7 @@ local function addCommanderOfArgusIds()
     
     for index = 1, count, 1 do
         local name,_,completed = GetAchievementCriteriaInfo(12078, index)
-        commanderTracker[name] = index
+        commanderTracker[L[name]] = index
    end
 
     for name, elites in pairs(zones) do
