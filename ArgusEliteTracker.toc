@@ -18,4 +18,5 @@ init.lua
 locales.xml
 widgets.lua
 optionsdialog.lua
+aetutils.lua
 arguselitetracker.lua
