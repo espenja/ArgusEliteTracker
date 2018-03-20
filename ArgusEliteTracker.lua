@@ -132,8 +132,6 @@ local selectedZone = zones.krokuun
 local selectedZoneName = "krokuun"
 local groupCreationActive = false
 
-
-
 aet.quests = {
     -- questId = elite
 }
@@ -152,7 +150,7 @@ end
 function ArgusEliteTracker:resetAll()
     ArgusEliteTracker:PerformOnAllElites(function(elite)
         elite.searchResults = 0
-        elite:SetNa()
+        -- elite:SetNa()
     end)
 end
 
@@ -430,7 +428,7 @@ end
 --  Search all groups
 ------------------------------------
 
-local function searchForAllGroupsCallback()
+function ArgusEliteTracker:searchForAllGroupsCallback()
 
     searching = false
     ArgusEliteTracker:resetAll()
@@ -456,7 +454,7 @@ local function searchForAllGroupsCallback()
                 -- elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
 
                 if not elite.killed then
-                    elite:SetNa()
+                    -- elite:SetNa()
                     
                     if elite.isWq then
                         addTomTomWaypoint(elite)
@@ -493,6 +491,9 @@ local function searchForAll()
     updateArgusEliteTrackerFrame()
 
     searching = true
+    ArgusEliteTracker.searchCallback = ArgusEliteTracker.searchForAllGroupsCallback
+    searchedElite = nil
+
     disableAllButtons()
     local languages = C_LFGList.GetLanguageSearchFilter()
 
@@ -507,16 +508,17 @@ local function searchForAll()
     -- Need to understand this better, seems like there's a limit to 100 responses
     -- C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""), 0, 0, languages)
     C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""), 0, 0, filter)
-    C_Timer.After(2, searchForAllGroupsCallback)
+    -- C_Timer.After(2, searchForAllGroupsCallback)
 end
 
 
 ------------------------------------
 --  Search for one group
 ------------------------------------
-local function updateSearchedElite(elite)
+function ArgusEliteTracker:updateSearchedElite()
 
     searching = false
+    elite = searchedElite
     enableAllButtons()
     resetAllGroups()
     elite.searchResults = 0
@@ -544,12 +546,18 @@ local function updateSearchedElite(elite)
     end
 
     updateArgusEliteTrackerFrame()
+
+    searchedElite = nil
+    ArgusEliteTracker.searchCallback = ArgusEliteTracker.searchForAllGroupsCallback
 end
 
 
 function ArgusEliteTracker:searchForGroup(elite)
 
     searching = true
+    ArgusEliteTracker.searchCallback = ArgusEliteTracker.updateSearchedElite
+    searchedElite = elite
+
     ArgusEliteTracker:updateWorldQuestsForAllArgusZones()
     elite.killed = IsQuestFlaggedCompleted(elite.questId) -- HERE
     local languages = C_LFGList.GetLanguageSearchFilter()
@@ -563,9 +571,9 @@ function ArgusEliteTracker:searchForGroup(elite)
     end
 
     disableAllButtons()
-    C_Timer.After(2, function() 
-        updateSearchedElite(elite)
-    end)
+    -- C_Timer.After(2, function() 
+    --     updateSearchedElite(elite)
+    -- end)
 end
 
 
@@ -1373,8 +1381,13 @@ function events:LFG_LIST_SEARCH_RESULT_UPDATED(...)
     local   id, activityId, groupName, comment, voiceChat, iLvl, honorLevel,
             age, numBNetFriends, numCharFriends, numGuildMates, isDelisted = C_LFGList.GetSearchResultInfo(id);
 
+    if aet.groups[id] ~= nil then
+        debug("Aet group updated " .. id, groupName, isDelisted)
+    end
+
     if isDelisted then
         if aet.groups[id] ~= nil then
+            debug("Removed aet group with id " .. id, groupName, isDelisted)
             removeGroup(id)
         end
     end
@@ -1513,6 +1526,20 @@ end
 function events:WORLD_MAP_UPDATE(...)
     ArgusEliteTracker:updateEliteMapIcons()
 end
+
+function events:LFG_LIST_SEARCH_RESULTS_RECEIVED(...)
+    ArgusEliteTracker.searchCallback()
+end
+
+function events:LFG_LIST_SEARCH_FAILED(...)
+    print("|cFF00FF00ArgusEliteTracker:|r|cFFFFFFFF |cFFFF0000Search rate limited by server. Be kind to the server. Please wait more between searches.")
+    C_Timer.After(5.0, function()
+        enableAllButtons()
+    end)
+end
+
+ArgusEliteTracker.searchCallback = ArgusEliteTracker.searchForAllGroupsCallback
+ArgusEliteTracker.searchedElite = nil
 
 ---------------------------------------------
 --  Register events
