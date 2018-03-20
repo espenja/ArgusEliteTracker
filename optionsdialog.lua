@@ -76,8 +76,6 @@ for k, v in pairs(ArgusEliteTracker.AvailableLocales) do
 
         searchTermFilterButtons[k].locale = k
         searchTermFilterButtons[k]:SetScript("OnClick", function(self)
-            print(self.locale, " was clicked")
-
             local atLeastOneIsChecked = false
 
             for _, checkBox in pairs(searchTermFilterButtons) do
@@ -176,8 +174,6 @@ configPanel:SetScript("OnEvent", function(self, event, arg1)
         --     ArgusEliteTrackerConfig.onlyShowSpecialElites = false
         -- end
 
-        print("Printing ArgusEliteTracker searchAllConfig")
-
         for k, v in pairs(ArgusEliteTracker.AvailableLocales) do
 
             if ArgusEliteTrackerConfig.searchAllConfig[k] == nil then
@@ -225,6 +221,7 @@ end)
 
 
 function configPanel:okay()
+
     ArgusEliteTrackerConfig.autoOpenOnArgus = buttonAutoOpenOnArgus:GetChecked()
     ArgusEliteTrackerConfig.growUpwards = buttonGrowUpwards:GetChecked()
     ArgusEliteTrackerConfig.onlyShowElitesWithGroups = buttonOnlyWithGroup:GetChecked()
@@ -250,7 +247,6 @@ function configPanel:okay()
         local clientLocale = GetLocale()
         ArgusEliteTrackerConfig.searchAllConfig[clientLocale] = true
         searchAllFilterButtons[clientLocale]:SetChecked(true)
-        print(ArgusEliteTrackerConfig.searchAllConfig[clientLocale], searchAllFilterButtons[clientLocale]:GetChecked())
     end
 
     -- Save search language override
@@ -261,10 +257,10 @@ function configPanel:okay()
     end
 
     if ArgusEliteTrackerConfig.disableMapIcons then
-        disableArgusEliteTrackerMapIcons()
+        ArgusEliteTrackerMapUtils:removeAllAetIcons()
     else
-        enableArgusEliteTrackerMapIcons()
-        updateArgusEliteTrackerMapIcons()
+        ArgusEliteTrackerMapUtils:enableMapIcons()
+        ArgusEliteTrackerMapUtils:updateMapIcons()
     end
     
     updateArgusEliteTrackerFrame()

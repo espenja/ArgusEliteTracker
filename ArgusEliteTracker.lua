@@ -11,6 +11,9 @@ local HereBeDragonsPins = LibStub("HereBeDragons-Pins-1.0")
 
 ArgusEliteTracker.frame = CreateFrame("frame", "ArgusEliteTrackerFrame", UIParent)
 ArgusEliteTracker.addonData = addonData
+ArgusEliteTracker.hbm = HereBeDragonsPins
+aetMapUtils = ArgusEliteTrackerMapUtils
+
 local aet = ArgusEliteTracker.frame
 local L = ArgusEliteTracker.L
 local S = ArgusEliteTracker.S
@@ -20,8 +23,6 @@ local selectedSearchTermLanguage = GetLocale()
 
 aetzonesdebug = nil
 aetdebug = nil
-local searching = false
-
 
 local defaultFontName = "Fonts/FRIZQT__.TTF"
 local plainBackdrop = {
@@ -101,7 +102,6 @@ local zones = {
     }
 }
 
--- /run print(GetCurrentMapAreaID())
 local zoneIds = {
     krokuun = 1135,
     antoranWastes = 1171,
@@ -118,16 +118,21 @@ for zoneName in pairs(zones) do
     for _, elite in pairs(zones[zoneName]) do
         elite.zoneName = zoneName
         ArgusEliteTracker.elitesById[elite.id] = elite
-        ArgusEliteTracker.elitesByZone[elite.mapId] = elite
+
+        if ArgusEliteTracker.elitesByZone[elite.mapId] == nil then
+            ArgusEliteTracker.elitesByZone[elite.mapId] = {}
+        end
+
+        table.insert(ArgusEliteTracker.elitesByZone[elite.mapId], elite)
     end
 end
 
-
+local searching = false
 local selectedZone = zones.krokuun
 local selectedZoneName = "krokuun"
 local groupCreationActive = false
 
-local tooltip = CreateFrame("GameTooltip", addonName.."Tooltip", UIParent, "GameTooltipTemplate")
+
 
 aet.quests = {
     -- questId = elite
@@ -144,17 +149,13 @@ if debugging then
 end
 
 
-local function resetAll()
-    for name, elites in pairs(zones) do
-        for i, elite in pairs(zones[name]) do
-            elite.searchResults = 0
-            elite:SetNa()
-        end
-    end
+function ArgusEliteTracker:resetAll()
+    ArgusEliteTracker:PerformOnAllElites(function(elite)
+        elite.searchResults = 0
+        elite:SetNa()
+    end)
 end
 
-
-numberOfHidden = 0
 
 function ArgusEliteTracker:hideFiltered()
 
@@ -165,10 +166,9 @@ function ArgusEliteTracker:hideFiltered()
         return 0
     end
 
-
-    ArgusEliteTracker:updateWorldQuestsForAllArgusZones()
-    numberOfHidden = 0
-    hiddenElites = {}
+    -- ArgusEliteTracker:updateWorldQuestsForAllArgusZones()
+    local numberOfHidden = 0
+    local hiddenElites = {}
 
     local function hideElite(elite)
         if not hiddenElites[elite.name] then
@@ -240,26 +240,11 @@ function ArgusEliteTracker:hideFiltered()
 end
 
 
-function updateArgusEliteTrackerMapIcons(elite)
 
-    if ArgusEliteTrackerConfig.disableMapIcons then
-        return
-    end
-
-    if not(elite == nil) then
-        elite:UpdateMapIcon()
-        return
-    end
-
-    for name, elites in pairs(zones) do
-        for i, elite in pairs(zones[name]) do
-            elite:UpdateMapIcon()
-        end
-    end
-end
 
 -- You're my man
 function updateArgusEliteTrackerFrame()
+
     -- UpdateKilledStatusForAll()
 
     aet.elitesContainer:ClearAllPoints()
@@ -267,7 +252,7 @@ function updateArgusEliteTrackerFrame()
     aet.elitesContainer.antoranWastes:ClearAllPoints()
     aet.elitesContainer.macAree:ClearAllPoints()
 
-    numberOfHidden = ArgusEliteTracker:hideFiltered()
+    local numberOfHidden = ArgusEliteTracker:hideFiltered()
     local height = ((#selectedZone - numberOfHidden) * 16) + 50
 
     local visibleCounter = 1
@@ -301,8 +286,6 @@ function updateArgusEliteTrackerFrame()
         aet.elitesContainer.antoranWastes:SetSize(W.ZoneAntoranWastesButtonWidth, W.ZoneButtonHeight)
         aet.elitesContainer.macAree:SetPoint("BOTTOMRIGHT", aet.elitesContainer, "BOTTOMRIGHT", -10, 10)
         aet.elitesContainer.macAree:SetSize(W.ZoneMacAreeButtonWidth, W.ZoneButtonHeight)
-        -- aet.elitesContainer:SetPoint("BOTTOMLEFT", aet.zonesContainer, "TOPLEFT", 0, 0)
-        -- aet.elitesContainer:SetPoint("TOPLEFT", 0, -18)
     else
         aet.elitesContainer:SetPoint("TOPLEFT", 0, -24)
         aet.elitesContainer.krokuun:SetPoint("TOPLEFT", aet.elitesContainer, "TOPLEFT", 10, -10)
@@ -377,6 +360,14 @@ end
 
 
 function ArgusEliteTracker:updateWorldQuests(elites, zoneId)
+
+    if(WorldMapButton:IsVisible()) then
+        mapId, isContinent = GetCurrentMapAreaID()
+        if(ArgusEliteTracker.elitesByZone[mapId] == nil) then
+            return
+        end
+    end
+
     SetMapByID(zoneId)
     local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(zoneId)
     local worldQuestNames = {}
@@ -442,7 +433,7 @@ end
 local function searchForAllGroupsCallback()
 
     searching = false
-    resetAll()
+    ArgusEliteTracker:resetAll()
     enableAllButtons()
     ArgusEliteTracker:updateWorldQuestsForAllArgusZones()
     resetAllGroups()
@@ -495,13 +486,11 @@ local function searchForAllGroupsCallback()
     end
 
     updateArgusEliteTrackerFrame()
-    updateArgusEliteTrackerMapIcons()
 end
 
 
 local function searchForAll()
     updateArgusEliteTrackerFrame()
-    updateArgusEliteTrackerMapIcons()
 
     searching = true
     disableAllButtons()
@@ -514,9 +503,6 @@ local function searchForAll()
             filter[localeFilter] = true
         end
     end
-
-    -- filter.WhRh = true
-
 
     -- Need to understand this better, seems like there's a limit to 100 responses
     -- C_LFGList.Search(6, LFGListSearchPanel_ParseSearchTerms(""), 0, 0, languages)
@@ -558,11 +544,10 @@ local function updateSearchedElite(elite)
     end
 
     updateArgusEliteTrackerFrame()
-    updateArgusEliteTrackerMapIcons(elite)
 end
 
 
-local function searchForGroup(elite)
+function ArgusEliteTracker:searchForGroup(elite)
 
     searching = true
     ArgusEliteTracker:updateWorldQuestsForAllArgusZones()
@@ -584,13 +569,13 @@ local function searchForGroup(elite)
 end
 
 
-local function initiateSingleSearch(self, button)
+function ArgusEliteTracker:initiateSingleSearch(self, button)
     local elite = self.elite
 
     if(button == "LeftButton") then
         elite.searchResults = 0
         elite:SetNa()
-        searchForGroup(elite)
+        ArgusEliteTracker:searchForGroup(elite)
     elseif button == "RightButton" then
         if TomTom and IsAddOnLoaded("TomTom") then
             if elite.tomtom then
@@ -600,120 +585,6 @@ local function initiateSingleSearch(self, button)
 
             elite.tomtom = TomTom:AddMFWaypoint(elite.mapId, false, elite.x, elite.y, { title = elite.name })
             TomTom:SetClosestWaypoint()
-        end
-    end
-end
-
-local function CreateBackDrop(frame, alpha)
-    -- frame:SetBackdrop({
-    --     bgFile = [[Interface/AddOns/nAuras/Media/Plain]], 
-    --     edgeFile = [[Interface/AddOns/nAuras/Media/Plain]], 
-    --     edgeSize = 2, 
-    -- })
-    -- frame:SetBackdropColor(0.15, 0.15, 0.15, 1)
-    -- frame:SetBackdropBorderColor(1, 1, 1, 0)
-end
-
-local function eliteWorldmap_OnEnter(self)
-    
-    local elite = self.elite
-    tooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-    tooltip:SetText(elite.name)
-
-
-    if elite.killed then
-        tooltip:AddLine("Killed", 0, 1, 0)
-    else
-        tooltip:AddLine("Not killed", 1, 0, 0)
-    end
-
-    if elite.isWq then
-        tooltip:AddLine("Is World Quest", 1, 1, 0)
-    end
-
-    if elite.searchResults > 0 then
-        tooltip:AddLine("Is available", 0, 1, 0)
-    else
-        tooltip:AddLine("Is not available", 1, 0, 0)
-    end
-
-    tooltip:AddLine("Coordinates: ("..elite.x..","..elite.y..")", 1, 1, 1)
-    tooltip:Show()
-end
-
-local function eliteWorldmap_OnLeave()
-    tooltip:Hide()
-end
-
-local function eliteWorldmap_OnClick(self)
-    searchForGroup(self.elite)
-end
-
-function createIconForArgusEliteTrackerElite(elite)
-
-    local bgFrame = CreateFrame("Button", nil, WorldMapButton)
-    bgFrame:SetPoint("CENTER", WorldMapButton, "CENTER", WorldMapButton)
-    bgFrame:SetSize(27,27)
-    bgFrame:SetFrameLevel(WorldMapButton:GetFrameLevel() + 99999)
-    bgFrame:SetFrameStrata(WorldMapButton:GetFrameStrata())
-
-    local iconTable = UnitPopupButtons.RAID_TARGET_8
-    local bgTexture = bgFrame:CreateTexture(nil, "OVERLAY")
-    bgTexture:SetTexCoord(iconTable.tCoordLeft, iconTable.tCoordRight, iconTable.tCoordTop, iconTable.tCoordBottom)
-    bgTexture:SetTexture(iconTable.icon)
-    bgTexture:ClearAllPoints()
-    bgTexture:SetAllPoints(bgFrame)
-    bgFrame.texture = bgTexture
-
-    local frame = CreateFrame("Button", nil, bgFrame)
-    frame:SetPoint("CENTER", bgFrame, "CENTER", bgFrame)
-    frame:SetSize(20,20)
-    frame:SetFrameLevel(bgFrame:GetFrameLevel() + 100000)
-    frame:SetFrameStrata(bgFrame:GetFrameStrata())
-
-    local texture = frame:CreateTexture(nil, "OVERLAY")
-    
-    texture:SetTexCoord(iconTable.tCoordLeft, iconTable.tCoordRight, iconTable.tCoordTop, iconTable.tCoordBottom)
-    texture:SetTexture(iconTable.icon)
-    texture:ClearAllPoints()
-    texture:SetAllPoints(frame)
-    frame.texture = texture
-
-    bgFrame:EnableMouse()
-    bgFrame:SetScript("OnEnter", eliteWorldmap_OnEnter)
-    bgFrame:SetScript("OnLeave", eliteWorldmap_OnLeave)
-    bgFrame:SetScript("OnClick", eliteWorldmap_OnClick)
-    frame:EnableMouse()
-    frame:SetScript("OnEnter", eliteWorldmap_OnEnter)
-    frame:SetScript("OnLeave", eliteWorldmap_OnLeave)
-    frame:SetScript("OnClick", eliteWorldmap_OnClick)
-
-    frame:Show()
-    bgFrame:Hide()
-    elite.hbmIcon = bgFrame
-    bgFrame.elite = elite
-    frame.elite = elite
-    elite.hbmIcon.name = addonName..elite.name
-    CreateBackDrop(frame, 1)
-end
-
-function disableIconForArgusEliteTrackerElite(elite)
-    HereBeDragonsPins:RemoveAllWorldMapIcons(addonName)
-end
-
-function enableArgusEliteTrackerMapIcons()
-    for name, elites in pairs(zones) do
-        for i, elite in pairs(zones[name]) do
-            createIconForArgusEliteTrackerElite(elite)
-            HereBeDragonsPins:AddWorldMapIconMF(addonName, elite.hbmIcon, elite.mapId, nil, elite.x, elite.y)
-        end
-    end
-end
-
-function disableArgusEliteTrackerMapIcons()
-    for name, elites in pairs(zones) do
-        for i, elite in pairs(zones[name]) do
-            disableIconForArgusEliteTrackerElite(elite)
         end
     end
 end
@@ -802,7 +673,9 @@ local function initiateZones()
             elite.button.Label = addonData:createLabel(buttonText, W.FontSizeBig, "CENTER", elite.button)
             elite.button.elite = elite
             elite.button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-            elite.button:SetScript("OnClick", initiateSingleSearch)
+            elite.button:SetScript("OnClick", function(self, button)
+                ArgusEliteTracker:initiateSingleSearch(self, button)
+            end)
 
 
             elite.status = CreateFrame("Frame", addonName, aet.elitesContainer)
@@ -815,8 +688,8 @@ local function initiateZones()
 
 
             if not(ArgusEliteTrackerConfig.disableMapIcons) then
-                createIconForArgusEliteTrackerElite(elite)
-                HereBeDragonsPins:AddWorldMapIconMF(addonName, elite.hbmIcon, elite.mapId, 0, elite.x, elite.y)
+                aetMapUtils:createIconForElite(elite)
+                aetMapUtils:enableIconForElite(elite)
             end
 
             function elite:Hide()
@@ -1047,11 +920,12 @@ local function initiateZones()
             function elite:SetEditModeOff()
                 self.button:SetBackdropColor(0, 0, 0, 0)
                 self.status:Show()
-                self.button:SetScript("OnClick", initiateSingleSearch)
+                self.button:SetScript("OnClick", function(self, button)
+                    ArgusEliteTracker:initiateSingleSearch(self, button)
+                end)
             end
 
             function elite:UpdateMapIcon()
-
                 if ArgusEliteTrackerConfig.disableMapIcons then
                    return
                 end
@@ -1080,26 +954,21 @@ local function initiateZones()
                 self:UpdateKilledStatus()
                 self:UpdateCommanderOfArgus()
                 self:UpdateLabel()
-                self:UpdateMapIcon()
 
                 if self.killed then
                     self.button.Label:SetTextColor(1, 1, 1, 0.2)
                     self.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
                     self.status.Label:SetText(L["Killed"])
-                    -- self.hbmIcon.texture:SetVertexColor(1, 1, 1, .3)
                 elseif self.isWq then
                     self.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
                     self.status.Label:SetText(L["WQ"])
-                    -- self.hbmIcon.texture:SetVertexColor(1, 1, 0, 1)
                 else
                     if self.searchResults > 0 then
                         self.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
                         self.status.Label:SetText("(" .. self.searchResults .. ") " .. L["YES"])
-                        -- self.hbmIcon.texture:SetVertexColor(0, 0.9, 0, 1)
                     else
                         self.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
                         self.status.Label:SetText("(0) " .. L["NO"])
-                        -- self.hbmIcon.texture:SetVertexColor(0.9, 0, 0, 1)
                     end
                 end
 
@@ -1186,9 +1055,6 @@ local function initiateZones()
     end
 
     ArgusEliteTracker:findCommanderOfArgusIds()
-    -- updateArgusEliteTrackerFrame()
-    -- This will cause an ADDON_ACTION_BLOCKED event (because it didn't originate from a user hardware click?)
-    -- searchForAll()
 end
 
 
@@ -1216,7 +1082,6 @@ function createArgusEliteTrackerFrames()
     -- Create a header for our addon frame
     aet.TitleBar = CreateFrame("frame", nil, aet)
     aet.TitleBar:SetPoint("topleft", 0, -1)
-    -- aet.TitleBar:SetPoint("topright", 0, 1)
     aet.TitleBar:SetHeight(W.TitleBarHeight)
     aet.TitleBar:SetWidth(W.TitleBarWidth)
     aet.TitleBar:EnableMouse(false)
@@ -1311,7 +1176,6 @@ function createArgusEliteTrackerFrames()
     aet.elitesContainer.antoranWastes:SetBackdropBorderColor(1, 1, 1, 0)
     aet.elitesContainer.antoranWastes:SetFrameLevel(aet.elitesContainer:GetFrameLevel() + 1)
     aet.elitesContainer.antoranWastes:SetPoint("topleft", aet.elitesContainer, "topleft", (aet:GetWidth() / 3), -10)
-    -- aet.elitesContainer.antoranWastes:SetSize((aet:GetWidth() / 3) - (2 * 5) + 10, W.ZoneButtonHeight)
     aet.elitesContainer.antoranWastes:SetSize(W.ZoneAntoranWastesButtonWidth, W.ZoneButtonHeight)
     aet.elitesContainer.antoranWastes.Label = addonData:createLabel(L["Antoran Wastes"], W.FontSizeBig, "CENTER", aet.elitesContainer.antoranWastes)
 
@@ -1325,7 +1189,7 @@ function createArgusEliteTrackerFrames()
     aet.elitesContainer.macAree:SetSize(W.ZoneMacAreeButtonWidth, W.ZoneButtonHeight)
     aet.elitesContainer.macAree.Label = addonData:createLabel(L["Mac'Aree"], W.FontSizeBig, "CENTER", aet.elitesContainer.macAree)
 
-        ---------------------------------------------
+    ---------------------------------------------
     --  Register scripts
     ---------------------------------------------
 
@@ -1379,7 +1243,7 @@ function createArgusEliteTrackerFrames()
     end)
 
     aet.Reset:SetScript("OnClick", function()
-        resetAll()
+        ArgusEliteTracker:resetAll()
         resetAllGroups()
         updateArgusEliteTrackerFrame()
     end)
@@ -1483,7 +1347,6 @@ function afterPlayerEnteredWorld()
     end
 
     updateArgusEliteTrackerFrame()
-    updateArgusEliteTrackerMapIcons()
 end
 
 function events:PLAYER_ENTERING_WORLD(...)
@@ -1573,11 +1436,9 @@ function events:GROUP_LEFT(...)
             end
         end
         updateArgusEliteTrackerFrame()
-        updateArgusEliteTrackerMapIcons()
     end)
     
     updateArgusEliteTrackerFrame()
-    updateArgusEliteTrackerMapIcons()
 end
 
 function events:GROUP_JOINED(...)
@@ -1617,7 +1478,6 @@ function events:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, source
             end
             
             updateArgusEliteTrackerFrame()
-            updateArgusEliteTrackerMapIcons(elite)
         end
 
         -- debug("timestamp", timestamp)
@@ -1633,6 +1493,25 @@ function events:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, source
         -- debug("destRaidFlags", destRaidFlags)
 
     end
+end
+
+function ArgusEliteTracker:updateEliteMapIcons()
+    if(not WorldMapButton:IsVisible()) then return end
+
+    aetMapUtils:removeAllAetIcons()
+    mapId, isContinent = GetCurrentMapAreaID()
+
+    if(ArgusEliteTracker.elitesByZone[mapId] == nil) then return end
+
+    for _, elite in pairs(ArgusEliteTracker.elitesByZone[mapId]) do
+        elite:UpdateMapIcon()
+        aetMapUtils:enableIconForElite(elite)
+    end
+
+end
+
+function events:WORLD_MAP_UPDATE(...)
+    ArgusEliteTracker:updateEliteMapIcons()
 end
 
 ---------------------------------------------

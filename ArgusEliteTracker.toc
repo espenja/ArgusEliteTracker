@@ -19,4 +19,5 @@ locales.xml
 widgets.lua
 optionsdialog.lua
 aetutils.lua
+mapicons.lua
 arguselitetracker.lua

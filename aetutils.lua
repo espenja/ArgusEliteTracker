@@ -2,7 +2,7 @@ local aet = ArgusEliteTracker
 local L = aet.L
 
 -- Commander of Argus
- function ArgusEliteTracker:findCommanderOfArgusIds()
+function ArgusEliteTracker:findCommanderOfArgusIds()
     local numberOfCriteria = GetAchievementNumCriteria(12078)
     local eliteCriteriaIds = {}
     
@@ -12,3 +12,8 @@ local L = aet.L
     end
 end
 
+function ArgusEliteTracker:PerformOnAllElites(func)
+    for _, elite in pairs(ArgusEliteTracker.elitesById) do
+        func(elite)
+    end
+end
