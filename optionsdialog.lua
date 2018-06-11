@@ -12,6 +12,9 @@ local searchPanel = addonData.configPanel.search
 searchPanel.name = "Search config"
 searchPanel.parent = addonData.configPanel.name
 
+configPanel:Hide()
+searchPanel:Hide()
+
 InterfaceOptions_AddCategory(configPanel)
 InterfaceOptions_AddCategory(searchPanel)
 
@@ -25,24 +28,34 @@ addonData:createOptionsLabel(configPanel, 16, -145, "GameFontHighlight", 24, L["
 
 local buttonAutoOpenOnArgus     = addonData:createCheckButton(configPanel, 16, -175, L["Open automatically when entering an Argus zone"])
 local buttonGrowUpwards         = addonData:createCheckButton(configPanel, 16, -200, L["Grow frame upwards"])
-local buttonOnlyWithGroup       = addonData:createCheckButton(configPanel, 16, -225, L["Only show elites that have an active group"])
+local buttonOnlyWithGroup       = addonData:createCheckButton(configPanel, 16, -225, L["Only show elites that have an active group or who are confirmed"])
 local buttonForceWorldQuests    = addonData:createCheckButton(configPanel, 40, -250, L["... but still show all world quests if the elite has not been killed"])
 local buttonHideKilled          = addonData:createCheckButton(configPanel, 16, -285, L["Hide elites that have already been killed"])
 local buttonWorldQuestForced    = addonData:createCheckButton(configPanel, 16, -310, L["If elites are force hidden, show them anyway if they are World Quests"])
 local buttonCommanderOfArgus    = addonData:createCheckButton(configPanel, 16, -335, L["Commander of Argus mode"])
 local buttonDisableMapIcons     = addonData:createCheckButton(configPanel, 16, -360, L["Disable all map icons (If you are using another addon for the map)"])
+local buttonDisableTomTom       = addonData:createCheckButton(configPanel, 16, -385, L["Disable TomTom integration"])
+
+addonData:createOptionsLabel(configPanel, 16, -425, "GameFontHighlight", 24, L["World Map icon scale:"])
+local sliderWMIconScale         = addonData:createSlider(configPanel, 16, -440, 10, 100, 5, 27)
+local labelWMIconScale          = addonData:createOptionsLabel(configPanel, 16, -455, "GameFontHighlight", 24, sliderWMIconScale:GetValue(), 300, "CENTER")
+
+sliderWMIconScale:SetScript("OnValueChanged", function()
+    local scale = sliderWMIconScale:GetValue() 
+    labelWMIconScale:SetText(scale)
+    ArgusEliteTrackerConfig.worldMapIconScale = scale
+    ArgusEliteTrackerMapUtils:resizeIcons(scale)
+end)
 
 addonData:createOptionsLabel(searchPanel, 16, -25, "GameFontHighlight", 24, L["'Search all' will use these language filters when searching:"])
 
 local searchAllFilterButtons = {}
 local searchAllFilterOffset = -45
-
 local searchTermFilterButtons = {}
 
 -- Setup search all checkboxes
 local trips = 0
 local lastTop = 0
-
 
 for locale, _ in pairs(ArgusEliteTracker.AvailableLocales) do
 
@@ -113,6 +126,8 @@ configPanel:SetScript("OnShow", function()
     buttonWorldQuestForced:SetChecked(ArgusEliteTrackerConfig.forceShowWorldQuestsIfForceHidden)
     buttonCommanderOfArgus:SetChecked(ArgusEliteTrackerConfig.commanderOfArgusMode)
     buttonDisableMapIcons:SetChecked(ArgusEliteTrackerConfig.disableMapIcons)
+    buttonDisableTomTom:SetChecked(ArgusEliteTrackerConfig.disableTomTom)
+    sliderWMIconScale:SetValue(ArgusEliteTrackerConfig.worldMapIconScale)
     -- buttonOnlySpecialElites:SetChecked(ArgusEliteTrackerConfig.onlyShowSpecialElites)
 end)
 
@@ -127,7 +142,7 @@ configPanel:SetScript("OnEvent", function(self, event, arg1)
         end
         
         if ArgusEliteTrackerConfig.closed == nil then
-            ArgusEliteTrackerConfig.close = false
+            ArgusEliteTrackerConfig.closed = false
         end
 
         if ArgusEliteTrackerConfig.autoOpenOnArgus == nil then
@@ -170,6 +185,10 @@ configPanel:SetScript("OnEvent", function(self, event, arg1)
             ArgusEliteTrackerConfig.searchAllConfig = {}
         end
 
+        if ArgusEliteTrackerConfig.worldMapIconScale == nil then
+            ArgusEliteTrackerConfig.worldMapIconScale = 27
+        end
+
         -- if ArgusEliteTrackerConfig.onlyShowSpecialElites == nil then
         --     ArgusEliteTrackerConfig.onlyShowSpecialElites = false
         -- end
@@ -203,6 +222,8 @@ configPanel:SetScript("OnEvent", function(self, event, arg1)
         buttonWorldQuestForced:SetChecked(ArgusEliteTrackerConfig.forceShowWorldQuestsIfForceHidden)
         buttonCommanderOfArgus:SetChecked(ArgusEliteTrackerConfig.commanderOfArgusMode)
         buttonDisableMapIcons:SetChecked(ArgusEliteTrackerConfig.disableMapIcons)
+        buttonDisableTomTom:SetChecked(ArgusEliteTrackerConfig.disableTomTom)
+        -- sliderWMIconScale:SetValue(37)
 
         -- Setup checked state of search language override
         for locale, checkBox in pairs(searchTermFilterButtons) do
@@ -230,7 +251,8 @@ function configPanel:okay()
     ArgusEliteTrackerConfig.forceShowWorldQuestsIfForceHidden = buttonWorldQuestForced:GetChecked()
     ArgusEliteTrackerConfig.commanderOfArgusMode = buttonCommanderOfArgus:GetChecked()
     ArgusEliteTrackerConfig.disableMapIcons = buttonDisableMapIcons:GetChecked()
-
+    ArgusEliteTrackerConfig.disableTomTom = buttonDisableTomTom:GetChecked()
+    ArgusEliteTrackerConfig.worldMapIconScale = sliderWMIconScale:GetValue()
 
     -- Save search all
     local atLeastOneIsChecked = false
@@ -248,7 +270,6 @@ function configPanel:okay()
         ArgusEliteTrackerConfig.searchAllConfig[clientLocale] = true
         searchAllFilterButtons[clientLocale]:SetChecked(true)
     end
-
     -- Save search language override
     for locale, checkBox in pairs(searchTermFilterButtons) do
         if checkBox:GetChecked() then
@@ -260,9 +281,9 @@ function configPanel:okay()
         ArgusEliteTrackerMapUtils:removeAllAetIcons()
     else
         ArgusEliteTrackerMapUtils:enableMapIcons()
-        ArgusEliteTrackerMapUtils:updateMapIcons()
+        ArgusEliteTrackerMapUtils:updateWorldMapIcons()
     end
-    
+
     updateArgusEliteTrackerFrame()
     -- ArgusEliteTrackerConfig.onlyShowSpecialElites = buttonOnlySpecialElites:GetChecked()
     
@@ -277,6 +298,8 @@ function configPanel:default()
     buttonWorldQuestForced:SetChecked(true)
     buttonCommanderOfArgus:SetChecked(false)
     buttonDisableMapIcons:SetChecked(false)
+    buttonDisableTomTom:SetChecked(false)
+    sliderWMIconScale:SetValue(27)
 
     -- Search all defaults
     for _, checkButton in pairs(searchAllFilterButtons) do

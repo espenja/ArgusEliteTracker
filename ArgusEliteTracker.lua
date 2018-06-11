@@ -1,5 +1,5 @@
 local addonName, addonData = ...
-local debugging = true
+local debugging = false
 
 local function debug(...)
     if debugging then
@@ -8,10 +8,19 @@ local function debug(...)
 end
 
 local HereBeDragonsPins = LibStub("HereBeDragons-Pins-1.0")
+local AceTimer = LibStub("AceTimer-3.0")
 
 ArgusEliteTracker.frame = CreateFrame("frame", "ArgusEliteTrackerFrame", UIParent)
+ArgusEliteTracker.playerName = UnitName("player") .. "-" .. GetRealmName()
 ArgusEliteTracker.addonData = addonData
 ArgusEliteTracker.hbm = HereBeDragonsPins
+
+AceTimer:Embed(ArgusEliteTracker)
+
+ArgusEliteTracker.addonPrefix = "aet"
+local command_request_update = "r"
+local command_update = "u"
+
 aetMapUtils = ArgusEliteTrackerMapUtils
 
 local aet = ArgusEliteTracker.frame
@@ -20,6 +29,7 @@ local S = ArgusEliteTracker.S
 local W = ArgusEliteTracker.W
 
 local selectedSearchTermLanguage = GetLocale()
+
 
 aetzonesdebug = nil
 aetdebug = nil
@@ -113,6 +123,8 @@ ArgusEliteTracker.zones = zones
 ArgusEliteTracker.eliteNameMap = {}
 ArgusEliteTracker.elitesById = {}
 ArgusEliteTracker.elitesByZone = {}
+ArgusEliteTracker.confirmedElites = {}
+ArgusEliteTracker.currentTimeBucket = ArgusEliteTracker:GetCurrentBucketNumber()
 
 for zoneName in pairs(zones) do
     for _, elite in pairs(zones[zoneName]) do
@@ -150,7 +162,6 @@ end
 function ArgusEliteTracker:resetAll()
     ArgusEliteTracker:PerformOnAllElites(function(elite)
         elite.searchResults = 0
-        -- elite:SetNa()
     end)
 end
 
@@ -188,7 +199,7 @@ function ArgusEliteTracker:hideFiltered()
         elite.hidden = false
 
         if ArgusEliteTrackerConfig.onlyShowElitesWithGroups then
-            if elite.searchResults < 1 then
+            if elite.searchResults < 1 and not elite.confirmed then
                 hideElite(elite)
             else
                 showElite(elite)
@@ -238,12 +249,8 @@ function ArgusEliteTracker:hideFiltered()
 end
 
 
-
-
 -- You're my man
 function updateArgusEliteTrackerFrame()
-
-    -- UpdateKilledStatusForAll()
 
     aet.elitesContainer:ClearAllPoints()
     aet.elitesContainer.krokuun:ClearAllPoints()
@@ -259,7 +266,6 @@ function updateArgusEliteTrackerFrame()
     if ArgusEliteTrackerConfig.growUpwards then
         beginOffset = 5
     end
-
 
     for i, elite in ipairs(selectedZone) do
         local yOffset = beginOffset + (-(visibleCounter * 16))
@@ -294,6 +300,8 @@ function updateArgusEliteTrackerFrame()
         aet.elitesContainer.macAree:SetSize(W.ZoneMacAreeButtonWidth, W.ZoneButtonHeight)
     end
     aet.elitesContainer:SetHeight(height)
+
+    ArgusEliteTracker:CheckCurrentBucket()
 end
 
 
@@ -412,13 +420,13 @@ local function resetAllGroups()
 end
 
 local function addTomTomWaypoint(elite)
-    if TomTom and IsAddOnLoaded("TomTom") then
+    if TomTom and IsAddOnLoaded("TomTom") and not ArgusEliteTrackerConfig.disableTomTom then
         if elite.tomtom then
             TomTom:RemoveWaypoint(elite.tomtom)
             elite.tomtom = nil
         end
 
-        elite.tomtom = TomTom:AddMFWaypoint(elite.mapId, true, elite.x, elite.y, { title = elite.name })
+        elite.tomtom = TomTom:AddMFWaypoint(elite.mapId, false, elite.x, elite.y, { title = elite.name })
         TomTom:SetClosestWaypoint()
     end
 end
@@ -500,9 +508,7 @@ local function searchForAll()
     local filter = {}
 
     for localeFilter, value in pairs(ArgusEliteTrackerConfig.searchAllConfig) do
-        if value == true then
-            filter[localeFilter] = true
-        end
+        filter[localeFilter] = value
     end
 
     -- Need to understand this better, seems like there's a limit to 100 responses
@@ -585,7 +591,7 @@ function ArgusEliteTracker:initiateSingleSearch(self, button)
         elite:SetNa()
         ArgusEliteTracker:searchForGroup(elite)
     elseif button == "RightButton" then
-        if TomTom and IsAddOnLoaded("TomTom") then
+        if TomTom and IsAddOnLoaded("TomTom") and not ArgusEliteTrackerConfig.disableTomTom then
             if elite.tomtom then
                 TomTom:RemoveWaypoint(elite.tomtom)
                 elite.tomtom = nil
@@ -604,9 +610,6 @@ end
 -- if(C_LFGList.CreateListing(activityID, name, itemLevel, honorLevel, voiceChatInfo, description, autoAccept, privateGroup, questID)) then
 
 local function initiateZones()
-
-    debug(UnitPopupButtons.RAID_TARGET_8)
-
 
     local yOffset = W.EliteYOffset
     local statusWidth = W.EliteStatusWidth
@@ -938,15 +941,30 @@ local function initiateZones()
                    return
                 end
 
+                local worldMapIconScale = ArgusEliteTrackerConfig.worldMapIconScale
+                local scaleMultiplier = ArgusEliteTrackerMapUtils.scaleMultiplier
+                local crossMultiplier = ArgusEliteTrackerMapUtils.crossScaleMultiplier
+
+                self.hbmIcon:SetSize(worldMapIconScale, worldMapIconScale)
+                self.hbmIcon.centerFrame:SetSize(worldMapIconScale * scaleMultiplier, worldMapIconScale * scaleMultiplier)
+                self.hbmIcon.crossFrame:SetSize(worldMapIconScale * crossMultiplier, worldMapIconScale * crossMultiplier)
+                self.hbmIcon.crossFrame:Hide()
+                
                 if self.killed then
-                    self.hbmIcon.texture:SetVertexColor(.10, .10, .10, 1)
+                    self.hbmIcon.texture:SetVertexColor(.1, .1, .1)
+                    self.hbmIcon.centerFrame.texture:SetVertexColor(.87, .87, .87)
+                    -- self.hbmIcon.crossFrame.texture:SetVertexColor(0.9, 0, 0)
+                    self.hbmIcon.crossFrame:Show()
                 elseif self.isWq then
-                    self.hbmIcon.texture:SetVertexColor(1, 1, 0, 1)
+                    self.hbmIcon.texture:SetVertexColor(1, .8, 0)
+                    self.hbmIcon.centerFrame.texture:SetVertexColor(1, 1, .9)
                 else
-                    if self.searchResults > 0 then
-                        self.hbmIcon.texture:SetVertexColor(0, 0.9, 0, 1)
+                    if self.searchResults > 0 or self.confirmed then
+                        self.hbmIcon.texture:SetVertexColor(0, .9, 0)
+                        self.hbmIcon.centerFrame.texture:SetVertexColor(.9, 1, .9)
                     else
-                        self.hbmIcon.texture:SetVertexColor(0.9, 0, 0, 1)
+                        self.hbmIcon.texture:SetVertexColor(.9, 0, 0)
+                        self.hbmIcon.centerFrame.texture:SetVertexColor(1, .9, .9)
                     end
                 end
             end
@@ -971,12 +989,17 @@ local function initiateZones()
                     self.status.Label:SetTextColor(0.85, 0.85, 0.2, 1)
                     self.status.Label:SetText(L["WQ"])
                 else
-                    if self.searchResults > 0 then
+                    if self:IsConfirmed() then
                         self.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
-                        self.status.Label:SetText("(" .. self.searchResults .. ") " .. L["YES"])
+                        self.status.Label:SetText("(" .. self.searchResults .. ") " .. L["CONFIRMED"])
                     else
-                        self.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
-                        self.status.Label:SetText("(0) " .. L["NO"])
+                        if self.searchResults > 0 then
+                            self.status.Label:SetTextColor(0.30, 0.91, 0.46, 1)
+                            self.status.Label:SetText("(" .. self.searchResults .. ") " .. L["YES"])
+                        else
+                            self.status.Label:SetTextColor(0.96, 0.30, 0.29, 1)
+                            self.status.Label:SetText("(0) " .. L["NO"])
+                        end
                     end
                 end
 
@@ -1057,6 +1080,32 @@ local function initiateZones()
                 updateArgusEliteTrackerFrame()
             end
 
+            function elite:Confirm(bucket, who)
+
+                if self:IsConfirmed() then
+                    return
+                end
+
+                if(bucket == nil) then
+                    bucket = ArgusEliteTracker:GetCurrentBucketNumber()
+                end
+
+                if who == nil then
+                    who = ArgusEliteTracker.playerName
+                end
+
+                ArgusEliteTracker.confirmedElites[self.id] = self
+
+                self.confirmed = {
+                    bucket = bucket,
+                    who = who
+                }
+            end
+
+            function elite:IsConfirmed()
+                return self.confirmed ~= nil and self.confirmed.bucket == ArgusEliteTracker:GetCurrentBucketNumber()
+            end
+
             elite:Hide()
             elite:Show()
         end
@@ -1065,6 +1114,42 @@ local function initiateZones()
     ArgusEliteTracker:findCommanderOfArgusIds()
 end
 
+function ArgusEliteTracker:Show()
+    debug(L["Argus Elite Tracker is |cFF00FF00shown|r|cFFFFFF00."])
+    ArgusEliteTrackerConfig.closed = false
+
+    if ArgusEliteTrackerConfig.minimized then
+        aet.Minimize.Label:SetText("+")
+    else
+        aet.Minimize.Label:SetText("-")
+    end
+
+    aet:Show()
+end
+
+function ArgusEliteTracker:Close()
+    debug(L["Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00."])
+    ArgusEliteTrackerConfig.closed = true
+    aet:Hide()
+end
+
+function ArgusEliteTracker:Minimize()
+    debug(L["Argus Elite Tracker is |cFF00FF00minimized|r|cFFFFFF00."])
+    ArgusEliteTrackerConfig.minimized = true
+    aet.Minimize.Label:SetText("+")
+    -- ArgusEliteTracker:Show()
+    aet.elitesContainer:Hide()
+end
+
+function ArgusEliteTracker:Maximize()
+    debug(L["Argus Elite Tracker is |cFF00FF00maximized|r|cFFFFFF00."])
+    ArgusEliteTrackerConfig.minimized = false
+    aet.Minimize.Label:SetText("-")
+    -- ArgusEliteTracker:Show()
+    if ArgusEliteTrackerConfig.closed == false then
+        aet.elitesContainer:Show()
+    end
+end
 
 ---------------------------------------------
 --  Create the addon frames
@@ -1254,24 +1339,22 @@ function createArgusEliteTrackerFrames()
         ArgusEliteTracker:resetAll()
         resetAllGroups()
         updateArgusEliteTrackerFrame()
+        -- GetConf()
     end)
 
     aet.Minimize:SetScript("OnClick", function()
         if aet.elitesContainer:IsVisible() then
-            ArgusEliteTrackerConfig.minimized = true
-            aet.elitesContainer:Hide()
-            aet.Minimize.Label:SetText("+")
+            ArgusEliteTracker:Minimize()
         else
-            ArgusEliteTrackerConfig.minimized = false
-            aet.elitesContainer:Show()
-            aet.Minimize.Label:SetText("-")
+            ArgusEliteTracker:Maximize()
         end
     end)
 
     aet.Close:SetScript("OnClick", function()
-        aet:Hide()
-        ArgusEliteTrackerConfig.closed = true
-        debug(L["Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00."])
+        ArgusEliteTracker:Close()
+        -- aet:Hide()
+        -- ArgusEliteTrackerConfig.closed = true
+        -- debug(L["Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00."])
     end)
 
     for name, elites in pairs(zones) do
@@ -1299,24 +1382,18 @@ SlashCmdList.ARGUSELITETRACKER = function(argument)
         DEFAULT_CHAT_FRAME:AddMessage(L["Argus Elite Tracker: Slash commands are |cFF00FF00/aet|r|cFFFFFF00, |cFF00FF00/arguselitetracker|r|cFFFFFF00."])
     end
     if string.upper(argument) == L["HIDE"] then
-        debug(L["Argus Elite Tracker is |cFF00FF00hidden|r|cFFFFFF00."])
-        ArgusEliteTrackerConfig.closed = true
-        aet:Hide()
+        ArgusEliteTracker:Close()
     end
     if string.upper(argument) == L["SHOW"] then
-        debug(L["Argus Elite Tracker is |cFF00FF00visible|r|cFFFFFF00."])
-        ArgusEliteTrackerConfig.closed = false
-        aet:Show()
+        ArgusEliteTracker:Show()
     end
     if string.upper(argument) == L["TOGGLE"] then
         debug(L["Argus Elite Tracker |cFF00FF00toggled|r|cFFFFFF00."])
 
         if aet:IsVisible() then
-            aet:Hide()
-            ArgusEliteTrackerConfig.closed = true
+            ArgusEliteTracker:Close()
         else
-            aet:Show()
-            ArgusEliteTrackerConfig.closed = false
+            ArgusEliteTracker:Show()
         end
     end
     if string.upper(argument) == L["OPTIONS"] or string.upper(argument) == L["CONFIG"] then
@@ -1328,33 +1405,43 @@ end
 function afterPlayerEnteredWorld()
     local onArgus = playerIsOnArgus()
 
-    if ArgusEliteTrackerConfig.closed == true then
-        ArgusEliteTrackerConfig.closed = true
-        aet:Hide()
+    if ArgusEliteTrackerConfig.minimized then
+        ArgusEliteTracker:Minimize()
     else
-        ArgusEliteTrackerConfig.closed = false
-        aet:Show()
+        ArgusEliteTracker:Maximize()
     end
 
-    if ArgusEliteTrackerConfig.minimized then
-        aet.elitesContainer:Hide()
-        aet.Minimize.Label:SetText("+")
+    if ArgusEliteTrackerConfig.closed == true then
+        ArgusEliteTracker:Close()
     else
-        aet.Minimize.Label:SetText("-")
-        aet.elitesContainer:Show()
+        ArgusEliteTracker:Show()
     end
 
     if onArgus then
         if ArgusEliteTrackerConfig.autoOpenOnArgus then
-            aet:Show()
-            aet.elitesContainer:Show()
-            ArgusEliteTrackerConfig.closed = false
-            ArgusEliteTrackerConfig.minimized = false
-            aet.Minimize:SetText("-")
+            ArgusEliteTracker:Show()
         end
     end
 
     updateArgusEliteTrackerFrame()
+end
+
+-- All my buckets are loaded with elites, what about yours?
+function ArgusEliteTracker:CheckCurrentBucket()
+
+    local now = ArgusEliteTracker:GetCurrentBucketNumber()
+
+    if ArgusEliteTracker.currentTimeBucket ~= now then
+        debug("new timebucket!", ArgusEliteTracker.currentTimeBucket, now)
+        ArgusEliteTracker.confirmedElites = {}
+
+        ArgusEliteTracker:PerformOnAllElites(function(elite)
+            elite.confirmed = nil    
+        end)
+
+        ArgusEliteTracker.currentTimeBucket = now
+        updateArgusEliteTrackerFrame()
+    end
 end
 
 function events:PLAYER_ENTERING_WORLD(...)
@@ -1362,6 +1449,7 @@ function events:PLAYER_ENTERING_WORLD(...)
     aet:Hide()
     aet.elitesContainer:Hide()
     C_Timer.After(1, afterPlayerEnteredWorld)
+    ArgusEliteTracker:ScheduleRepeatingTimer("CheckCurrentBucket", 1)
     aet:SetWidth(W.AetWindowWidth)
 end
 
@@ -1381,20 +1469,15 @@ function events:LFG_LIST_SEARCH_RESULT_UPDATED(...)
     local   id, activityId, groupName, comment, voiceChat, iLvl, honorLevel,
             age, numBNetFriends, numCharFriends, numGuildMates, isDelisted = C_LFGList.GetSearchResultInfo(id);
 
-    if aet.groups[id] ~= nil then
-        debug("Aet group updated " .. id, groupName, isDelisted)
-    end
-
     if isDelisted then
         if aet.groups[id] ~= nil then
-            debug("Removed aet group with id " .. id, groupName, isDelisted)
             removeGroup(id)
         end
     end
 end
 
-function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
 
+function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
     local id, newStatus, oldStatus = ...
 
     if      newStatus == "declined"             then removeGroup(id)
@@ -1409,6 +1492,7 @@ function events:LFG_LIST_APPLICATION_STATUS_UPDATED(...)
     end
     updateArgusEliteTrackerFrame()
 end
+
 
 function events:LFG_LIST_JOINED_GROUP(...)
     id = ...
@@ -1466,14 +1550,18 @@ function events:GROUP_JOINED(...)
         updateArgusEliteTrackerFrame()
     end)
 
+    if UnitInParty("player") then
+        SendAddonMessage(ArgusEliteTracker.addonPrefix, "r", "RAID")
+    elseif UnitInParty("player") then
+        SendAddonMessage(ArgusEliteTracker.addonPrefix, "r", "PARTY")
+    end
+
     updateArgusEliteTrackerFrame()
 end
 
 function events:PARTY_LEADER_CHANGED(...)
     updateArgusEliteTrackerFrame()
 end
-
-
 
 function events:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags)
     if event == "UNIT_DIED" or event == "UNIT_DESTROYED" or event == "PARTY_KILL" then
@@ -1484,7 +1572,7 @@ function events:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, source
             elite.killed = true
             
             if elite.tomtom ~= null then
-                if TomTom and IsAddOnLoaded("TomTom") then
+                if TomTom and IsAddOnLoaded("TomTom") and not ArgusEliteTrackerConfig.disableTomTom then
                     TomTom:RemoveWaypoint(elite.tomtom)
                     TomTom:SetClosestWaypoint()
                 end
@@ -1492,39 +1580,85 @@ function events:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, source
             
             updateArgusEliteTrackerFrame()
         end
-
-        -- debug("timestamp", timestamp)
-        -- debug("event", event)
-        -- debug("hideCaster", hideCaster)
-        -- debug("sourceGUID", sourceGUID)
-        -- debug("sourceName", sourceName)
-        -- debug("sourceFlags", sourceFlags)
-        -- debug("sourceRaidFlags", sourceRaidFlags)
-        -- debug("destGUID", destGUID)
-        -- debug("destName", destName)
-        -- debug("destFlags", destFlags)
-        -- debug("destRaidFlags", destRaidFlags)
-
     end
 end
 
-function ArgusEliteTracker:updateEliteMapIcons()
-    if(not WorldMapButton:IsVisible()) then return end
+function events:PLAYER_TARGET_CHANGED(...)
+    local unitId = ArgusEliteTracker:GetUnitId("target")
+    local elite = ArgusEliteTracker.elitesById[unitId]
 
-    aetMapUtils:removeAllAetIcons()
-    mapId, isContinent = GetCurrentMapAreaID()
+    -- Some dead elites take way too long to have their model removed
+    -- Today I saw elites' corpses not disappearing for 4 hours wtf
+    -- And now I'm talking to my self, am I going crazy?
 
-    if(ArgusEliteTracker.elitesByZone[mapId] == nil) then return end
+    if UnitHealth("target") == 0 then return end
 
-    for _, elite in pairs(ArgusEliteTracker.elitesByZone[mapId]) do
-        elite:UpdateMapIcon()
-        aetMapUtils:enableIconForElite(elite)
+    if elite ~= nil then
+        local message = command_update .. unitId
+        elite:Confirm()
+
+        if IsInGuild() then
+            SendAddonMessage(ArgusEliteTracker.addonPrefix, message, "GUILD")
+        end
+
+        if UnitInParty("player") then
+            SendAddonMessage(ArgusEliteTracker.addonPrefix, message, "PARTY")
+        end
+
+        if UnitInRaid("player") then
+            SendAddonMessage(ArgusEliteTracker.addonPrefix, message, "RAID")
+        end
+
+        aetMapUtils:updateWorldMapIcons()
+        updateArgusEliteTrackerFrame()
     end
+end
 
+function events:CHAT_MSG_ADDON(prefix, message, distributionType, sender)
+
+    if(prefix ~= ArgusEliteTracker.addonPrefix) then return end
+    -- if(sender == ArgusEliteTracker.playerName) then return end
+
+    debug(prefix, message, distributionType, sender)
+
+    local command = message:sub(1,1)
+    local content = message:sub(2)
+
+    if(command == command_request_update) then
+        -- Any addon message above 254 will disconnect us
+        local elites = ""
+        for _, elite in pairs(ArgusEliteTracker.elitesById) do
+            if elite:IsConfirmed() then
+                elites = elites .. elite.confirmed.bucket .. elite.id .. ";"
+            end
+
+            if #elites > 230 then
+                SendAddonMessage(ArgusEliteTracker.addonPrefix, command_update .. elites, distributionType)
+                elites = ""
+            end
+        end
+        SendAddonMessage(ArgusEliteTracker.addonPrefix, command_update .. elites, distributionType)
+        
+    elseif command == command_update then
+        for i in string.gmatch(content, "%d+") do
+            if #i == 7 then
+                local bucket = tonumber(i:sub(1,1))
+                local id = tonumber(i:sub(2))
+
+                debug(bucket, id)
+
+                local elite = ArgusEliteTracker.elitesById[id]
+                if elite ~= nil then
+                    elite:Confirm(bucket, sender)
+                end
+            end
+        end
+        updateArgusEliteTrackerFrame()
+    end
 end
 
 function events:WORLD_MAP_UPDATE(...)
-    ArgusEliteTracker:updateEliteMapIcons()
+    aetMapUtils:updateWorldMapIcons()
 end
 
 function events:LFG_LIST_SEARCH_RESULTS_RECEIVED(...)
@@ -1544,6 +1678,8 @@ ArgusEliteTracker.searchedElite = nil
 ---------------------------------------------
 --  Register events
 ---------------------------------------------
+
+RegisterAddonMessagePrefix(ArgusEliteTracker.addonPrefix)
 
 aet:SetScript("OnEvent", function(self, event, ...)
     events[event](self, ...)

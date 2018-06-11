@@ -2,13 +2,14 @@
 ## Title: ArgusEliteTracker
 ## Notes: Search the group finder tool to guesstimate if an elite is up at this time or not
 ## Author: Fictive
-## Version: 1.1.1
+## Version: 1.1.2
 ## SavedVariables: ArgusEliteTrackerConfig
 
 # Library files
 #@no-lib-strip@
 Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\AceTimer-3.0\AceTimer-3.0.lua
 Libs\HereBeDragons-1.0\HereBeDragons-1.0.lua
 Libs\HereBeDragons-1.0\HereBeDragons-Pins-1.0.lua
 #@end-no-lib-strip@

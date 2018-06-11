@@ -16,7 +16,7 @@ function addonData:createLabel(text, fontSize, alignment, parentFrame)
 end
 
 
-function addonData:createOptionsLabel(parent, x, y, font, fontSize, text)
+function addonData:createOptionsLabel(parent, x, y, font, fontSize, text, width, justifyH)
     if parent == nil then return end
 
     local label = parent:CreateFontString(nil, "OVERLAY", font)
@@ -25,6 +25,14 @@ function addonData:createOptionsLabel(parent, x, y, font, fontSize, text)
     label:SetJustifyH("LEFT")
     label:SetJustifyV("TOP")
     label:SetText(text)
+
+    if width ~= nil then
+        label:SetWidth(width)
+    end
+
+    if justifyH ~= nil then
+        label:SetJustifyH(justifyH)
+    end
 
     return label
 end
@@ -42,3 +50,21 @@ function addonData:createCheckButton(parent, x, y, text)
     return button;
 end
 
+
+local sliderCounter = 0
+function addonData:createSlider(parent, x, y, min, max, step, initialValue)
+    if parent == nil then return end
+    sliderCounter = sliderCounter + 1
+
+    local slider = CreateFrame("Slider", "ArgusEliteTrackerSlider" .. sliderCounter, parent, "OptionsSliderTemplate")
+    slider:SetPoint("TOPLEFT", x, y)
+    slider:SetWidth(300)
+    slider:SetHeight(15)
+    slider:SetValueStep(1)
+    slider:SetMinMaxValues(min, max)
+    slider:SetValue(initialValue)
+    slider:SetObeyStepOnDrag(true)
+    slider:SetHitRectInsets(0, 0, -14, -15)
+    slider:SetThumbTexture("Interface\\Buttons\\UI-SliderBar-Button-Horizontal")
+    return slider
+end
